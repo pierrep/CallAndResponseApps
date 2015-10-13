@@ -8,6 +8,8 @@ void ofApp::setup(){
 
     model.loadModel("E2-skeleton.obj", false);
     //model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
+    vector<string> names;
+    names = model.getMeshNames();
 
     cam.setDistance(10);
 }
@@ -15,8 +17,9 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     model.update();
-    mesh = model.getMesh(0);
-    cout << model.getMesh(0).getNumIndices() << endl;
+    // mesh = model.getMesh(0);
+    mesh = model.getMesh("Tree_Circle");
+    //cout << model.getMesh(0).getNumIndices() << endl;
 }
 
 //--------------------------------------------------------------

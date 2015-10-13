@@ -766,6 +766,12 @@ vector<string> ofxAssimpModelLoader::getMeshNames(){
 	for(int i=0; i<(int)scene->mNumMeshes; i++){
 		names[i] = scene->mMeshes[i]->mName.data;
 	}
+
+//temp
+    for(unsigned int i=0; i< scene->mRootNode->mNumChildren; i++) {
+        cout << scene->mRootNode->mChildren[i]->mName.data << endl;
+    }
+
 	return names;
 }
 
