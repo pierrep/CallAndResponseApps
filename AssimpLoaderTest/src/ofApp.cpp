@@ -17,8 +17,8 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     model.update();
-    // mesh = model.getMesh(0);
-    mesh = model.getMesh("Tree_Circle");
+    //mesh = model.getMesh(0);
+    mesh = model.getMesh("Tree_Num1");
     //cout << model.getMesh(0).getNumIndices() << endl;
 }
 
@@ -39,6 +39,9 @@ void ofApp::drawModel()
     ofPushMatrix();
         //model.drawWireframe();
         mesh.drawWireframe();
+        ofVec3f c = mesh.getCentroid();
+        ofSetColor(0,0,255);
+        //ofSphere(c.x,c.y,c.z,1);
         //mesh.getVertices();
 //        for(int i = 0 ; i < mesh.getNumVertices();i++) {
 //          ofVec3f v = mesh.getVertices().at(i);
