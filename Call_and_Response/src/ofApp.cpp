@@ -2,7 +2,13 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofBackground(255);
+    ofSetLogLevel(OF_LOG_VERBOSE);
+    ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
 
+    loader.load(trees, lights, pixels);
+
+    cam.setDistance(10);
 }
 
 //--------------------------------------------------------------
@@ -12,7 +18,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    cam.begin();
+    //drawModel();
+    cam.end();
 }
 
 //--------------------------------------------------------------
@@ -66,6 +74,6 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
