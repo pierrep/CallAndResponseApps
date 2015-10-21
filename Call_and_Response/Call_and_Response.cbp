@@ -354,10 +354,10 @@
 		<Unit filename="src/LedPixel.h">
 			<Option virtualFolder="src/" />
 		</Unit>
-		<Unit filename="src/TreeLoader.cpp">
+		<Unit filename="src/ModelLoader.cpp">
 			<Option virtualFolder="src/" />
 		</Unit>
-		<Unit filename="src/TreeLoader.h">
+		<Unit filename="src/ModelLoader.h">
 			<Option virtualFolder="src/" />
 		</Unit>
 		<Unit filename="src/TreeMesh.cpp">

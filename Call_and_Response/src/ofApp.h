@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "ModelLoader.h"
-
+#include "ofxGameCamera.h"
 
 class ofApp : public ofBaseApp{
 
@@ -32,5 +32,6 @@ class ofApp : public ofBaseApp{
         vector<LedPixel> pixels;
 
         ofLight	light;
-        ofEasyCam cam;
+        //ofEasyCam cam;
+        ofxGameCamera cam;
 };

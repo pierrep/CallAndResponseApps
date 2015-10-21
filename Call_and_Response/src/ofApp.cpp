@@ -8,7 +8,9 @@ void ofApp::setup(){
 
     loader.load(trees, lights, pixels);
 
-    cam.setDistance(10);
+    //cam.setDistance(10);
+    cam.setup();
+    cam.speed = 1.0f;
 }
 
 //--------------------------------------------------------------
@@ -19,7 +21,15 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     cam.begin();
-    //drawModel();
+
+    for(unsigned int i = 0; i < trees.size(); i++) {
+        trees[i].draw();
+    }
+
+    for(unsigned i = 0; i < lights.size(); i++) {
+        lights[i].draw();
+    }
+
     cam.end();
 }
 

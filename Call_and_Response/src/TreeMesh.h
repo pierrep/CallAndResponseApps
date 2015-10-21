@@ -6,10 +6,12 @@ class TreeMesh
     public:
         TreeMesh();
         ~TreeMesh();
-        void drawMesh();
+        void draw();
         void setMesh(ofMesh& mesh);
+        void setTransform(ofMatrix4x4& mat);
 
     protected:
+        ofNode node;
         ofMesh mesh;
 
     private:

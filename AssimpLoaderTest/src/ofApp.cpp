@@ -18,7 +18,8 @@ void ofApp::setup(){
 void ofApp::update(){
     model.update();
     //mesh = model.getMesh(0);
-    mesh = model.getMesh("Tree_Num1");
+    //mesh = model.getMesh("Tree_Num1");
+    mesh = model.getMesh("Light_LED1");
     //cout << model.getMesh(0).getNumIndices() << endl;
 }
 

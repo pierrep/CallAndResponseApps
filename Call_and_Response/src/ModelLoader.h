@@ -18,6 +18,7 @@ class ModelLoader
     protected:
 
         ofxAssimpModelLoader model;
+        ofMesh mesh;
 
     private:
 };
