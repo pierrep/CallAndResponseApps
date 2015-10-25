@@ -1,3 +1,5 @@
 *.layout
-./obj
-./bin/libs
+obj/
+bin/libs/
+bin/Call_and_Response_debug
+bin/Call_and_Response
