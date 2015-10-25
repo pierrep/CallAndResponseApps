@@ -767,9 +767,10 @@ vector<string> ofxAssimpModelLoader::getMeshNames(){
 		names[i] = scene->mMeshes[i]->mName.data;
 	}
 
-//temp
+	cout << "Total num meshes: " <<(int)scene->mNumMeshes << endl;
     for(unsigned int i=0; i< scene->mRootNode->mNumChildren; i++) {
-        cout << scene->mRootNode->mChildren[i]->mName.data << endl;
+        cout << "num node meshes: " << scene->mRootNode->mChildren[i]->mNumMeshes << endl;
+        cout << "node name: " << scene->mRootNode->mChildren[i]->mName.data << endl;
     }
 
 	return names;
@@ -784,10 +785,15 @@ int ofxAssimpModelLoader::getNumMeshes(){
 ofMesh ofxAssimpModelLoader::getMesh(string name){
 	ofMesh ofm;
 	// default to triangle mode
-	ofm.setMode(OF_PRIMITIVE_TRIANGLES);
+	//ofm.setMode(OF_PRIMITIVE_TRIANGLES);
 	aiMesh * aim = NULL;
-	for(int i=0; i<(int)scene->mNumMeshes; i++){
-		if(string(scene->mMeshes[i]->mName.data)==name){
+
+    for(unsigned int i=0; i< scene->mRootNode->mNumChildren; i++) {
+        //cout << "num node meshes: " << scene->mRootNode->mChildren[i]->mNumMeshes << endl;
+        //cout << "node name: " << scene->mRootNode->mChildren[i]->mName.data << endl;
+
+		if(string(scene->mRootNode->mChildren[i]->mName.data)==name){
+			int idx = scene->mRootNode->mChildren[i]->mMeshes[0];
 			aim = scene->mMeshes[i];
 			break;
 		}

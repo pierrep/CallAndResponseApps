@@ -1,0 +1,11 @@
+*.layout
+Call_and_Response/obj/
+Call_and_Response/bin/libs/
+Call_and_Response/bin/Call_and_Response_debug
+Call_and_Response/bin/Call_and_Response
+AssimpLoaderTest/bin/AssimpLoaderTest
+AssimpLoaderTest/bin/AssimpLoaderTest_debug
+AssimpLoaderTest/bin/libs
+AssimpLoaderTest/obj
+Blender Trees/E2-skeleton.blend2
+Trees pictures 2/
