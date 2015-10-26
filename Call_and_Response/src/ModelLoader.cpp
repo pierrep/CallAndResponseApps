@@ -55,6 +55,14 @@ void ModelLoader::load(vector<TreeMesh>& trees, vector<LedFixture>& lights, vect
 
             led.setTransformMatrix(matrix);
             lights.push_back(led);
+
+            for(int i=-NUM_PIXELS_PER_FIXTURE/2; i < NUM_PIXELS_PER_FIXTURE/2; i++) {
+                LedPixel p;
+                ofVec3f c = _mesh.getCentroid();
+                c.y += (i * DISTANCE_BETWEEN_PIXELS);
+                p.setPosition(c);
+                pixels.push_back(p);
+            }
         }
 
     }

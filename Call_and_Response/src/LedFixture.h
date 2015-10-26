@@ -1,6 +1,8 @@
 #pragma once
 #include "ofMain.h"
 
+#define NUM_PIXELS_PER_FIXTURE 8
+
 class LedFixture : public ofNode
 {
     public:
