@@ -10,7 +10,7 @@ LedPixel::~LedPixel()
     //dtor
 }
 
-void LedPixel::setPosition(vector<oVec3f>& _pos)
+void LedPixel::setPosition(ofVec3f& _pos)
 {
     pos = _pos;
 }

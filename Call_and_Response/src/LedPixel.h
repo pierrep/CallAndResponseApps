@@ -8,7 +8,7 @@ class LedPixel
     public:
         LedPixel();
         ~LedPixel();
-        void setPosition(vector<ofVec3f>& _pos);
+        void setPosition(ofVec3f& _pos);
 
     protected:
 
