@@ -2,7 +2,8 @@
 
 Tree::Tree()
 {
-    //ctor
+
+    memset(buf, 0, 512*sizeof(unsigned char));
 }
 
 //--------------------------------------------------------------
@@ -19,6 +20,23 @@ void Tree::setTransform(ofMatrix4x4& mat)
 //--------------------------------------------------------------
 void Tree::setMesh(ofMesh& _mesh) {
     mesh = _mesh;
+}
+
+//--------------------------------------------------------------
+void Tree::update()
+{
+    int bufindex = 0;
+    for(int i=0; i < lights.size();i++)
+    {
+        for(int j=0; j < lights[i].pixels.size();j++) {
+            for(int k = 0; k < 3; k++) {
+                buf[bufindex] = lights[i].pixels[j].getDMXValue(k);
+                bufindex++;
+            }
+        }
+
+    }
+
 }
 
 //--------------------------------------------------------------

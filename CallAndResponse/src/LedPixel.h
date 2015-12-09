@@ -8,12 +8,18 @@ class LedPixel
     public:
         LedPixel();
         ~LedPixel();
-        void setPosition(ofVec3f& _pos);
+        void setPosition(ofVec2f& _pos);
+        void set3DPosition(ofVec3f& _pos);
+        unsigned char getDMXValue(int idx);
+        void setBrightness(float value);
+        void setId(int _id) {id = _id;};
 
     protected:
-
-        ofVec3f pos;
-        ofColor colour;
+        int id;
+        ofVec2f pos;
+        ofVec3f pos3D;
+        ofColor col;
         float   brightness;
+        unsigned char dmx[3];
     private:
 };

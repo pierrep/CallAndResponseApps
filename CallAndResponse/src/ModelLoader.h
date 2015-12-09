@@ -13,7 +13,7 @@ class ModelLoader
         ModelLoader();
         ~ModelLoader();
 
-        void load(vector<Tree>& trees, vector<LedFixture>& lights, vector<LedPixel>& pixels);
+        void load(vector<Tree>& trees);
 
     protected:
 

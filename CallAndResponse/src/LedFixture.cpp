@@ -11,9 +11,28 @@ LedFixture::~LedFixture()
     //dtor
 }
 
+void LedFixture::setupPixels()
+{
+    for(int i=0; i < NUM_PIXELS_PER_FIXTURE; i++) {
+        LedPixel p;
+        p.setId((id -1)*NUM_PIXELS_PER_FIXTURE + i);
+        pixels.push_back(p);
+    }
+}
+
 //--------------------------------------------------------------
 void LedFixture::setMesh(ofMesh& _mesh) {
     mesh = _mesh;
+}
+
+//--------------------------------------------------------------
+void LedFixture::update()
+{
+    for(int i = 0;i < pixels.size();i++)
+    {
+
+    }
+
 }
 
 //--------------------------------------------------------------

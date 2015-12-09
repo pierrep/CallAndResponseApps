@@ -3,6 +3,9 @@
 #include "ofMain.h"
 #include "ModelLoader.h"
 #include "ofxGameCamera.h"
+#include "ofxXmlSettings.h"
+#include "ofxArtnet.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -23,6 +26,8 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
+        void loadTreeData(vector<Tree>& trees);
+        //void loadTreeData(vector<Tree>& trees, vector<LedFixture>& lights, vector<LedPixel>& pixels);
 		void drawModel();
 
 
@@ -34,4 +39,8 @@ class ofApp : public ofBaseApp{
         ofLight	light;
         //ofEasyCam cam;
         ofxGameCamera cam;
+
+        ofxXmlSettings xml;
+
+        ofxArtnet artnet;
 };

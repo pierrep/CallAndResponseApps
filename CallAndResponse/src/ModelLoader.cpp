@@ -12,7 +12,7 @@ ModelLoader::~ModelLoader()
     //dtor
 }
 
-void ModelLoader::load(vector<Tree>& trees, vector<LedFixture>& lights, vector<LedPixel>& pixels)
+void ModelLoader::load(vector<Tree>& trees)
 {
     model.loadModel("E2-skeleton.obj", false);
     //model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
@@ -54,15 +54,15 @@ void ModelLoader::load(vector<Tree>& trees, vector<LedFixture>& lights, vector<L
                         m.d1, m.d2, m.d3, m.d4);
 
             led.setTransformMatrix(matrix);
-            lights.push_back(led);
+//            lights.push_back(led);
 
-            for(int i=-NUM_PIXELS_PER_FIXTURE/2; i < NUM_PIXELS_PER_FIXTURE/2; i++) {
-                LedPixel p;
-                ofVec3f c = _mesh.getCentroid();
-                c.y += (i * DISTANCE_BETWEEN_PIXELS);
-                p.setPosition(c);
-                pixels.push_back(p);
-            }
+//            for(int i=-NUM_PIXELS_PER_FIXTURE/2; i < NUM_PIXELS_PER_FIXTURE/2; i++) {
+//                LedPixel p;
+//                ofVec3f c = _mesh.getCentroid();
+//                c.y += (i * DISTANCE_BETWEEN_PIXELS);
+//                p.set3DPosition(c);
+//                pixels.push_back(p);
+//            }
         }
 
     }

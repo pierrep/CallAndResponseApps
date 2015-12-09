@@ -12,17 +12,26 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
+            "src/LedFixture.cpp",
+            "src/LedFixture.h",
+            "src/LedPixel.cpp",
+            "src/LedPixel.h",
+            "src/ModelLoader.cpp",
+            "src/ModelLoader.h",
             "src/Tree.cpp",
             "src/Tree.h",
             "src/main.cpp",
             "src/ofApp.cpp",
             "src/ofApp.h",
-            "src/LedFixture.h",
-            "src/LedFixture.cpp",
-            "src/LedPixel.h",
-            "src/LedPixel.cpp",
-            "src/ModelLoader.cpp",
-            "src/ModelLoader.h",
+        ]
+
+        of.addons: [
+            'ofxAssimpModelLoader',
+            'ofxGui',
+            'ofxOsc',
+            'ofxXmlSettings',
+            'ofxArtnet',
+            'ofxGameCamera',
         ]
 
         // This project is using addons.make to include the addons
