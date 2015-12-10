@@ -11,3 +11,8 @@ Blender Trees/E2-skeleton.blend2
 Trees pictures 2/
 build-CallAndResponse-Desktop-Debug/
 CallAndResponse/CallAndResponse.qbs.user
+CallAndResponse/bin/CallAndResponse_debug
+CallAndResponse/bin/CallAndResponse
+CallAndResponse/obj/
+ofxArtNetExample/bin/ofxArtNetExample_debug
+ofxArtNetExample/ofxArtNetExample.qbs.user

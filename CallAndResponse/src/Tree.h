@@ -11,9 +11,12 @@ class Tree
         void update();
         void setMesh(ofMesh& mesh);
         void setTransform(ofMatrix4x4& mat);
-        void setId(int _id) {id = _id;};
-        void setName(string _name) {name = _name;};
-        const unsigned char*  getBuffer() {return &buf[0];};
+        void setId(int _id) {id = _id;}
+        const int getId() {return id;}
+        void setName(string _name) {name = _name;}
+        const unsigned char*  getBuffer() {return &buf[0];}
+        void clear();
+
         vector<LedFixture> lights;
 
 

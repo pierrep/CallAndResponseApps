@@ -24,4 +24,5 @@ class testApp : public ofBaseApp{
         ofxArtnet artnet;
         ofImage testImage;
         ofFbo fbo;
+        int universe;
 };

@@ -24,7 +24,7 @@ void LedPixel::set3DPosition(ofVec3f& _pos)
 
 void LedPixel::setBrightness(float value)
 {
-
+    brightness = value;
 }
 
 unsigned char LedPixel::getDMXValue(int idx)

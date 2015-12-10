@@ -2,7 +2,6 @@
 
 Tree::Tree()
 {
-
     memset(buf, 0, 512*sizeof(unsigned char));
 }
 
@@ -12,6 +11,18 @@ Tree::~Tree()
     //dtor
 }
 
+//--------------------------------------------------------------
+void Tree::clear()
+{
+    memset(buf, 0, 512*sizeof(unsigned char));
+    for(int i = 0; i < lights.size();i++)
+    {
+        lights[i].setColour(ofColor::black);
+        lights[i].setBrightness(0.0f);
+    }
+}
+
+//--------------------------------------------------------------
 void Tree::setTransform(ofMatrix4x4& mat)
 {
     node.setTransformMatrix(mat);
@@ -44,7 +55,7 @@ void Tree::draw()
 {
     ofSetColor(0);
 
-	ofEnableDepthTest();
+    ofEnableDepthTest();
 
     ofPushMatrix();
         ofMultMatrix(node.getLocalTransformMatrix());

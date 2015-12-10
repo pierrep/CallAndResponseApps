@@ -26,12 +26,27 @@ void LedFixture::setMesh(ofMesh& _mesh) {
 }
 
 //--------------------------------------------------------------
-void LedFixture::update()
+void LedFixture::setColour(ofColor c)
 {
     for(int i = 0;i < pixels.size();i++)
     {
-
+        pixels[i].setColour(c);
     }
+}
+
+//--------------------------------------------------------------
+void LedFixture::setBrightness(float val)
+{
+    for(int i = 0;i < pixels.size();i++)
+    {
+        pixels[i].setBrightness(val);
+    }
+}
+
+//--------------------------------------------------------------
+void LedFixture::update()
+{
+
 
 }
 

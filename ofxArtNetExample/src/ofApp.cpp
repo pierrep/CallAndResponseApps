@@ -7,6 +7,7 @@ void testApp::setup(){
     
     ofSetFrameRate(40);
     fbo.allocate(512, 1, GL_RGB);
+    universe = 8;
 }
 
 //--------------------------------------------------------------
@@ -18,7 +19,7 @@ void testApp::exit(){
         fbo.readToPixels(testImage.getPixels());
     }
 
-    artnet.sendDmx("192.168.0.11", 0, 0, testImage.getPixels().getData(), 512);
+    artnet.sendDmx("192.168.0.11", 0, universe, testImage.getPixels().getData(), 512);
 }
 
 //--------------------------------------------------------------
@@ -40,7 +41,7 @@ void testApp::update(){
 
     //list nodes for sending
     //with subnet / universe
-    artnet.sendDmx("192.168.0.11", 0, 0, testImage.getPixels().getData(), 512);
+    artnet.sendDmx("192.168.0.11", 0, universe, testImage.getPixels().getData(), 512);
     //artnet.sendDmx("192.168.0.11", testImage.getPixels(), 512);
 }
 

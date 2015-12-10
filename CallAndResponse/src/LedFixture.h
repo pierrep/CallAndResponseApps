@@ -12,8 +12,10 @@ class LedFixture : public ofNode
         void draw();
         void update();
         void setMesh(ofMesh& mesh);
-        const int getId() {return id;};
-        void setId(int _id) {id = _id;};
+        const int getId() {return id;}
+        void setId(int _id) {id = _id;}
+        void setColour(ofColor c);
+        void setBrightness(float val);
         void setupPixels();
 //        void setTransform(ofMatrix4x4& mat);
         vector<LedPixel> pixels;

@@ -12,7 +12,8 @@ class LedPixel
         void set3DPosition(ofVec3f& _pos);
         unsigned char getDMXValue(int idx);
         void setBrightness(float value);
-        void setId(int _id) {id = _id;};
+        void setColour(ofColor c) {col = c;}
+        void setId(int _id) {id = _id;}
 
     protected:
         int id;
