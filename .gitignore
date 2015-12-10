@@ -7,6 +7,7 @@ AssimpLoaderTest/bin/AssimpLoaderTest
 AssimpLoaderTest/bin/AssimpLoaderTest_debug
 AssimpLoaderTest/bin/libs
 AssimpLoaderTest/obj
+AssimpLoaderTest/AssimpLoaderTest.qbs.user
 Blender Trees/E2-skeleton.blend2
 Trees pictures 2/
 build-CallAndResponse-Desktop-Debug/
