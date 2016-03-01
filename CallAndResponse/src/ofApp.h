@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp{
             void gotMessage(ofMessage msg);
 
             void clearTrees();
-            void loadTreeData(vector<Tree>& trees);
+            void loadTreeData(vector<Tree *>& trees);
             //void loadTreeData(vector<Tree>& trees, vector<LedFixture>& lights, vector<LedPixel>& pixels);
             void drawModel();
 
@@ -35,7 +35,8 @@ class ofApp : public ofBaseApp{
         /* Trees */
         ofxXmlSettings xml;
         ModelLoader  loader;
-        vector<Tree> trees;
+        vector<Tree *> trees;
+        int currentTree;
 
         /* 3D settings */
         ofLight	light;
@@ -47,7 +48,11 @@ class ofApp : public ofBaseApp{
 
         /* Timing */
         float curTime, prevTime;
+        float curTimeTree, prevTimeTree;
         int testPattern;
+        int lightIndex;
+        int pixelIndex;
+        float wait_time;
 
         /* GUI */
         ofParameter<float> brightness;

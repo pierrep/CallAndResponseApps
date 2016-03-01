@@ -17,8 +17,8 @@ void Tree::clear()
     memset(buf, 0, 512*sizeof(unsigned char));
     for(int i = 0; i < lights.size();i++)
     {
-        lights[i].setColour(ofColor::black);
-        lights[i].setBrightness(0.0f);
+        lights[i]->setColour(ofColor::black);
+        lights[i]->setBrightness(0.0f);
     }
 }
 
@@ -36,15 +36,18 @@ void Tree::setMesh(ofMesh& _mesh) {
 //--------------------------------------------------------------
 void Tree::update()
 {
+    memset(buf, 0, 512*sizeof(unsigned char));
+
     int bufindex = 0;
     for(int i=0; i < lights.size();i++)
     {
-        for(int j=0; j < lights[i].pixels.size();j++) {
+        for(int j=0; j < lights[i]->pixels.size();j++) {
             for(int k = 0; k < 3; k++) {
-                buf[bufindex] = lights[i].pixels[j].getDMXValue(k);
+                buf[bufindex] = lights[i]->pixels[j]->getDMXValue(k);
                 bufindex++;
             }
         }
+        lights[i]->update();
 
     }
 

@@ -4,3 +4,4 @@ ofxOsc
 ofxXmlSettings
 ofxArtnet
 ofxGameCamera
+ofxPlaylist

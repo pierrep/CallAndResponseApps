@@ -17,7 +17,7 @@ class Tree
         const unsigned char*  getBuffer() {return &buf[0];}
         void clear();
 
-        vector<LedFixture> lights;
+        vector<LedFixture *> lights;
 
 
     protected:

@@ -17,8 +17,9 @@ class LedFixture : public ofNode
         void setColour(ofColor c);
         void setBrightness(float val);
         void setupPixels();
+        void fadeOn();
 //        void setTransform(ofMatrix4x4& mat);
-        vector<LedPixel> pixels;
+        vector<LedPixel* > pixels;
 
     protected:
         ofMesh mesh;
