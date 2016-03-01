@@ -16,13 +16,11 @@ Project{
             "src/LedFixture.h",
             "src/LedPixel.cpp",
             "src/LedPixel.h",
-            "src/ModelLoader.cpp",
-            "src/ModelLoader.h",
             "src/Tree.cpp",
             "src/Tree.h",
-            'src/main.cpp',
-            'src/ofApp.cpp',
-            'src/ofApp.h',
+            "src/main.cpp",
+            "src/ofApp.cpp",
+            "src/ofApp.h",
         ]
 
         of.addons: [

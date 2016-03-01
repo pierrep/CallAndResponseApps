@@ -1,5 +1,6 @@
 #include "ofApp.h"
 
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(255);
@@ -8,8 +9,6 @@ void ofApp::setup(){
     ofSetVerticalSync(false);
     ofSetFrameRate(30);
     loadTreeData(trees);
-
-    //loader.load(trees);
 
     //cam.setDistance(10);
     cam.setup();

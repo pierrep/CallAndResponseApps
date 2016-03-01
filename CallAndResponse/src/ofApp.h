@@ -1,11 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ModelLoader.h"
 #include "ofxGameCamera.h"
 #include "ofxXmlSettings.h"
 #include "ofxArtnet.h"
 #include "ofxGui.h"
+#include "Tree.h"
 
 class ofApp : public ofBaseApp{
 
@@ -28,13 +28,11 @@ class ofApp : public ofBaseApp{
 
             void clearTrees();
             void loadTreeData(vector<Tree *>& trees);
-            //void loadTreeData(vector<Tree>& trees, vector<LedFixture>& lights, vector<LedPixel>& pixels);
             void drawModel();
 
 
         /* Trees */
         ofxXmlSettings xml;
-        ModelLoader  loader;
         vector<Tree *> trees;
         int currentTree;
 
