@@ -14,6 +14,7 @@ class Tree
         void setId(int _id) {id = _id;}
         const int getId() {return id;}
         void setName(string _name) {name = _name;}
+        const string getName() {return name;}
         const unsigned char*  getBuffer() {return &buf[0];}
         void clear();
 

@@ -6,6 +6,8 @@
 #include "ofxArtnet.h"
 #include "ofxGui.h"
 #include "Tree.h"
+#include "LightsEditor.h"
+#include "TreeData.h"
 
 class ofApp : public ofBaseApp{
 
@@ -27,12 +29,12 @@ class ofApp : public ofBaseApp{
             void gotMessage(ofMessage msg);
 
             void clearTrees();
-            void loadTreeData(vector<Tree *>& trees);
             void drawModel();
 
 
         /* Trees */
-        ofxXmlSettings xml;
+        LightsEditor editor;
+        TreeData treedata;
         vector<Tree *> trees;
         int currentTree;
 

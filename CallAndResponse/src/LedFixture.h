@@ -11,19 +11,25 @@ class LedFixture : public ofNode
         ~LedFixture();
         void draw();
         void update();
-        void setMesh(ofMesh& mesh);
-        const int getId() {return id;}
+
+        void setMesh(ofMesh& mesh);        
         void setId(int _id) {id = _id;}
         void setColour(ofColor c);
         void setBrightness(float val);
+        void setPosition(ofVec2f _pos) {pos = _pos;}
+
+        const int getId() {return id;}
+        const ofVec2f getPosition() {return pos;}
+
         void setupPixels();
+
         void fadeOn();
-//        void setTransform(ofMatrix4x4& mat);
         vector<LedPixel* > pixels;
 
     protected:
         ofMesh mesh;
         int id;
+        ofVec2f pos;
 
     private:
 };

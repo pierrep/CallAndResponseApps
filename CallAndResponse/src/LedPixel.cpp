@@ -7,26 +7,14 @@ LedPixel::LedPixel()
     col = ofColor::black;
     col = ofColor::red;
     brightness = 1.0f;
-    //playlist = new ofxPlaylist();
+
 }
 
 //--------------------------------------------------------------
 LedPixel::~LedPixel()
 {
     //dtor
-    //if(playlist) delete playlist;
-    //playlist = Null;
 }
-
-//--------------------------------------------------------------
-//LedPixel::LedPixel(const LedPixel& obj)
-//{
-//    col = obj.col;
-//    brightness = obj.brightness;
-//    //playlist = new ofxPlaylist();
-//    //*playlist = *obj.playlist;
-//    //playlist = (obj.playlist);
-//}
 
 //--------------------------------------------------------------
 void LedPixel::fadeOn(int i)
