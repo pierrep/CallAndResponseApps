@@ -2,6 +2,8 @@
     <Tree>
         <TreeId>0</TreeId>
         <TreeName>E1</TreeName>
+        <MapPosX>275.000000000</MapPosX>
+        <MapPosY>180.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>473.000000000</x>
@@ -106,6 +108,8 @@
     <Tree>
         <TreeId>1</TreeId>
         <TreeName>E2</TreeName>
+        <MapPosX>269.000000000</MapPosX>
+        <MapPosY>240.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>367.000000000</x>
@@ -210,6 +214,8 @@
     <Tree>
         <TreeId>2</TreeId>
         <TreeName>E3</TreeName>
+        <MapPosX>-1.000000000</MapPosX>
+        <MapPosY>-1.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>0.000000000</x>
@@ -314,6 +320,8 @@
     <Tree>
         <TreeId>3</TreeId>
         <TreeName>W1</TreeName>
+        <MapPosX>186.000000000</MapPosX>
+        <MapPosY>200.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>0.000000000</x>
@@ -408,6 +416,8 @@
     <Tree>
         <TreeId>4</TreeId>
         <TreeName>W2</TreeName>
+        <MapPosX>182.000000000</MapPosX>
+        <MapPosY>258.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>0.000000000</x>
@@ -492,6 +502,8 @@
     <Tree>
         <TreeId>5</TreeId>
         <TreeName>W3</TreeName>
+        <MapPosX>175.000000000</MapPosX>
+        <MapPosY>315.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>0.000000000</x>
@@ -576,6 +588,8 @@
     <Tree>
         <TreeId>6</TreeId>
         <TreeName>W4</TreeName>
+        <MapPosX>166.000000000</MapPosX>
+        <MapPosY>368.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>0.000000000</x>
@@ -650,6 +664,8 @@
     <Tree>
         <TreeId>7</TreeId>
         <TreeName>W5</TreeName>
+        <MapPosX>156.000000000</MapPosX>
+        <MapPosY>432.000000000</MapPosY>
         <Light>
             <id>0</id>
             <x>0.000000000</x>

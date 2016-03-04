@@ -1,13 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxGameCamera.h"
 #include "ofxXmlSettings.h"
 #include "ofxArtnet.h"
 #include "ofxGui.h"
 #include "Tree.h"
 #include "LightsEditor.h"
 #include "TreeData.h"
+#include "GuiMap.h"
 
 class ofApp : public ofBaseApp{
 
@@ -38,11 +38,6 @@ class ofApp : public ofBaseApp{
         vector<Tree *> trees;
         int currentTree;
 
-        /* 3D settings */
-        ofLight	light;
-        //ofEasyCam cam;
-        ofxGameCamera cam;
-
         /* ArtNet */
         ofxArtnet artnet;
 
@@ -59,4 +54,5 @@ class ofApp : public ofBaseApp{
         ofParameter<ofColor> colour;
         ofParameterGroup parameters;
         ofxPanel gui;
+        GuiMap guiMap;
 };

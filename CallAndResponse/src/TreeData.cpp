@@ -21,11 +21,15 @@ void TreeData::load(vector<Tree *>& trees)
     for(int t = 0; t < numTrees; t++)
     {
         xml.pushTag("Tree", t);
-        int treeId = xml.getValue("TreeId",-1);
+        int treeId = xml.getValue("TreeId",0);
         string name = xml.getValue("TreeName","none");
+        int Mapx = xml.getValue("MapPosX",-1);
+        int Mapy = xml.getValue("MapPosY",-1);
+
         Tree* tree = new Tree();
         tree->setId(treeId);
         tree->setName(name);
+        tree->setMapPos(ofVec2f(Mapx,Mapy));
 
         int numLights = xml.getNumTags("Light");
 
@@ -65,6 +69,8 @@ void TreeData::save(vector<Tree *>& trees)
 
         xml.addValue("TreeId", trees[t]->getId());
         xml.addValue("TreeName", trees[t]->getName());
+        xml.addValue("MapPosX", trees[t]->getMapPos().x);
+        xml.addValue("MapPosY", trees[t]->getMapPos().y);
 
         for(int i = 0; i < trees[t]->lights.size(); i++)
         {

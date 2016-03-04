@@ -14,6 +14,8 @@ class Tree
         void setId(int _id) {id = _id;}
         const int getId() {return id;}
         void setName(string _name) {name = _name;}
+        void setMapPos(ofVec2f _pos) {pos = _pos;}
+        const ofVec2f getMapPos() { return pos;}
         const string getName() {return name;}
         const unsigned char*  getBuffer() {return &buf[0];}
         void clear();
@@ -27,6 +29,7 @@ class Tree
         ofNode node;
         ofMesh mesh;
         unsigned char buf[512];
+        ofVec2f pos;
 
     private:
 };

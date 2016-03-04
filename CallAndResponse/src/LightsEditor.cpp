@@ -6,11 +6,10 @@ LightsEditor::LightsEditor()
     currentLight = 0;
     currentTree = 0;
     circleRadius = 7.0f;
-    ofAddListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
-//	ofAddListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
-    ofAddListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
-//	ofAddListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
-    ofAddListener(ofEvents().keyPressed, this, &LightsEditor::keyPressed);
+
+    disableMouseEvents();
+    disableKeyEvents();
+    fbo.allocate(ofGetWidth(),ofGetHeight());
 }
 
 LightsEditor::~LightsEditor()
@@ -18,12 +17,7 @@ LightsEditor::~LightsEditor()
     //dtor
 }
 
-void LightsEditor::setup()
-{
-
-}
-
-void LightsEditor::load(vector<Tree *> * _trees)
+void LightsEditor::setup(vector<Tree *> * _trees)
 {
     trees = _trees;
     string name = trees->at(currentTree)->getName();
@@ -33,10 +27,17 @@ void LightsEditor::load(vector<Tree *> * _trees)
 
 void LightsEditor::draw()
 {
-    ofPushStyle();
-    ofSetRectMode(OF_RECTMODE_CENTER);
-    treeimg.draw(ofGetWidth()/2,ofGetHeight()/2,1280,960);
+    draw(0,0,fbo.getWidth(),fbo.getHeight());
+}
 
+void LightsEditor::draw(float x, float y, float w, float h)
+{
+    fbo.begin();
+    ofPushStyle();
+    ofClear(255,255,255, 0);
+    treeimg.draw(0,0,ofGetWidth(),ofGetHeight());
+
+    ofSetRectMode(OF_RECTMODE_CENTER);
     for(int j=0; j < trees->at(currentTree)->lights.size();j++)
     {
         /* Draw circle */
@@ -66,6 +67,9 @@ void LightsEditor::draw()
     ofDrawBitmapString("Name = " + trees->at(currentTree)->getName()+" Tree = "+ofToString(currentTree)+"  Light Id= "+ofToString(currentLight) ,20,ofGetHeight()-20);
 
     ofPopStyle();
+    fbo.end();
+
+    fbo.draw(x,y,w,h);
 }
 
 void LightsEditor::keyPressed(ofKeyEventArgs& args)
@@ -124,4 +128,36 @@ void LightsEditor::mouseDragged(ofMouseEventArgs& args)
 {
     trees->at(currentTree)->lights.at(currentLight)->setPosition(ofVec2f(args.x,args.y));
 
+}
+
+void LightsEditor::mouseMoved(ofMouseEventArgs& args) {
+
+}
+
+void LightsEditor::mouseReleased(ofMouseEventArgs& args) {
+
+}
+
+void LightsEditor::enableMouseEvents() {
+    ofAddListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
+    ofAddListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
+    ofAddListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
+    ofAddListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
+}
+
+void LightsEditor::disableMouseEvents() {
+    ofRemoveListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
+    ofRemoveListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
+    ofRemoveListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
+    ofRemoveListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
+}
+
+void LightsEditor::enableKeyEvents() {
+    ofAddListener(ofEvents().keyPressed, this, &LightsEditor::keyPressed);
+    //ofAddListener(ofEvents().keyReleased, this, &LightsEditor::keyReleased);
+}
+
+void LightsEditor::disableKeyEvents() {
+    ofRemoveListener(ofEvents().keyPressed, this, &LightsEditor::keyPressed);
+    //ofRemoveListener(ofEvents().keyReleased, this, &LightsEditor::keyReleased);
 }

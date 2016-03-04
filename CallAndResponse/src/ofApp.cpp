@@ -10,14 +10,8 @@ void ofApp::setup(){
     ofSetFrameRate(30);
     treedata.load(trees);
 
-    editor.setup();
-    editor.load(&trees);
-
-    //cam.setDistance(10);
-    cam.setup();
-    cam.speed = 1.0f;
-    //cam.loadCameraPosition();
-
+    editor.setup(&trees);
+    guiMap.setup(&trees);
     artnet.setup("192.168.0.2"); //make sure the firewall is deactivated at this point
 
     curTime = ofGetElapsedTimeMillis();
@@ -37,11 +31,12 @@ void ofApp::setup(){
     parameters.add(brightness.set("brightness",0.4f,0.0f,1.0f));
     parameters.add(colour.set("colour",ofColor(255,0,255),ofColor(0),ofColor(255)));
     gui.setup(parameters);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::exit(){
-    //cam.saveCameraPosition();
+
     treedata.save(trees);
     clearTrees();
 }
@@ -56,8 +51,8 @@ void ofApp::update(){
                 wait_time = 6000;
             }
             else if(currentTree == -1 ) {
-                //currentTree = (int) ofRandom(0,8);
-                currentTree = 0;
+                currentTree = (int) ofRandom(0,8);
+                //currentTree = 0;
                 wait_time = 4000;
             }
             prevTimeTree = curTimeTree;
@@ -111,6 +106,10 @@ void ofApp::update(){
 
     }
 
+
+    guiMap.update(currentTree);
+    editor.update(currentTree);
+
     for(int i = 0;i < trees.size();i++)
     {
         trees[i]->update();
@@ -121,16 +120,10 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-//    cam.begin();
-//    for(unsigned int i = 0; i < trees.size(); i++) {
-//       // trees[i].draw();
-//    }
-////    for(unsigned i = 0; i < lights.size(); i++) {
-////        lights[i].draw();
-////    }
-//    cam.end();
+    ofSetWindowTitle("X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY));
 
-    editor.draw();
+    guiMap.draw(0,0,400,900);
+    editor.draw(400,0,1200,900);
 
     gui.draw();
 
@@ -145,6 +138,10 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+
+    if((key == 'f') || (key == 'F')) {
+        ofToggleFullscreen();
+    }
 
     if(key == '1') testPattern = 1;
     else if(key == '2') testPattern = 2;

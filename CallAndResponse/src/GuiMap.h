@@ -1,14 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxXmlSettings.h"
 #include "Tree.h"
 
-class LightsEditor
+class GuiMap
 {
     public:
-        LightsEditor();
-        ~LightsEditor();
+        GuiMap();
+        ~GuiMap();
         void setup(vector<Tree *> * _trees);
         void draw();
         void draw(float x, float y, float w, float  h);
@@ -25,9 +24,7 @@ class LightsEditor
 
     protected:
 
-        ofxXmlSettings xml;
-        ofImage treeimg;
-        int currentLight;
+        ofImage mapImg;
         int currentTree;
         vector<Tree *> * trees;
         float circleRadius;
