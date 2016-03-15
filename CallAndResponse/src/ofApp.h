@@ -3,8 +3,8 @@
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
 #include "ofxArtnet.h"
-#include "ofxGui.h"
-#include "Tree.h"
+//#include "ofxGui.h"
+#include "ofxDatGui.h"
 #include "LightsEditor.h"
 #include "TreeData.h"
 #include "GuiMap.h"
@@ -30,16 +30,15 @@ class ofApp : public ofBaseApp{
 
             void clearTrees();
             void drawModel();
-
+            void onButtonEvent(ofxDatGuiButtonEvent e);
 
         /* Trees */
         LightsEditor editor;
-        TreeData treedata;
-        vector<Tree *> trees;
-        int currentTree;
+        TreeData data;
 
         /* ArtNet */
         ofxArtnet artnet;
+        bool bArtNetActive;
 
         /* Timing */
         float curTime, prevTime;
@@ -50,9 +49,13 @@ class ofApp : public ofBaseApp{
         float wait_time;
 
         /* GUI */
-        ofParameter<float> brightness;
-        ofParameter<ofColor> colour;
-        ofParameterGroup parameters;
-        ofxPanel gui;
+        //ofParameter<float> brightness;
+//        ofParameter<ofColor> colour;
+//        ofParameterGroup parameters;
+        //ofxPanel gui;
+        ofxDatGui* gui;
+        ofxDatGuiColorPicker *colour;
+        ofxDatGuiSlider *brightness;
         GuiMap guiMap;
+        ofxDatGuiToggle* playButton;
 };

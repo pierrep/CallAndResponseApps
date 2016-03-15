@@ -2,14 +2,14 @@
 
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
-#include "Tree.h"
+#include "TreeData.h"
 
 class LightsEditor
 {
     public:
         LightsEditor();
         ~LightsEditor();
-        void setup(vector<Tree *> * _trees);
+        void setup(TreeData * _data);
         void draw();
         void draw(float x, float y, float w, float  h);
         void mousePressed(ofMouseEventArgs& args);
@@ -26,10 +26,10 @@ class LightsEditor
     protected:
 
         ofxXmlSettings xml;
-        ofImage treeimg;
+        vector<ofImage> treeimg;
         int currentLight;
         int currentTree;
-        vector<Tree *> * trees;
+        TreeData * data;
         float circleRadius;
         ofFbo   fbo;
 

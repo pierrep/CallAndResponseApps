@@ -37,6 +37,7 @@ Project{
             'ofxArtnet',
             'ofxGameCamera',
             'ofxPlaylist',
+            'ofxDatGui',
         ]
 
         // additional flags for the project. the of module sets some

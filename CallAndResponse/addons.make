@@ -5,3 +5,4 @@ ofxXmlSettings
 ofxArtnet
 ofxGameCamera
 ofxPlaylist
+ofxDatGui

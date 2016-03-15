@@ -9,12 +9,20 @@ class TreeData
     public:
         TreeData();
         ~TreeData();
-        void load(vector<Tree *>& trees);
-        void save(vector<Tree *>& trees);
+        void load();
+        void save();
+
+        /* State */
+        enum State {LIGHTS_OFF, LIGHTS_ON };
+        State state;
+
+        vector<Tree *> trees;
+        int currentTree;
 
     protected:
 
         ofxXmlSettings xml;
+
 
     private:
 };

@@ -3,7 +3,9 @@
 
 TreeData::TreeData()
 {
-    //ctor
+   currentTree = 0;
+
+   state = LIGHTS_ON;
 }
 
 TreeData::~TreeData()
@@ -11,7 +13,7 @@ TreeData::~TreeData()
     //dtor
 }
 
-void TreeData::load(vector<Tree *>& trees)
+void TreeData::load()
 {
     xml.load("TreeData.xml");
     xml.pushTag("Trees");
@@ -54,7 +56,7 @@ void TreeData::load(vector<Tree *>& trees)
 }
 
 
-void TreeData::save(vector<Tree *>& trees)
+void TreeData::save()
 {
     xml.clear();
     xml.addTag("Trees");

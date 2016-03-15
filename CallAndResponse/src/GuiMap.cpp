@@ -3,8 +3,6 @@
 
 GuiMap::GuiMap()
 {
-
-    currentTree = 0;
     circleRadius = 15.0f;
 
     disableMouseEvents();
@@ -17,9 +15,9 @@ GuiMap::~GuiMap()
     //dtor
 }
 
-void GuiMap::setup(vector<Tree *> * _trees)
+void GuiMap::setup(TreeData* _data)
 {
-    trees = _trees;
+    data = _data;
 
     mapImg.load("Gui/Westgarth.png");
 }
@@ -37,11 +35,11 @@ void GuiMap::draw(float x, float y, float w, float h)
     mapImg.draw(0,0,fbo.getWidth(),fbo.getHeight());
 
     ofSetRectMode(OF_RECTMODE_CENTER);
-    for(int j=0; j < trees->size();j++)
+    for(int j=0; j < data->trees.size();j++)
     {
         /* Draw circle */
-        ofVec2f pos = trees->at(j)->getMapPos();
-        if(currentTree == j) {
+        ofVec2f pos = data->trees.at(j)->getMapPos();
+        if((data->currentTree == j) && (data->state == data->LIGHTS_ON)) {
             ofSetColor(255,0,0);
         } else {
             ofSetColor(200,200,200);
@@ -66,9 +64,9 @@ void GuiMap::mousePressed(ofMouseEventArgs& args)
     float distance = 10000;
     int id = 0;
     ofVec2f p = ofVec2f(args.x,args.y);
-    for(int j=0; j < trees->size();j++)
+    for(int j=0; j < data->trees.size();j++)
     {
-        ofVec2f pos = trees->at(currentTree)->getMapPos();
+        ofVec2f pos = data->trees.at(data->currentTree)->getMapPos();
         float dist = p.distance(pos);
         if(dist < distance ) {
             distance = dist;
@@ -77,7 +75,7 @@ void GuiMap::mousePressed(ofMouseEventArgs& args)
 
     }
     if(distance < circleRadius/2) {
-        currentTree = id;
+        data->currentTree = id;
     }
 }
 

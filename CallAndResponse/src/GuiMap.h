@@ -1,14 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Tree.h"
+#include "TreeData.h"
 
 class GuiMap
 {
     public:
         GuiMap();
         ~GuiMap();
-        void setup(vector<Tree *> * _trees);
+        void setup(TreeData* data);
         void draw();
         void draw(float x, float y, float w, float  h);
         void mousePressed(ofMouseEventArgs& args);
@@ -25,8 +25,7 @@ class GuiMap
     protected:
 
         ofImage mapImg;
-        int currentTree;
-        vector<Tree *> * trees;
+        TreeData* data;
         float circleRadius;
         ofFbo   fbo;
 
