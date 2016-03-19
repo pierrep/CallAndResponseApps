@@ -15,6 +15,7 @@ class TreeData
         /* State */
         enum State {LIGHTS_OFF, LIGHTS_ON };
         State state;
+        bool isPlaying;
 
         vector<Tree *> trees;
         int currentTree;

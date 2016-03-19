@@ -4,7 +4,7 @@
 TreeData::TreeData()
 {
    currentTree = 0;
-
+   isPlaying = true;
    state = LIGHTS_ON;
 }
 

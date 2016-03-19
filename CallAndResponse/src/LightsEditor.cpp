@@ -6,8 +6,7 @@ LightsEditor::LightsEditor()
     currentLight = 0;
     circleRadius = 7.0f;
 
-    disableMouseEvents();
-    disableKeyEvents();
+    disableEditing();
     fbo.allocate(ofGetWidth(),ofGetHeight());
 }
 
@@ -23,7 +22,7 @@ void LightsEditor::setup(TreeData* _data)
     for(int i=0; i < data->trees.size();i++) {
         string name = data->trees.at(i)->getName();
         ofImage img;
-        img.load("TreePhotos/"+name+" wires.jpg");
+        img.load("TreePhotos/"+name+".jpg");
         img.setImageType(OF_IMAGE_GRAYSCALE);
         treeimg.push_back(img);
     }
@@ -137,26 +136,24 @@ void LightsEditor::mouseReleased(ofMouseEventArgs& args) {
 
 }
 
-void LightsEditor::enableMouseEvents() {
+
+void LightsEditor::enableEditing() {
     ofAddListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
     ofAddListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
     ofAddListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
     ofAddListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
-}
 
-void LightsEditor::disableMouseEvents() {
-    ofRemoveListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
-    ofRemoveListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
-    ofRemoveListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
-    ofRemoveListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
-}
-
-void LightsEditor::enableKeyEvents() {
     ofAddListener(ofEvents().keyPressed, this, &LightsEditor::keyPressed);
     //ofAddListener(ofEvents().keyReleased, this, &LightsEditor::keyReleased);
 }
 
-void LightsEditor::disableKeyEvents() {
+void LightsEditor::disableEditing() {
+    ofRemoveListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
+    ofRemoveListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
+    ofRemoveListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
+    ofRemoveListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
+
     ofRemoveListener(ofEvents().keyPressed, this, &LightsEditor::keyPressed);
     //ofRemoveListener(ofEvents().keyReleased, this, &LightsEditor::keyReleased);
+
 }

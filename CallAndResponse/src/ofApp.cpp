@@ -14,7 +14,7 @@ void ofApp::setup(){
 
     curTime = ofGetElapsedTimeMillis();
     prevTime = curTime;
-    testPattern = 3;
+    testPattern = 1;
     curTimeTree = ofGetElapsedTimeMillis();
     prevTimeTree = curTimeTree;
     lightIndex = 0;
@@ -56,7 +56,7 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::update(){
     curTimeTree = ofGetElapsedTimeMillis();
-    if(curTimeTree - prevTimeTree > wait_time)
+    if((curTimeTree - prevTimeTree > wait_time) && (data.isPlaying))
     {
             if(data.state == data.LIGHTS_ON) {
                 data.state = data.LIGHTS_OFF;
@@ -165,8 +165,12 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     if (e.target == playButton){
         if(e.target->getLabel() == "PLAYING") {
             e.target->setLabel("PAUSED");
+            data.isPlaying = false;
+            editor.enableEditing();
         } else {
             e.target->setLabel("PLAYING");
+            data.isPlaying = true;
+            editor.disableEditing();
         }
     }
 }

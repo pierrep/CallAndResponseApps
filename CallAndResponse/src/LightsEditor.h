@@ -18,10 +18,8 @@ class LightsEditor
         void mouseReleased(ofMouseEventArgs& args);
         void keyPressed(ofKeyEventArgs& args);
 
-        void enableMouseEvents();
-        void disableMouseEvents();
-        void enableKeyEvents();
-        void disableKeyEvents();
+        void enableEditing();
+        void disableEditing();
 
     protected:
 
