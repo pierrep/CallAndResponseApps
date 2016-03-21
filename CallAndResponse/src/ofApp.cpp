@@ -10,40 +10,32 @@ void ofApp::setup(){
     data.load();
     editor.setup(&data);
     guiMap.setup(&data);
+    animations.setup(&data);
     bArtNetActive = artnet.setup("192.168.0.2"); //make sure the firewall is deactivated at this point
 
-    curTime = ofGetElapsedTimeMillis();
-    prevTime = curTime;
-    testPattern = 1;
-    curTimeTree = ofGetElapsedTimeMillis();
-    prevTimeTree = curTimeTree;
-    lightIndex = 0;
-    pixelIndex = 0;
-
     clearTrees();    
-    wait_time = 4000;
 
     /* GUI */
-//    parameters.setName("LIGHT SETTINGS");
-//    parameters.add(brightness.set("brightness",0.4f,0.0f,1.0f));
-//    parameters.add(colour.set("colour",ofColor(255,0,255),ofColor(0),ofColor(255)));
-//    gui.setup(parameters);
-
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
 
     ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
-    brightness = folder->addSlider("Brightness", 0, 1, 0.4f);
-    colour = folder->addColorPicker("Colour", ofColor(255,0,255));
+    gui_brightness = folder->addSlider("Brightness", 0, 1, 0.4f);
+    gui_colour = folder->addColorPicker("Colour", ofColor(255,0,255));
+    folder->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
+
     folder->expand();
 
     gui->addHeader("LIGHT SETTINGS");
     gui->addFooter();
     gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
 
-    playButton = gui->addToggle("PLAYING");
+    gui_playButton = gui->addToggle("PLAYING",true);
+    gui_showImageButton = gui->addToggle("SHOW BACKGROUND IMAGE",true);
     gui->onButtonEvent(this, &ofApp::onButtonEvent);
 
-
+    curTimeTree = ofGetElapsedTimeMillis();
+    prevTimeTree = curTimeTree;
+    wait_time = 4000;
 }
 
 //--------------------------------------------------------------
@@ -64,7 +56,7 @@ void ofApp::update(){
             }
             else if(data.state == data.LIGHTS_OFF ) {
                 data.currentTree = (int) ofRandom(0,8);
-                //data.currentTree = 0;
+                //data->currentTree = 0;
                 data.state = data.LIGHTS_ON;
                 wait_time = 4000;
             }
@@ -74,51 +66,10 @@ void ofApp::update(){
 
     if(data.state == data.LIGHTS_OFF) return;
 
+    animations.update();
 
-    curTime = ofGetElapsedTimeMillis();
-    if(curTime - prevTime > 100) {
-        prevTime = curTime;
-
-        if(testPattern == 1) {
-            data.trees[data.currentTree]->clear();
-            data.trees[data.currentTree]->lights[lightIndex]->setColour(ofColor::purple);
-            data.trees[data.currentTree]->lights[lightIndex]->setBrightness(1.0f);
-            lightIndex++;
-            if(lightIndex > 4) lightIndex = 0;
-        }
-        else if(testPattern == 2) {
-            data.trees[data.currentTree]->clear();
-            lightIndex = (int) (pixelIndex / NUM_PIXELS_PER_FIXTURE);
-            int pIdx = pixelIndex - (lightIndex * NUM_PIXELS_PER_FIXTURE);
-            data.trees[data.currentTree]->lights[lightIndex]->pixels[pIdx]->setColour(ofColor::chartreuse);
-            data.trees[data.currentTree]->lights[lightIndex]->pixels[pIdx]->setBrightness(1.0f);
-            pixelIndex++;
-            if(pixelIndex > (5*NUM_PIXELS_PER_FIXTURE - 1)) pixelIndex = 0;
-        } else if(testPattern == 3) {
-            for(int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
-            {                
-                data.trees[data.currentTree]->lights[i]->setColour(colour->getColor());
-                data.trees[data.currentTree]->lights[i]->setBrightness(brightness->getValue());
-                for(int j = 0; j < data.trees[data.currentTree]->lights[i]->pixels.size();j++) {
-                    //float b = ofRandomuf();
-                    //data.trees[data.currentTree]->lights[i]->pixels[j]->setBrightness(b);
-                }
-            }
-        }
-        else if(testPattern == 4) {
-            for(int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
-            {
-                data.trees[data.currentTree]->lights[i]->setColour(colour->getColor());
-                //data.trees[data.currentTree]->lights[i]->setBrightness(brightness);
-//                for(int j = 0; j < data.trees[data.currentTree]->lights[i]->pixels.size();j++) {
-//                    float b = ofRandomuf();
-//                    data.trees[data.currentTree]->lights[i]->pixels[j]->setBrightness(b);
-//                }
-            }
-        }
-
-    }
-
+    data.colour = gui_colour->getColor();
+    data.brightness = gui_brightness->getValue();
 
     for(int i = 0;i < data.trees.size();i++)
     {
@@ -135,8 +86,6 @@ void ofApp::draw(){
     guiMap.draw(0,0,400,900);
     editor.draw(400,0,1200,900);
 
-    //gui.draw();
-
 }
 
 //--------------------------------------------------------------
@@ -146,34 +95,63 @@ void ofApp::keyPressed(int key){
         ofToggleFullscreen();
     }
 
-    if(key == '1') testPattern = 1;
-    else if(key == '2') testPattern = 2;
-    else if(key == '3') testPattern = 3;
-    else if(key == '4') {testPattern = 4;
+    if(key == ' ') {
+        gui_playButton->toggle();
+        if(gui_playButton->getLabel() == "PLAYING") {
+            gui_playButton->setLabel("PAUSED");
+            data.isPlaying = false;
+            editor.enableEditing();
+        } else {
+            gui_playButton->setLabel("PLAYING");
+            data.isPlaying = true;
+            editor.disableEditing();
+        }
+    }
+
+    if(key == '1') animations.setTestPattern(1);
+    else if(key == '2') animations.setTestPattern(2);
+    else if(key == '3') animations.setTestPattern(3);
+    else if(key == '4')
+    {
+        animations.setTestPattern(4);
 
         for(int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
         {
              data.trees[data.currentTree]->lights[i]->fadeOn();
         }
     }
-    lightIndex = 0;
-    pixelIndex = 0;
+
 }
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
-    if (e.target == playButton){
+    if (e.target == gui_playButton){
         if(e.target->getLabel() == "PLAYING") {
             e.target->setLabel("PAUSED");
             data.isPlaying = false;
             editor.enableEditing();
-        } else {
+        } else if (e.target->getLabel() == "PAUSED") {
             e.target->setLabel("PLAYING");
             data.isPlaying = true;
             editor.disableEditing();
         }
+    } else if (e.target == gui_showImageButton) {
+
+        if(e.enabled) {
+            data.bShowBgImage = true;
+        }
+        else {
+            data.bShowBgImage = false;
+        }
     }
 }
+
+void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
+{
+    data.colour = e.color;
+}
+
+
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 

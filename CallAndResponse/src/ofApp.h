@@ -8,6 +8,7 @@
 #include "LightsEditor.h"
 #include "TreeData.h"
 #include "GuiMap.h"
+#include "Animations.h"
 
 class ofApp : public ofBaseApp{
 
@@ -31,6 +32,7 @@ class ofApp : public ofBaseApp{
             void clearTrees();
             void drawModel();
             void onButtonEvent(ofxDatGuiButtonEvent e);
+            void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
 
         /* Trees */
         LightsEditor editor;
@@ -40,12 +42,9 @@ class ofApp : public ofBaseApp{
         ofxArtnet artnet;
         bool bArtNetActive;
 
-        /* Timing */
-        float curTime, prevTime;
+        /* Animations */
+        Animations animations;
         float curTimeTree, prevTimeTree;
-        int testPattern;
-        int lightIndex;
-        int pixelIndex;
         float wait_time;
 
         /* GUI */
@@ -54,8 +53,9 @@ class ofApp : public ofBaseApp{
 //        ofParameterGroup parameters;
         //ofxPanel gui;
         ofxDatGui* gui;
-        ofxDatGuiColorPicker *colour;
-        ofxDatGuiSlider *brightness;
+        ofxDatGuiColorPicker *gui_colour;
+        ofxDatGuiSlider *gui_brightness;
         GuiMap guiMap;
-        ofxDatGuiToggle* playButton;
+        ofxDatGuiToggle* gui_playButton;
+        ofxDatGuiToggle* gui_showImageButton;
 };

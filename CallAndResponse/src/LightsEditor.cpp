@@ -4,10 +4,11 @@
 LightsEditor::LightsEditor()
 {
     currentLight = 0;
-    circleRadius = 7.0f;
+    circleRadius = 8.0f;
+    pixelRadius = 4.0f;
 
     disableEditing();
-    fbo.allocate(ofGetWidth(),ofGetHeight());
+    fbo.allocate(1200,900);
 }
 
 LightsEditor::~LightsEditor()
@@ -27,6 +28,8 @@ void LightsEditor::setup(TreeData* _data)
         treeimg.push_back(img);
     }
 
+    lightNum.load("Gotham-Thin.otf",11,true);
+
 }
 
 void LightsEditor::draw()
@@ -39,21 +42,36 @@ void LightsEditor::draw(float x, float y, float w, float h)
     fbo.begin();
     ofPushStyle();
     ofClear(255,255,255, 0);
-    treeimg[data->currentTree].draw(0,0,fbo.getWidth(),fbo.getHeight());
+    if(data->bShowBgImage) {
+        treeimg[data->currentTree].draw(0,0,fbo.getWidth(),fbo.getHeight());
+    }
 
     ofSetRectMode(OF_RECTMODE_CENTER);
-    for(int j=0; j < data->trees[data->currentTree]->lights.size();j++)
+    int numLights = data->trees[data->currentTree]->lights.size();
+    for(int j=0; j < numLights;j++)
     {
         /* Draw circle */
         ofVec2f pos = data->trees[data->currentTree]->lights.at(j)->getPosition();
         ofNoFill();
+        ofSetLineWidth(3);
         if(currentLight == j) {
-            ofSetColor(255,0,0);
-        }
-        else {
             ofSetColor(0,0,255);
         }
+        else {
+            ofSetColor(100,100,100);
+        }
         ofDrawCircle(pos,circleRadius);
+
+        ofSetHexColor(0xff3355);
+        float w = 10.0f + lightNum.stringWidth(ofToString(j+1));
+        lightNum.drawString(ofToString(j+1),pos.x - w,pos.y + circleRadius);
+
+        ofSetColor(100,100,100);
+        ofSetLineWidth(1);
+        if(j+1 < numLights-1) {
+            ofVec2f pos2 = data->trees[data->currentTree]->lights.at(j+1)->getPosition();
+            ofDrawLine(pos.x,pos.y,pos2.x,pos2.y);
+        }
 
         /* Draw LEDs */
         for(int k=0; k < data->trees[data->currentTree]->lights.at(j)->pixels.size(); k++)
@@ -62,8 +80,8 @@ void LightsEditor::draw(float x, float y, float w, float h)
             float b = data->trees[data->currentTree]->lights.at(j)->pixels[k]->getBrightness();
             ofSetColor(c.r * b, c.g * b, c.b * b);
             ofFill();
-            ofDrawRectangle(pos,3,3);
-            pos.y += 4.0f;
+            ofDrawRectangle(pos,pixelRadius,pixelRadius);
+            pos.y += pixelRadius+1;
         }
     }
 
@@ -104,7 +122,7 @@ void LightsEditor::mousePressed(ofMouseEventArgs& args)
 {
     float distance = 10000;
     int id = 0;
-    ofVec2f p = ofVec2f(args.x,args.y);
+    ofVec2f p = ofVec2f(args.x-400,args.y);
     for(int j=0; j < data->trees[data->currentTree]->lights.size();j++)
     {
         ofVec2f pos = data->trees[data->currentTree]->lights.at(j)->getPosition();
@@ -118,13 +136,13 @@ void LightsEditor::mousePressed(ofMouseEventArgs& args)
     if(distance < circleRadius/2) {
         currentLight = id;
     } else {
-        data->trees[data->currentTree]->lights[currentLight]->setPosition(ofVec2f(args.x, args.y));
+        data->trees[data->currentTree]->lights[currentLight]->setPosition(ofVec2f(args.x-400, args.y)); //ofMap(args.x,400,1600,0,1600)
     }
 }
 
 void LightsEditor::mouseDragged(ofMouseEventArgs& args)
 {
-    data->trees[data->currentTree]->lights.at(currentLight)->setPosition(ofVec2f(args.x,args.y));
+    data->trees[data->currentTree]->lights.at(currentLight)->setPosition(ofVec2f(args.x-400, args.y));
 
 }
 

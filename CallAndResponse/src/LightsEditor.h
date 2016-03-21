@@ -29,6 +29,8 @@ class LightsEditor
         int currentTree;
         TreeData * data;
         float circleRadius;
+        float pixelRadius;
+        ofTrueTypeFont lightNum;
         ofFbo   fbo;
 
     private:
