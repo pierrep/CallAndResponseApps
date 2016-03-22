@@ -14,6 +14,10 @@ Project{
         files: [
             "src/Animations.cpp",
             "src/Animations.h",
+            "src/BaseEffect.cpp",
+            "src/BaseEffect.h",
+            "src/Effect.cpp",
+            "src/Effect.h",            
             "src/GuiMap.cpp",
             "src/GuiMap.h",
             "src/LedFixture.cpp",

@@ -84,6 +84,7 @@ void ofApp::draw(){
     ofSetWindowTitle("X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY));
 
     guiMap.draw(0,0,400,900);
+    animations.draw(400,0);
     editor.draw(400,0,1200,900);
 
 }

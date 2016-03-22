@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "TreeData.h"
+#include "BaseEffect.h"
 
 class Animations
 {
@@ -11,6 +12,7 @@ class Animations
 
         void setup(TreeData * _data);
         void update();
+        void draw(float x, float y);
         void setTestPattern(int i);
 
     protected:
@@ -19,6 +21,9 @@ class Animations
         /* Timing */
         float curTime, prevTime;
         int testPattern;
-        int pixelIndex;
+        unsigned int pixelIndex;
+
+        ofFbo fxframe;
+        BaseEffect* effect;
 };
 

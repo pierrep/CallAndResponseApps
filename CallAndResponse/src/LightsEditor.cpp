@@ -7,8 +7,10 @@ LightsEditor::LightsEditor()
     circleRadius = 8.0f;
     pixelRadius = 4.0f;
 
+    editorWidth = 1200;
+    editorHeight = 900;
     disableEditing();
-    fbo.allocate(1200,900);
+
 }
 
 LightsEditor::~LightsEditor()
@@ -34,20 +36,21 @@ void LightsEditor::setup(TreeData* _data)
 
 void LightsEditor::draw()
 {
-    draw(0,0,fbo.getWidth(),fbo.getHeight());
+    draw(0,0,editorWidth,editorHeight);
 }
 
 void LightsEditor::draw(float x, float y, float w, float h)
 {
-    fbo.begin();
+    ofPushMatrix();
+    ofTranslate(x,y,0);
     ofPushStyle();
-    ofClear(255,255,255, 0);
+    //ofClear(255,255,255, 0);
     if(data->bShowBgImage) {
-        treeimg[data->currentTree].draw(0,0,fbo.getWidth(),fbo.getHeight());
+        treeimg[data->currentTree].draw(0,0,editorWidth,editorHeight);
     }
 
     ofSetRectMode(OF_RECTMODE_CENTER);
-    int numLights = data->trees[data->currentTree]->lights.size();
+    unsigned int numLights = data->trees[data->currentTree]->lights.size();
     for(int j=0; j < numLights;j++)
     {
         /* Draw circle */
@@ -89,9 +92,8 @@ void LightsEditor::draw(float x, float y, float w, float h)
     ofDrawBitmapString("Name = " + data->trees[data->currentTree]->getName()+" Tree = "+ofToString(data->currentTree)+"  Light Id= "+ofToString(currentLight) ,20,ofGetHeight()-20);
 
     ofPopStyle();
-    fbo.end();
+    ofPopMatrix();
 
-    fbo.draw(x,y,w,h);
 }
 
 void LightsEditor::keyPressed(ofKeyEventArgs& args)

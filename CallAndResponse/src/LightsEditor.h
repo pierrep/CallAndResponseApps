@@ -31,7 +31,8 @@ class LightsEditor
         float circleRadius;
         float pixelRadius;
         ofTrueTypeFont lightNum;
-        ofFbo   fbo;
+        float editorWidth;
+        float editorHeight;
 
     private:
 };

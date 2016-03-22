@@ -19,8 +19,8 @@ class TreeData
         bool bShowBgImage;
 
         vector<Tree *> trees;
-        int currentTree;
-        int currentLight;
+        unsigned int currentTree;
+        unsigned int currentLight;
 
         ofColor colour;
         float brightness;
