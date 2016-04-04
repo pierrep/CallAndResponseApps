@@ -5,18 +5,20 @@ Animations::Animations()
 {
     curTime = ofGetElapsedTimeMillis();
     prevTime = curTime;
-    testPattern = 3;
+    testPattern = 5;
 
     pixelIndex = 0;
 
     fxframe.allocate(1200,900);
     effect = new Effect();
+    effect->setResolution(400,300);
 
 }
 
 void Animations::setup(TreeData * _data)
 {
     data = _data;
+    effect->setup();
 }
 
 void Animations::setTestPattern(int i)
@@ -28,6 +30,7 @@ void Animations::setTestPattern(int i)
 
 void Animations::update()
 {
+    effect->update();
 
     curTime = ofGetElapsedTimeMillis();
     if(curTime - prevTime > 100) {
@@ -72,6 +75,23 @@ void Animations::update()
 //                }
             }
         }
+        else if(testPattern == 5) {
+            ofPixels p;
+            p.allocate(1200,900,OF_IMAGE_COLOR);
+            //p = effect->noiseImage.getPixels().getData();
+             ofTexture& tex = fxframe.getTexture();
+             tex.readToPixels(p);
+
+
+            for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
+            {
+                int x = data->trees[data->currentTree]->lights[i]->getPosition().x - 400;
+                int y = data->trees[data->currentTree]->lights[i]->getPosition().y;
+                int index = (x + (y-1)*fxframe.getWidth());
+                ofColor c = ofColor(p[index],p[index+1], p[index+2]);
+                data->trees[data->currentTree]->lights[i]->setColour(c);
+            }
+        }
 
     }
 
@@ -81,7 +101,7 @@ void Animations::draw(float x, float y)
 {
     fxframe.begin();
         ofClear(255,255,255, 0);
-        effect->draw();
+        effect->draw(0,0,1200,900);
     fxframe.end();
 
     fxframe.draw(x,y,1200,900);
