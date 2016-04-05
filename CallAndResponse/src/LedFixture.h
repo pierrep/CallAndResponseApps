@@ -21,7 +21,7 @@ class LedFixture : public ofNode
         const int getId() {return id;}
         const ofVec2f getPosition() {return pos;}
 
-        void setupPixels();
+        void setupPixels(ofVec2f pos);
 
         void fadeOn();
         vector<LedPixel* > pixels;

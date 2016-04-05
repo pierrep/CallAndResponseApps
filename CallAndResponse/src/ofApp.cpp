@@ -19,7 +19,7 @@ void ofApp::setup(){
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
 
     ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
-    gui_brightness = folder->addSlider("Brightness", 0, 1, 0.4f);
+    gui_brightness = folder->addSlider("Brightness", 0, 1, 1.0f);
     gui_colour = folder->addColorPicker("Colour", ofColor(255,0,255));
     folder->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
 
@@ -52,13 +52,13 @@ void ofApp::update(){
     {
             if(data.state == data.LIGHTS_ON) {
                 data.state = data.LIGHTS_OFF;
-                wait_time = 6000;
+                wait_time = 1000;
             }
             else if(data.state == data.LIGHTS_OFF ) {
                 data.currentTree = (int) ofRandom(0,8);
                 //data->currentTree = 0;
                 data.state = data.LIGHTS_ON;
-                wait_time = 4000;
+                wait_time = 10000;
             }
             prevTimeTree = curTimeTree;
             clearTrees();

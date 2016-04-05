@@ -9,7 +9,7 @@ Animations::Animations()
 
     pixelIndex = 0;
 
-    fxframe.allocate(1200,900);
+    fxframe.allocate(1200,900,GL_RGB);
     effect = new Effect();
     effect->setResolution(400,300);
 
@@ -76,21 +76,25 @@ void Animations::update()
             }
         }
         else if(testPattern == 5) {
-            ofPixels p;
-            p.allocate(1200,900,OF_IMAGE_COLOR);
-            //p = effect->noiseImage.getPixels().getData();
-             ofTexture& tex = fxframe.getTexture();
-             tex.readToPixels(p);
 
+            fxframe.readToPixels(p);
 
             for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
             {
-                int x = data->trees[data->currentTree]->lights[i]->getPosition().x - 400;
-                int y = data->trees[data->currentTree]->lights[i]->getPosition().y;
-                int index = (x + (y-1)*fxframe.getWidth());
-                ofColor c = ofColor(p[index],p[index+1], p[index+2]);
-                data->trees[data->currentTree]->lights[i]->setColour(c);
+                for(unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size();j++) {
+                    int x = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x - 400;
+                    int y = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
+                    int index = (x + (y-1)*fxframe.getWidth()*3);
+                    ofColor c = ofColor(p[index],p[index+1], p[index+2]);
+
+                    data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
+                }
+
+
+                data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
             }
+
+
         }
 
     }
@@ -102,6 +106,7 @@ void Animations::draw(float x, float y)
     fxframe.begin();
         ofClear(255,255,255, 0);
         effect->draw(0,0,1200,900);
+
     fxframe.end();
 
     fxframe.draw(x,y,1200,900);

@@ -22,7 +22,7 @@ Effect::~Effect()
 
 void Effect::setup()
 {
-    noiseImage.allocate( resx, resy, OF_IMAGE_COLOR );
+    noiseImage.allocate( resx, resy, OF_IMAGE_GRAYSCALE);
 
 }
 

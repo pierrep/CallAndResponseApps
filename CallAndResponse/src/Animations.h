@@ -25,5 +25,7 @@ class Animations
 
         ofFbo fxframe;
         BaseEffect* effect;
+
+        ofPixels p;
 };
 

@@ -46,7 +46,7 @@ void TreeData::load()
             LedFixture* led = new LedFixture();
             led->setId(id);
             led->setPosition(ofVec2f(x,y));
-            led->setupPixels();
+            led->setupPixels(ofVec2f(x,y));
             tree->lights.push_back(led);
         }
 
