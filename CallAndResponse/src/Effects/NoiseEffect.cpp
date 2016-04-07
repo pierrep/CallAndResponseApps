@@ -1,35 +1,36 @@
-#include "Effect.h"
+#include "NoiseEffect.h"
 
-Effect::Effect()
+NoiseEffect::NoiseEffect()
 {
 
     noiseStartX = 0;
     noiseStartY = 0;
 
-    resolution.set( "Resolution", 512, 2, 64 );
-    noiseFrequency.set( "Noise Frequency", 80.0f, 0.00001f, 4096.0f );
-    animate.set( "Animate", true );
-    doThreshold.set( "Threshold", false );
-    thresholdLow.set( "Treshold Low", 0, 0, 255 );
-    thresholdHigh.set( "Treshold High", 127, 0, 255 );
-    invert.set( "Invert Threshold", false );
+    parameters.setName("Noise NoiseEffect Settings");
+    parameters.add(resolution.set( "Resolution", 512, 2, 64 ));
+    parameters.add(noiseFrequency.set( "Noise Frequency", 20.0f, 0.00001f, 4096.0f ));
+    parameters.add(animate.set( "Animate", true ));
+    parameters.add(doThreshold.set( "Threshold", false ));
+    parameters.add(thresholdLow.set( "Treshold Low", 0, 0, 255 ));
+    parameters.add(thresholdHigh.set( "Treshold High", 127, 0, 255 ));
+    parameters.add(invert.set( "Invert Threshold", false ));
 }
 
-Effect::~Effect()
+NoiseEffect::~NoiseEffect()
 {
 
 }
 
-void Effect::setup()
+void NoiseEffect::setup()
 {
     noiseImage.allocate( resx, resy, OF_IMAGE_GRAYSCALE);
 
 }
 
-void Effect::update()
+void NoiseEffect::update()
 {
     float time = 0.0f;
-    if( animate ) time = ofGetElapsedTimef();
+    if( animate ) time = ofGetElapsedTimef()/1.0f;
 
     ofPixelsRef pixels = noiseImage.getPixels();
 
@@ -57,7 +58,7 @@ void Effect::update()
 }
 
 //--------------------------------------------------------------
-void Effect::threshold( bool _upload )
+void NoiseEffect::threshold( bool _upload )
 {
     ofPixelsRef pixels = noiseImage.getPixels();
 
@@ -91,12 +92,12 @@ void Effect::threshold( bool _upload )
     }
 }
 
-void Effect::draw()
+void NoiseEffect::draw()
 {
-    noiseImage.draw( 0,0, noiseImage.getWidth(), noiseImage.getHeight() );
+    draw( 0,0, noiseImage.getWidth(), noiseImage.getHeight() );
 }
 
-void Effect::draw(float x, float y, float w, float h)
+void NoiseEffect::draw(float x, float y, float w, float h)
 {
     noiseImage.draw( x, y, w, h );
 }

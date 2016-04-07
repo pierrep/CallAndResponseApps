@@ -5,7 +5,6 @@ LightsEditor::LightsEditor()
 {
     currentLight = 0;
     circleRadius = 8.0f;
-    pixelRadius = 4.0f;
 
     editorWidth = 1200;
     editorHeight = 900;
@@ -79,12 +78,12 @@ void LightsEditor::draw(float x, float y, float w, float h)
         /* Draw LEDs */
         for(int k=0; k < data->trees[data->currentTree]->lights.at(j)->pixels.size(); k++)
         {
+            ofVec2f pixpos = data->trees[data->currentTree]->lights.at(j)->pixels[k]->getPosition();
             ofColor c = data->trees[data->currentTree]->lights.at(j)->pixels[k]->getColour();
             float b = data->trees[data->currentTree]->lights.at(j)->pixels[k]->getBrightness();
             ofSetColor(c.r * b, c.g * b, c.b * b);
             ofFill();
-            ofDrawRectangle(pos,pixelRadius,pixelRadius);
-            pos.y += pixelRadius+1;
+            ofDrawRectangle(pixpos,data->pixelWidth,data->pixelWidth);
         }
     }
 

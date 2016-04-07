@@ -7,6 +7,7 @@ TreeData::TreeData()
    currentLight = 0;
    isPlaying = true;
    bShowBgImage = true;
+   pixelWidth = 6.0f;
    state = LIGHTS_ON;
 }
 
@@ -46,7 +47,7 @@ void TreeData::load()
             LedFixture* led = new LedFixture();
             led->setId(id);
             led->setPosition(ofVec2f(x,y));
-            led->setupPixels(ofVec2f(x,y));
+            led->setupPixels(ofVec2f(x,y),pixelWidth);
             tree->lights.push_back(led);
         }
 

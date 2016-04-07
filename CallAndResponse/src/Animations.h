@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "TreeData.h"
-#include "BaseEffect.h"
+#include "Effects/BaseEffect.h"
 
 class Animations
 {
@@ -14,6 +14,7 @@ class Animations
         void update();
         void draw(float x, float y);
         void setTestPattern(int i);
+        BaseEffect* getEffect() {return effect[currentfx];}
 
     protected:
         TreeData * data;
@@ -24,7 +25,8 @@ class Animations
         unsigned int pixelIndex;
 
         ofFbo fxframe;
-        BaseEffect* effect;
+        vector<BaseEffect*> effect;
+        int currentfx;
 
         ofPixels p;
 };

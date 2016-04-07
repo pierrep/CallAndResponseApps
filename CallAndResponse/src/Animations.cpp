@@ -1,24 +1,26 @@
 #include "Animations.h"
-#include "Effect.h"
+#include "Effects/NoiseEffect.h"
+#include "Effects/BloomEffect.h"
 
 Animations::Animations()
 {
     curTime = ofGetElapsedTimeMillis();
     prevTime = curTime;
     testPattern = 5;
-
+    currentfx = 0;
     pixelIndex = 0;
 
     fxframe.allocate(1200,900,GL_RGB);
-    effect = new Effect();
-    effect->setResolution(400,300);
+    effect.push_back(new NoiseEffect());
+    effect[currentfx]->setResolution(400,300);
+    effect.push_back(new BloomEffect());
 
 }
 
 void Animations::setup(TreeData * _data)
 {
     data = _data;
-    effect->setup();
+    effect[currentfx]->setup();
 }
 
 void Animations::setTestPattern(int i)
@@ -30,7 +32,7 @@ void Animations::setTestPattern(int i)
 
 void Animations::update()
 {
-    effect->update();
+    effect[currentfx]->update();
 
     curTime = ofGetElapsedTimeMillis();
     if(curTime - prevTime > 100) {
@@ -78,20 +80,21 @@ void Animations::update()
         else if(testPattern == 5) {
 
             fxframe.readToPixels(p);
+            int s = p.size();
 
             for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
             {
                 for(unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size();j++) {
-                    int x = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x - 400;
+                    int x = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
                     int y = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
-                    int index = (x + (y-1)*fxframe.getWidth()*3);
-                    ofColor c = ofColor(p[index],p[index+1], p[index+2]);
+                    int index = ( x + (y-1)*fxframe.getWidth() ) *3;
+                    ofColor c = ofColor(p[index],0, p[index+2]);
 
                     data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
                 }
 
-
                 data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
+
             }
 
 
@@ -105,7 +108,7 @@ void Animations::draw(float x, float y)
 {
     fxframe.begin();
         ofClear(255,255,255, 0);
-        effect->draw(0,0,1200,900);
+        effect[currentfx]->draw(0,0,1200,900);
 
     fxframe.end();
 

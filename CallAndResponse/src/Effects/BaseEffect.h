@@ -6,7 +6,7 @@ class BaseEffect
 {
     public:
 
-        BaseEffect() {};
+        BaseEffect();
         virtual ~BaseEffect() {};
 
         virtual void setup() = 0;
@@ -15,8 +15,7 @@ class BaseEffect
         virtual void update() = 0;
         void setResolution(int rx, int ry) {resx = rx; resy = ry;}
 
-
-        ofImage noiseImage;
+        ofParameterGroup parameters;
 
     protected:
         float resx, resy;

@@ -29,7 +29,6 @@ class LightsEditor
         int currentTree;
         TreeData * data;
         float circleRadius;
-        float pixelRadius;
         ofTrueTypeFont lightNum;
         float editorWidth;
         float editorHeight;

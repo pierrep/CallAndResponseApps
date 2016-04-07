@@ -11,12 +11,12 @@ LedFixture::~LedFixture()
     //dtor
 }
 
-void LedFixture::setupPixels(ofVec2f pos)
+void LedFixture::setupPixels(ofVec2f pos, float pixelWidth)
 {
     for(int i=0; i < NUM_PIXELS_PER_FIXTURE; i++) {
         LedPixel* p = new LedPixel();
         p->setId((id -1)*NUM_PIXELS_PER_FIXTURE + i);
-        float y = pos.y + i*5;
+        float y = pos.y + i*(pixelWidth+1);
         ofVec2f v = ofVec2f(pos.x , y);
         p->setPosition(v);
         pixels.push_back(p);

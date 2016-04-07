@@ -3,12 +3,12 @@
 #include "ofMain.h"
 #include "BaseEffect.h"
 
-class Effect : public BaseEffect
+class NoiseEffect : public BaseEffect
 {
     public:
 
-        Effect();
-        ~Effect();
+        NoiseEffect();
+        ~NoiseEffect();
 
         void update();
         void draw();
@@ -25,6 +25,8 @@ class Effect : public BaseEffect
         ofParameter<int> thresholdHigh;
         ofParameter<bool> invert;
 
+
+        ofImage noiseImage;
         int noiseStartX;
         int noiseStartY;
 };

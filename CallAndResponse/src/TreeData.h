@@ -24,6 +24,7 @@ class TreeData
 
         ofColor colour;
         float brightness;
+        float pixelWidth;
 
     protected:
 

@@ -15,23 +15,7 @@ void ofApp::setup(){
 
     clearTrees();    
 
-    /* GUI */
-    gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
-
-    ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
-    gui_brightness = folder->addSlider("Brightness", 0, 1, 1.0f);
-    gui_colour = folder->addColorPicker("Colour", ofColor(255,0,255));
-    folder->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
-
-    folder->expand();
-
-    gui->addHeader("LIGHT SETTINGS");
-    gui->addFooter();
-    gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
-
-    gui_playButton = gui->addToggle("PLAYING",true);
-    gui_showImageButton = gui->addToggle("SHOW BACKGROUND IMAGE",true);
-    gui->onButtonEvent(this, &ofApp::onButtonEvent);
+    setupGui();
 
     curTimeTree = ofGetElapsedTimeMillis();
     prevTimeTree = curTimeTree;
@@ -147,11 +131,44 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     }
 }
 
+//--------------------------------------------------------------
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
 {
     data.colour = e.color;
 }
 
+//--------------------------------------------------------------
+void ofApp::setupGui()
+{
+    /* GUI */
+    gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
+
+    ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
+    gui_brightness = folder->addSlider("Brightness", 0, 1, 1.0f);
+    gui_colour = folder->addColorPicker("Colour", ofColor(255,0,255));
+    folder->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
+
+    folder->expand();
+
+    gui->addBreak();
+    gui->addLabel(animations.getEffect()->parameters.getName());
+    ofParameterGroup& p = animations.getEffect()->parameters;
+    for(int i = 0; i < p.size();i++) {
+        if(p.getType(i) == "11ofParameterIfE") {
+            gui->addSlider(p.getFloat(i));
+        }
+        else if(p.getType(i) == "11ofParameterIiE") {
+            gui->addSlider(p.getInt(i));
+        }
+    }
+    gui->addHeader("LIGHT SETTINGS");
+    gui->addFooter();
+    gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
+
+    gui_playButton = gui->addToggle("PLAYING",true);
+    gui_showImageButton = gui->addToggle("SHOW BACKGROUND IMAGE",true);
+    gui->onButtonEvent(this, &ofApp::onButtonEvent);
+}
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
