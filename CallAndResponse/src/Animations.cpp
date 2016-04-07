@@ -14,13 +14,18 @@ Animations::Animations()
     effect.push_back(new NoiseEffect());
     effect[currentfx]->setResolution(400,300);
     effect.push_back(new BloomEffect());
+    currentfx = 1;
 
 }
 
 void Animations::setup(TreeData * _data)
 {
     data = _data;
-    effect[currentfx]->setup();
+    for(int i =0;i < effect.size();i++) {
+        effect[i]->setup();
+        effect[i]->enable(false);
+    }
+    effect[currentfx]->enable(true);
 }
 
 void Animations::setTestPattern(int i)
@@ -32,9 +37,11 @@ void Animations::setTestPattern(int i)
 
 void Animations::update()
 {
-    effect[currentfx]->update();
-
     curTime = ofGetElapsedTimeMillis();
+
+    effect[currentfx]->update(curTime);
+
+
     if(curTime - prevTime > 100) {
         prevTime = curTime;
 
@@ -107,7 +114,7 @@ void Animations::update()
 void Animations::draw(float x, float y)
 {
     fxframe.begin();
-        ofClear(255,255,255, 0);
+        ofClear(50,50,50, 0);
         effect[currentfx]->draw(0,0,1200,900);
 
     fxframe.end();
@@ -115,3 +122,15 @@ void Animations::draw(float x, float y)
     fxframe.draw(x,y,1200,900);
 }
 
+void Animations::nextEffect()
+{
+    currentfx++;
+    if(currentfx >= effect.size()) {
+        currentfx = 0;
+    }
+
+    for(int i =0;i < effect.size();i++) {
+        effect[i]->enable(false);
+    }
+    effect[currentfx]->enable(true);
+}

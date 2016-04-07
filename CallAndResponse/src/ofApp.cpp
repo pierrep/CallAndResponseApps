@@ -12,6 +12,7 @@ void ofApp::setup(){
     guiMap.setup(&data);
     animations.setup(&data);
     bArtNetActive = artnet.setup("192.168.0.2"); //make sure the firewall is deactivated at this point
+    bEditing = false;
 
     clearTrees();    
 
@@ -80,16 +81,34 @@ void ofApp::keyPressed(int key){
         ofToggleFullscreen();
     }
 
+    if(key == 'e') {
+        if(gui_editLabel->getLabel() == "") {
+            gui_editLabel->setLabel("EDITING");
+            editor.enableEditing();
+        } else {
+            gui_editLabel->setLabel("");
+            editor.disableEditing();
+        }
+
+    }
     if(key == ' ') {
         gui_playButton->toggle();
         if(gui_playButton->getLabel() == "PLAYING") {
             gui_playButton->setLabel("PAUSED");
             data.isPlaying = false;
-            editor.enableEditing();
         } else {
             gui_playButton->setLabel("PLAYING");
             data.isPlaying = true;
-            editor.disableEditing();
+        }
+    }
+
+    if(key == 'i') {
+        gui_showImageButton->toggle();
+        if(gui_showImageButton->getEnabled()) {
+            data.bShowBgImage = true;
+        }
+        else {
+            data.bShowBgImage = false;
         }
     }
 
@@ -104,6 +123,12 @@ void ofApp::keyPressed(int key){
         {
              data.trees[data.currentTree]->lights[i]->fadeOn();
         }
+    }
+    else if(key == '5') animations.setTestPattern(5);
+
+
+    if(key == 'n') {
+        animations.nextEffect();
     }
 
 }
@@ -165,8 +190,9 @@ void ofApp::setupGui()
     gui->addFooter();
     gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
 
+    gui_editLabel = gui->addLabel("");
     gui_playButton = gui->addToggle("PLAYING",true);
-    gui_showImageButton = gui->addToggle("SHOW BACKGROUND IMAGE",true);
+    gui_showImageButton = gui->addToggle("SHOW BACKGROUND IMAGE (i)",true);
     gui->onButtonEvent(this, &ofApp::onButtonEvent);
 }
 

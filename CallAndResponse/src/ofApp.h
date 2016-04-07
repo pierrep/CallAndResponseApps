@@ -58,5 +58,7 @@ class ofApp : public ofBaseApp{
         ofxDatGuiSlider *gui_brightness;
         GuiMap guiMap;
         ofxDatGuiToggle* gui_playButton;
+        ofxDatGuiLabel* gui_editLabel;
         ofxDatGuiToggle* gui_showImageButton;
+        bool bEditing;
 };

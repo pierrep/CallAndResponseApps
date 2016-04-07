@@ -102,7 +102,6 @@ void LightsEditor::keyPressed(ofKeyEventArgs& args)
         currentLight--;
         if(currentLight < 0) currentLight = data->trees[data->currentTree]->lights.size()-1;
     }
-
     if(args.key == OF_KEY_RIGHT) {
         currentLight++;
         if(currentLight >= (data->trees[data->currentTree]->lights.size())) currentLight = 0;
@@ -110,9 +109,10 @@ void LightsEditor::keyPressed(ofKeyEventArgs& args)
 
     if(args.key == '[') {
         data->currentTree--;
-        if((data->currentTree < 0) || (data->currentTree >= data->trees.size())) data->currentTree = data->trees.size()-1;
+        if(data->currentTree >= data->trees.size()) {
+            data->currentTree = data->trees.size()-1;
+        }
     }
-
     if(args.key == ']') {
         data->currentTree++;
         if(data->currentTree >= data->trees.size()) data->currentTree = 0;
@@ -137,7 +137,13 @@ void LightsEditor::mousePressed(ofMouseEventArgs& args)
     if(distance < circleRadius/2) {
         currentLight = id;
     } else {
-        data->trees[data->currentTree]->lights[currentLight]->setPosition(ofVec2f(args.x-400, args.y)); //ofMap(args.x,400,1600,0,1600)
+        data->trees[data->currentTree]->lights[currentLight]->setPosition(ofVec2f(args.x-400, args.y));
+        ofVec2f pixpos = ofVec2f(args.x-400, args.y);
+        for(int k=0; k < data->trees[data->currentTree]->lights.at(currentLight)->pixels.size(); k++)
+        {
+            data->trees[data->currentTree]->lights.at(currentLight)->pixels[k]->setPosition(pixpos);
+            pixpos.y = pixpos.y + data->pixelWidth+1;
+        }
     }
 }
 

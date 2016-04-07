@@ -18,6 +18,8 @@ Project{
             "src/Effects/BaseEffect.h",
             "src/Effects/BloomEffect.cpp",
             "src/Effects/BloomEffect.h",
+            "src/Effects/EmptyEffect.cpp",
+            "src/Effects/EmptyEffect.h",
             "src/Effects/NoiseEffect.cpp",
             "src/Effects/NoiseEffect.h",
             "src/GuiMap.cpp",

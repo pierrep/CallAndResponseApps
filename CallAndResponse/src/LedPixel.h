@@ -2,7 +2,6 @@
 #include "ofMain.h"
 #include "ofxPlaylist.h"
 
-#define DISTANCE_BETWEEN_PIXELS 0.05
 
 class LedPixel
 {

@@ -27,8 +27,10 @@ void NoiseEffect::setup()
 
 }
 
-void NoiseEffect::update()
+void NoiseEffect::update(float curTime)
 {
+    if(!bEnabled) return;
+
     float time = 0.0f;
     if( animate ) time = ofGetElapsedTimef()/1.0f;
 
@@ -99,5 +101,6 @@ void NoiseEffect::draw()
 
 void NoiseEffect::draw(float x, float y, float w, float h)
 {
+    if(!bEnabled) return;
     noiseImage.draw( x, y, w, h );
 }

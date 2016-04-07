@@ -10,7 +10,7 @@ class NoiseEffect : public BaseEffect
         NoiseEffect();
         ~NoiseEffect();
 
-        void update();
+        void update(float time);
         void draw();
         void draw(float x, float y, float w, float h);
         void setup();

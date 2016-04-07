@@ -3,19 +3,16 @@
 #include "ofMain.h"
 #include "BaseEffect.h"
 
-class BloomEffect : public BaseEffect
+class EmptyEffect : public BaseEffect
 {
     public:
 
-        BloomEffect();
-        ~BloomEffect();
+        EmptyEffect();
+        ~EmptyEffect();
 
         void update(float time);
         void draw();
         void draw(float x, float y, float w, float h);
         void setup();
-
-        //~ ofParameter<int> resolution;
-        //~ ofParameter<float> noiseFrequency;
 
 };
