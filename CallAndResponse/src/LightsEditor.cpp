@@ -58,6 +58,8 @@ void LightsEditor::draw(float x, float y, float w, float h)
         ofSetLineWidth(3);
         if(currentLight == j) {
             ofSetColor(0,0,255);
+            if(bEditing)
+            data->trees[data->currentTree]->lights.at(j)->setColour(ofColor(255,255,255));
         }
         else {
             ofSetColor(100,100,100);
@@ -108,12 +110,14 @@ void LightsEditor::keyPressed(ofKeyEventArgs& args)
     }
 
     if(args.key == '[') {
+        data->trees[currentTree]->clear();
         data->currentTree--;
         if(data->currentTree >= data->trees.size()) {
             data->currentTree = data->trees.size()-1;
         }
     }
     if(args.key == ']') {
+        data->trees[currentTree]->clear();
         data->currentTree++;
         if(data->currentTree >= data->trees.size()) data->currentTree = 0;
     }
@@ -163,6 +167,7 @@ void LightsEditor::mouseReleased(ofMouseEventArgs& args) {
 
 
 void LightsEditor::enableEditing() {
+    bEditing = true;
     ofAddListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
     ofAddListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
     ofAddListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
@@ -173,6 +178,7 @@ void LightsEditor::enableEditing() {
 }
 
 void LightsEditor::disableEditing() {
+    bEditing = false;
     ofRemoveListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
     ofRemoveListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
     ofRemoveListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);

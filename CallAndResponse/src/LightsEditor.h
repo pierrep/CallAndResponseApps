@@ -32,6 +32,7 @@ class LightsEditor
         ofTrueTypeFont lightNum;
         float editorWidth;
         float editorHeight;
+        bool bEditing;
 
     private:
 };

@@ -95,7 +95,7 @@ void Animations::update()
                     int x = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
                     int y = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
                     int index = ( x + (y-1)*fxframe.getWidth() ) *3;
-                    ofColor c = ofColor(p[index],0, p[index+2]);
+                    ofColor c = ofColor(p[index],p[index+1], p[index+2]);
 
                     data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
                 }
@@ -114,7 +114,7 @@ void Animations::update()
 void Animations::draw(float x, float y)
 {
     fxframe.begin();
-        ofClear(50,50,50, 0);
+        ofClear(0,0,0, 0);
         effect[currentfx]->draw(0,0,1200,900);
 
     fxframe.end();

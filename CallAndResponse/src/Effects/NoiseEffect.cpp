@@ -30,6 +30,7 @@ void NoiseEffect::setup()
 void NoiseEffect::update(float curTime)
 {
     if(!bEnabled) return;
+    return;
 
     float time = 0.0f;
     if( animate ) time = ofGetElapsedTimef()/1.0f;

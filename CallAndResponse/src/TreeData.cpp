@@ -3,7 +3,7 @@
 
 TreeData::TreeData()
 {
-   currentTree = 0;
+   currentTree = 5;
    currentLight = 0;
    isPlaying = true;
    bShowBgImage = true;

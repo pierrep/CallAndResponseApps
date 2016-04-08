@@ -11,7 +11,7 @@ void ofApp::setup(){
     editor.setup(&data);
     guiMap.setup(&data);
     animations.setup(&data);
-    bArtNetActive = artnet.setup("192.168.0.2"); //make sure the firewall is deactivated at this point
+    bArtNetActive = artnet.setup("192.168.0.3"); //make sure the firewall is deactivated at this point
     bEditing = false;
 
     clearTrees();    
@@ -66,7 +66,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetWindowTitle("X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY));
+    ofSetWindowTitle("X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY) + " fps:"+ofToString(ofGetFrameRate()));
 
     guiMap.draw(0,0,400,900);
     animations.draw(400,0);
