@@ -12,31 +12,31 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
-            "src/Animations.cpp",
-            "src/Animations.h",
-            "src/Effects/BaseEffect.cpp",
-            "src/Effects/BaseEffect.h",
-            "src/Effects/BloomEffect.cpp",
-            "src/Effects/BloomEffect.h",
-            "src/Effects/EmptyEffect.cpp",
-            "src/Effects/EmptyEffect.h",
-            "src/Effects/NoiseEffect.cpp",
-            "src/Effects/NoiseEffect.h",
-            "src/GuiMap.cpp",
-            "src/GuiMap.h",
-            "src/LedFixture.cpp",
-            "src/LedFixture.h",
-            "src/LedPixel.cpp",
-            "src/LedPixel.h",
-            "src/LightsEditor.cpp",
-            "src/LightsEditor.h",
-            "src/Tree.cpp",
-            "src/Tree.h",
-            "src/TreeData.cpp",
-            "src/TreeData.h",
-            "src/main.cpp",
-            "src/ofApp.cpp",
-            "src/ofApp.h",
+            'src/Animations.cpp',
+            'src/Animations.h',
+            'src/Effects/BaseEffect.cpp',
+            'src/Effects/BaseEffect.h',
+            'src/Effects/CalibrateEffect.cpp',
+            'src/Effects/CalibrateEffect.h',
+            'src/Effects/EmptyEffect.cpp',
+            'src/Effects/EmptyEffect.h',
+            'src/Effects/NoiseEffect.cpp',
+            'src/Effects/NoiseEffect.h',
+            'src/GuiMap.cpp',
+            'src/GuiMap.h',
+            'src/LedFixture.cpp',
+            'src/LedFixture.h',
+            'src/LedPixel.cpp',
+            'src/LedPixel.h',
+            'src/LightsEditor.cpp',
+            'src/LightsEditor.h',
+            'src/Tree.cpp',
+            'src/Tree.h',
+            'src/TreeData.cpp',
+            'src/TreeData.h',
+            'src/main.cpp',
+            'src/ofApp.cpp',
+            'src/ofApp.h',
         ]
 
         of.addons: [
@@ -48,6 +48,7 @@ Project{
             'ofxGameCamera',
             'ofxPlaylist',
             'ofxDatGui',
+            'ofxGenericDmx',
         ]
 
         // additional flags for the project. the of module sets some
@@ -57,7 +58,7 @@ Project{
         of.includePaths: []     // include search paths
         of.cFlags: []           // flags passed to the c compiler
         of.cxxFlags: []         // flags passed to the c++ compiler
-        of.linkerFlags: []      // flags passed to the linker
+        of.linkerFlags: ["-lftdi"]      // flags passed to the linker
         of.defines: []          // defines are passed as -D to the compiler
                                 // and can be checked with #ifdef or #if in the code
 

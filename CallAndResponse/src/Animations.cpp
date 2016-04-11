@@ -1,6 +1,6 @@
 #include "Animations.h"
 #include "Effects/NoiseEffect.h"
-#include "Effects/BloomEffect.h"
+#include "Effects/CalibrateEffect.h"
 
 Animations::Animations()
 {
@@ -11,10 +11,10 @@ Animations::Animations()
     pixelIndex = 0;
 
     fxframe.allocate(1200,900,GL_RGB);
+    effect.push_back(new CalibrateEffect());
     effect.push_back(new NoiseEffect());
-    effect[currentfx]->setResolution(400,300);
-    effect.push_back(new BloomEffect());
-    currentfx = 1;
+    effect.back()->setResolution(400,300);
+    currentfx = 0;
 
 }
 

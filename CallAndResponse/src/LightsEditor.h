@@ -17,6 +17,7 @@ class LightsEditor
         void mouseMoved(ofMouseEventArgs& args);
         void mouseReleased(ofMouseEventArgs& args);
         void keyPressed(ofKeyEventArgs& args);
+        bool isEditing() {return bEditing;}
 
         void enableEditing();
         void disableEditing();

@@ -3,12 +3,12 @@
 #include "ofMain.h"
 #include "BaseEffect.h"
 
-class BloomEffect : public BaseEffect
+class CalibrateEffect : public BaseEffect
 {
     public:
 
-        BloomEffect();
-        ~BloomEffect();
+        CalibrateEffect();
+        ~CalibrateEffect();
 
         void update(float time);
         void draw();

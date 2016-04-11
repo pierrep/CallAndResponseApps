@@ -6,3 +6,4 @@ ofxArtnet
 ofxGameCamera
 ofxPlaylist
 ofxDatGui
+ofxGenericDmx

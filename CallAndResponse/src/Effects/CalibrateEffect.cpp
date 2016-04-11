@@ -1,6 +1,6 @@
-#include "BloomEffect.h"
+#include "CalibrateEffect.h"
 
-BloomEffect::BloomEffect()
+CalibrateEffect::CalibrateEffect()
 {
 
     parameters.setName("Bloom Effect Settings");
@@ -8,28 +8,28 @@ BloomEffect::BloomEffect()
 
 }
 
-BloomEffect::~BloomEffect()
+CalibrateEffect::~CalibrateEffect()
 {
 
 }
 
-void BloomEffect::setup()
+void CalibrateEffect::setup()
 {
 
 
 }
 
-void BloomEffect::update(float curTime)
+void CalibrateEffect::update(float curTime)
 {
 
 }
 
-void BloomEffect::draw()
+void CalibrateEffect::draw()
 {
 
 }
 
-void BloomEffect::draw(float x, float y, float w, float h)
+void CalibrateEffect::draw(float x, float y, float w, float h)
 {
     ofPushStyle();
 

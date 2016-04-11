@@ -12,6 +12,19 @@ void ofApp::setup(){
     guiMap.setup(&data);
     animations.setup(&data);
     bArtNetActive = artnet.setup("192.168.0.3"); //make sure the firewall is deactivated at this point
+    if(!bArtNetActive) {
+        memset( dmxData_, 0, DMX_DATA_LENGTH );
+        dmxInterface_ = ofxGenericDmx::openFirstDevice();
+        if ( dmxInterface_ == 0 ) {
+            ofLog(OF_LOG_ERROR, "No Enttec Device Found" );
+            bDmxUsbActive = false;
+        }
+        else {
+            ofLog(OF_LOG_NOTICE,"isOpen: %i", dmxInterface_->isOpen() );
+            bDmxUsbActive = true;
+        }
+
+    }
     bEditing = false;
 
     clearTrees();    
@@ -51,7 +64,9 @@ void ofApp::update(){
 
     if(data.state == data.LIGHTS_OFF) return;
 
-    animations.update();
+    if(!editor.isEditing()) {
+        animations.update();
+    }
 
     data.colour = gui_colour->getColor();
     data.brightness = gui_brightness->getValue();
@@ -61,6 +76,13 @@ void ofApp::update(){
         data.trees[i]->update();
         int universe = data.trees[i]->getId();
         if(bArtNetActive) artnet.sendDmx("192.168.0.11", 0, universe, data.trees[i]->getBuffer(), 512);
+        else if(bDmxUsbActive) {
+            if(i == 0) { //only send 1st tree
+            dmxData_[0] = 0;
+            memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
+            dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
+            }
+        }
     }
 }
 
@@ -70,6 +92,7 @@ void ofApp::draw(){
 
     guiMap.draw(0,0,400,900);
     animations.draw(400,0);
+    if(editor.isEditing()) clearTrees();
     editor.draw(400,0,1200,900);
 
 }

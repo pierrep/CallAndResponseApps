@@ -10,6 +10,9 @@
 #include "GuiMap.h"
 #include "Animations.h"
 
+#include "ofxGenericDmx.h"
+#define DMX_DATA_LENGTH 513
+
 class ofApp : public ofBaseApp{
 
     public:
@@ -42,6 +45,12 @@ class ofApp : public ofBaseApp{
         /* ArtNet */
         ofxArtnet artnet;
         bool bArtNetActive;
+
+        /* Enntec DMX USB Pro object */
+        DmxDevice* dmxInterface_;
+        //our DMX packet (which holds the channel values + 1st byte for the start code)
+        unsigned char dmxData_[DMX_DATA_LENGTH];
+        bool bDmxUsbActive;
 
         /* Animations */
         Animations animations;
