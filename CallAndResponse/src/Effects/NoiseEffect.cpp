@@ -6,7 +6,7 @@ NoiseEffect::NoiseEffect()
     noiseStartX = 0;
     noiseStartY = 0;
 
-    parameters.setName("Noise NoiseEffect Settings");
+    parameters.setName("Noise" + baseName);
     parameters.add(resolution.set( "Resolution", 512, 2, 64 ));
     parameters.add(noiseFrequency.set( "Noise Frequency", 20.0f, 0.00001f, 4096.0f ));
     parameters.add(animate.set( "Animate", true ));
@@ -30,6 +30,8 @@ void NoiseEffect::setup()
 void NoiseEffect::update(float curTime)
 {
     if(!bEnabled) return;
+
+    BaseEffect::update(curTime);
 
     float time = 0.0f;
     if( animate ) time = ofGetElapsedTimef()/1.0f;
@@ -94,16 +96,14 @@ void NoiseEffect::threshold( bool _upload )
     }
 }
 
-void NoiseEffect::draw()
-{
-    draw( 0,0, noiseImage.getWidth(), noiseImage.getHeight() );
-}
 
 void NoiseEffect::draw(float x, float y, float w, float h)
 {
     if(!bEnabled) return;
+
     ofPushStyle();
     ofSetColor(255,0,255);
     noiseImage.draw( x, y, w, h );
     ofPopStyle();
+
 }

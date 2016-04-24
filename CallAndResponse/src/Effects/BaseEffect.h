@@ -1,6 +1,7 @@
 
 #pragma once
 #include "ofMain.h"
+#include "ofxDatGui.h"
 
 class BaseEffect
 {
@@ -10,9 +11,10 @@ class BaseEffect
         virtual ~BaseEffect() {};
 
         virtual void setup() = 0;
-        virtual void draw() = 0;
+        virtual void drawGui();
         virtual void draw(float x, float y, float w, float h) = 0;
-        virtual void update(float time) = 0;
+        virtual void update(float time);
+        void setupGui();
         void enableEditing();
         void disableEditing();
         void mousePressed(ofMouseEventArgs& args);
@@ -30,5 +32,7 @@ class BaseEffect
         float mouseX, mouseY;
         bool bToggle;
         bool bEnabled;
+        string baseName;
+        ofxDatGuiFolder* paramfolder;
 
 };

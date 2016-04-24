@@ -3,18 +3,16 @@
 #include "ofMain.h"
 #include "BaseEffect.h"
 
-class CalibrateEffect : public BaseEffect
+class BloomEffect : public BaseEffect
 {
     public:
 
-        CalibrateEffect();
-        ~CalibrateEffect();
+        BloomEffect();
+        ~BloomEffect();
 
         void update(float time);
         void draw();
         void draw(float x, float y, float w, float h);
         void setup();
-
-        ofParameter<bool> orientation;
 
 };

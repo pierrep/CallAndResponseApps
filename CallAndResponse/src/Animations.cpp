@@ -14,15 +14,16 @@ Animations::Animations()
     effect.push_back(new CalibrateEffect());
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
-    currentfx = 0;
+    currentfx = 1;
 
 }
 
 void Animations::setup(TreeData * _data)
 {
     data = _data;
-    for(int i =0;i < effect.size();i++) {
+    for(int i =0;i < effect.size();i++) {        
         effect[i]->setup();
+        effect[i]->setupGui();
         effect[i]->enable(false);
     }
     effect[currentfx]->enable(true);
@@ -120,6 +121,11 @@ void Animations::draw(float x, float y)
     fxframe.end();
 
     fxframe.draw(x,y,1200,900);
+}
+
+void Animations::drawGui()
+{
+    effect[currentfx]->drawGui();
 }
 
 void Animations::nextEffect()

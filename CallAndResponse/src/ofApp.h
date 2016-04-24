@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
 #include "ofxArtnet.h"
-//#include "ofxGui.h"
 #include "ofxDatGui.h"
 #include "LightsEditor.h"
 #include "TreeData.h"
@@ -37,6 +36,7 @@ class ofApp : public ofBaseApp{
             void drawModel();
             void onButtonEvent(ofxDatGuiButtonEvent e);
             void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
+            void updateGui();
 
         /* Trees */
         LightsEditor editor;
@@ -69,5 +69,6 @@ class ofApp : public ofBaseApp{
         ofxDatGuiToggle* gui_playButton;
         ofxDatGuiLabel* gui_editLabel;
         ofxDatGuiToggle* gui_showImageButton;
+        ofxDatGuiFolder* paramfolder;
         bool bEditing;
 };

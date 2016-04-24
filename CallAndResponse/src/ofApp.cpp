@@ -3,7 +3,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofBackground(255);
+    ofBackground(50,50,50);
     ofSetVerticalSync(false);
     ofSetFrameRate(30);
 
@@ -94,6 +94,7 @@ void ofApp::draw(){
     animations.draw(400,0);
     if(editor.isEditing()) clearTrees();
     editor.draw(400,0,1200,900);
+    animations.drawGui();
 
 }
 
@@ -152,6 +153,7 @@ void ofApp::keyPressed(int key){
 
     if(key == 'n') {
         animations.nextEffect();
+        updateGui();
     }
 
 }
@@ -162,11 +164,9 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
         if(e.target->getLabel() == "PLAYING") {
             e.target->setLabel("PAUSED");
             data.isPlaying = false;
-            editor.enableEditing();
         } else if (e.target->getLabel() == "PAUSED") {
             e.target->setLabel("PLAYING");
             data.isPlaying = true;
-            editor.disableEditing();
         }
     } else if (e.target == gui_showImageButton) {
 
@@ -189,6 +189,7 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
 void ofApp::setupGui()
 {
     /* GUI */
+    ofxDatGuiLog::quiet();
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
 
     ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
@@ -198,17 +199,6 @@ void ofApp::setupGui()
 
     folder->expand();
 
-    gui->addBreak();
-    gui->addLabel(animations.getEffect()->parameters.getName());
-    ofParameterGroup& p = animations.getEffect()->parameters;
-    for(int i = 0; i < p.size();i++) {
-        if(p.getType(i) == "11ofParameterIfE") {
-            gui->addSlider(p.getFloat(i));
-        }
-        else if(p.getType(i) == "11ofParameterIiE") {
-            gui->addSlider(p.getInt(i));
-        }
-    }
     gui->addHeader("LIGHT SETTINGS");
     gui->addFooter();
     gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
@@ -217,6 +207,45 @@ void ofApp::setupGui()
     gui_playButton = gui->addToggle("PLAYING",true);
     gui_showImageButton = gui->addToggle("SHOW BACKGROUND IMAGE (i)",true);
     gui->onButtonEvent(this, &ofApp::onButtonEvent);
+
+    gui->addBreak();
+
+//    paramfolder = gui->addFolder(ofToUpper(animations.getEffect()->parameters.getName()), ofColor::green);
+//    ofParameterGroup& p = animations.getEffect()->parameters;
+//    for(int i = 0; i < p.size();i++) {
+//        if(p.getType(i) == "11ofParameterIfE") {
+//            paramfolder->addSlider(p.getFloat(i));
+//        }
+//        else if(p.getType(i) == "11ofParameterIiE") {
+//            paramfolder->addSlider(p.getInt(i));
+//        }
+//        else if(p.getType(i) == "11ofParameterIbE") {
+//            paramfolder->addToggle(p.getBool(i));
+//        }
+//    }
+//    paramfolder->expand();
+}
+
+//--------------------------------------------------------------
+void ofApp::updateGui()
+{
+//    delete paramfolder;
+//    paramfolder = nullptr;
+
+//    paramfolder = gui->addFolder(ofToUpper(animations.getEffect()->parameters.getName()), ofColor::green);
+//    ofParameterGroup& p = animations.getEffect()->parameters;
+//    for(int i = 0; i < p.size();i++) {
+//        if(p.getType(i) == "11ofParameterIfE") {
+//            paramfolder->addSlider(p.getFloat(i));
+//        }
+//        else if(p.getType(i) == "11ofParameterIiE") {
+//            paramfolder->addSlider(p.getInt(i));
+//        }
+//        else if(p.getType(i) == "11ofParameterIbE") {
+//            paramfolder->addToggle(p.getBool(i));
+//        }
+//    }
+//    paramfolder->expand();
 }
 
 //--------------------------------------------------------------
@@ -276,6 +305,13 @@ void ofApp::clearTrees()
     {
         data.trees[i]->clear();
         if(bArtNetActive) artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
+        else if(bDmxUsbActive) {
+            if(i == 0) { //only send 1st tree
+            dmxData_[0] = 0;
+            memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
+            dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
+            }
+        }
     }
 }
 

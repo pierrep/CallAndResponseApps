@@ -12,14 +12,16 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
+            "src/Effects/EmptyEffect.cpp",
+            "src/Effects/EmptyEffect.h",
             'src/Animations.cpp',
             'src/Animations.h',
             'src/Effects/BaseEffect.cpp',
             'src/Effects/BaseEffect.h',
             'src/Effects/CalibrateEffect.cpp',
             'src/Effects/CalibrateEffect.h',
-            'src/Effects/EmptyEffect.cpp',
-            'src/Effects/EmptyEffect.h',
+            'src/Effects/BloomEffect.cpp',
+            'src/Effects/BloomEffect.h',
             'src/Effects/NoiseEffect.cpp',
             'src/Effects/NoiseEffect.h',
             'src/GuiMap.cpp',

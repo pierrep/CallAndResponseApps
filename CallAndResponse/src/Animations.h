@@ -13,6 +13,7 @@ class Animations
 
         void setup(TreeData * _data);
         void update();
+        void drawGui();
         void draw(float x, float y);
         void setTestPattern(int i);
         BaseEffect* getEffect() {return effect[currentfx];}
