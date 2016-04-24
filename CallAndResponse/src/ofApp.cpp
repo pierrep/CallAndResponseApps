@@ -34,13 +34,17 @@ void ofApp::setup(){
     curTimeTree = ofGetElapsedTimeMillis();
     prevTimeTree = curTimeTree;
     wait_time = 4000;
+    animations.load();
+    animations.begin();
 }
 
 //--------------------------------------------------------------
 void ofApp::exit(){
 
     data.save();
-    clearTrees();
+    animations.save();
+    clearTrees();  
+
 }
 
 //--------------------------------------------------------------
@@ -56,6 +60,9 @@ void ofApp::update(){
                 data.currentTree = (int) ofRandom(0,8);
                 //data->currentTree = 0;
                 data.state = data.LIGHTS_ON;
+                if(!editor.isEditing()) {
+                    animations.begin();
+                }
                 wait_time = 10000;
             }
             prevTimeTree = curTimeTree;
@@ -75,14 +82,7 @@ void ofApp::update(){
     {
         data.trees[i]->update();
         int universe = data.trees[i]->getId();
-        if(bArtNetActive) artnet.sendDmx("192.168.0.11", 0, universe, data.trees[i]->getBuffer(), 512);
-        else if(bDmxUsbActive) {
-            if(i == 0) { //only send 1st tree
-            dmxData_[0] = 0;
-            memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
-            dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
-            }
-        }
+        updateTreeDMX(i);
     }
 }
 
@@ -92,7 +92,9 @@ void ofApp::draw(){
 
     guiMap.draw(0,0,400,900);
     animations.draw(400,0);
-    if(editor.isEditing()) clearTrees();
+    if(editor.isEditing()) {
+
+    }
     editor.draw(400,0,1200,900);
     animations.drawGui();
 
@@ -153,7 +155,6 @@ void ofApp::keyPressed(int key){
 
     if(key == 'n') {
         animations.nextEffect();
-        updateGui();
     }
 
 }
@@ -210,42 +211,29 @@ void ofApp::setupGui()
 
     gui->addBreak();
 
-//    paramfolder = gui->addFolder(ofToUpper(animations.getEffect()->parameters.getName()), ofColor::green);
-//    ofParameterGroup& p = animations.getEffect()->parameters;
-//    for(int i = 0; i < p.size();i++) {
-//        if(p.getType(i) == "11ofParameterIfE") {
-//            paramfolder->addSlider(p.getFloat(i));
-//        }
-//        else if(p.getType(i) == "11ofParameterIiE") {
-//            paramfolder->addSlider(p.getInt(i));
-//        }
-//        else if(p.getType(i) == "11ofParameterIbE") {
-//            paramfolder->addToggle(p.getBool(i));
-//        }
-//    }
-//    paramfolder->expand();
 }
 
 //--------------------------------------------------------------
-void ofApp::updateGui()
+void ofApp::updateTreeDMX(int i)
 {
-//    delete paramfolder;
-//    paramfolder = nullptr;
+    if(bArtNetActive) artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
+    else if(bDmxUsbActive) {
+        if(i == 0) { //only send 1st tree
+        dmxData_[0] = 0;
+        memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
+        dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
+        }
+    }
+}
 
-//    paramfolder = gui->addFolder(ofToUpper(animations.getEffect()->parameters.getName()), ofColor::green);
-//    ofParameterGroup& p = animations.getEffect()->parameters;
-//    for(int i = 0; i < p.size();i++) {
-//        if(p.getType(i) == "11ofParameterIfE") {
-//            paramfolder->addSlider(p.getFloat(i));
-//        }
-//        else if(p.getType(i) == "11ofParameterIiE") {
-//            paramfolder->addSlider(p.getInt(i));
-//        }
-//        else if(p.getType(i) == "11ofParameterIbE") {
-//            paramfolder->addToggle(p.getBool(i));
-//        }
-//    }
-//    paramfolder->expand();
+//--------------------------------------------------------------
+void ofApp::clearTrees()
+{
+    for(int i = 0;i < data.trees.size();i++)
+    {
+        data.trees[i]->clear();
+        updateTreeDMX(i);
+    }
 }
 
 //--------------------------------------------------------------
@@ -298,20 +286,4 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
-//--------------------------------------------------------------
-void ofApp::clearTrees()
-{
-    for(int i = 0;i < data.trees.size();i++)
-    {
-        data.trees[i]->clear();
-        if(bArtNetActive) artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
-        else if(bDmxUsbActive) {
-            if(i == 0) { //only send 1st tree
-            dmxData_[0] = 0;
-            memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
-            dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
-            }
-        }
-    }
-}
 

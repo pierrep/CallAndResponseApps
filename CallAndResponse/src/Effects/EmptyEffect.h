@@ -11,8 +11,8 @@ class EmptyEffect : public BaseEffect
         ~EmptyEffect();
 
         void update(float time);
-        void draw();
         void draw(float x, float y, float w, float h);
         void setup();
+        void begin();
 
 };

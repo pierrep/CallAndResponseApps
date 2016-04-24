@@ -4,7 +4,6 @@ CalibrateEffect::CalibrateEffect()
 {
 
     parameters.setName("Calibrate" + baseName);
-    //parameters.add(noiseFrequency.set( "Noise Frequency", 20.0f, 0.00001f, 4096.0f ));
     parameters.add(orientation.set( "Orientation", false ));
 }
 
@@ -16,7 +15,11 @@ CalibrateEffect::~CalibrateEffect()
 void CalibrateEffect::setup()
 {
 
+}
 
+void CalibrateEffect::begin()
+{
+    if(!bEnabled) return;
 }
 
 void CalibrateEffect::update(float curTime)
@@ -24,11 +27,6 @@ void CalibrateEffect::update(float curTime)
     if(!bEnabled) return;
 
     BaseEffect::update(curTime);
-
-}
-
-void CalibrateEffect::draw()
-{
 
 }
 

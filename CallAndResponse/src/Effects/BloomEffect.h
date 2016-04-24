@@ -14,5 +14,12 @@ class BloomEffect : public BaseEffect
         void draw();
         void draw(float x, float y, float w, float h);
         void setup();
+        void begin();
 
+        ofParameter<int> maxradius;
+        ofParameter<float> bloomspeed;
+        float radius;
+        float ratio;
+
+        ofColor c1,c2;
 };

@@ -41,6 +41,7 @@ void BaseEffect::setupGui()
 void BaseEffect::update(float time)
 {
     paramfolder->update();
+    timeline.update();
 }
 
 void BaseEffect::drawGui()

@@ -59,12 +59,16 @@ void LightsEditor::draw(float x, float y, float w, float h)
         if(currentLight == j) {
             ofSetColor(0,0,255);
             if(bEditing) {
-            data->trees[data->currentTree]->lights.at(j)->setColour(ofColor(255,255,255));
-            data->trees[data->currentTree]->lights[j]->setBrightness(data->brightness);
+                data->trees[data->currentTree]->lights.at(j)->setColour(ofColor(255,255,255));
+                data->trees[data->currentTree]->lights[j]->setBrightness(data->brightness);
             }
         }
         else {
             ofSetColor(100,100,100);
+            if(bEditing) {
+                data->trees[data->currentTree]->lights.at(j)->setColour(ofColor(0,0,0));
+                data->trees[data->currentTree]->lights[j]->setBrightness(data->brightness);
+            }
         }
         ofDrawCircle(pos,circleRadius);
 

@@ -2,6 +2,9 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxDatGui.h"
+#include "ofxPlaylist.h"
+
+using namespace Playlist;
 
 class BaseEffect
 {
@@ -14,6 +17,7 @@ class BaseEffect
         virtual void drawGui();
         virtual void draw(float x, float y, float w, float h) = 0;
         virtual void update(float time);
+        virtual void begin() = 0;
         void setupGui();
         void enableEditing();
         void disableEditing();
@@ -34,5 +38,6 @@ class BaseEffect
         bool bEnabled;
         string baseName;
         ofxDatGuiFolder* paramfolder;
+        ofxPlaylist timeline;
 
 };

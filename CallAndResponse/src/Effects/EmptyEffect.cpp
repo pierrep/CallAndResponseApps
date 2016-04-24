@@ -16,7 +16,11 @@ EmptyEffect::~EmptyEffect()
 void EmptyEffect::setup()
 {
 
+}
 
+void EmptyEffect::begin()
+{
+    if(!bEnabled) return;
 }
 
 void EmptyEffect::update(float curTime)
@@ -24,11 +28,6 @@ void EmptyEffect::update(float curTime)
     if(!bEnabled) return;
 
     BaseEffect::update(curTime);
-
-}
-
-void EmptyEffect::draw()
-{
 
 }
 

@@ -27,6 +27,11 @@ void NoiseEffect::setup()
 
 }
 
+void NoiseEffect::begin()
+{
+    if(!bEnabled) return;
+}
+
 void NoiseEffect::update(float curTime)
 {
     if(!bEnabled) return;

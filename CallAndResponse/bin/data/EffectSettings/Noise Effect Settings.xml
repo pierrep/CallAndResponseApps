@@ -1,0 +1,9 @@
+<Noise_Effect_Settings>
+	<Resolution>512</Resolution>
+	<Noise_Frequency>20</Noise_Frequency>
+	<Animate>1</Animate>
+	<Threshold>1</Threshold>
+	<Treshold_Low>105</Treshold_Low>
+	<Treshold_High>119</Treshold_High>
+	<Invert_Threshold>0</Invert_Threshold>
+</Noise_Effect_Settings>

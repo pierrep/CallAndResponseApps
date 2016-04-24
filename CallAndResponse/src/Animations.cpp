@@ -1,4 +1,5 @@
 #include "Animations.h"
+#include "Effects/BloomEffect.h"
 #include "Effects/NoiseEffect.h"
 #include "Effects/CalibrateEffect.h"
 
@@ -11,10 +12,11 @@ Animations::Animations()
     pixelIndex = 0;
 
     fxframe.allocate(1200,900,GL_RGB);
+    effect.push_back(new BloomEffect());
     effect.push_back(new CalibrateEffect());
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
-    currentfx = 1;
+    currentfx = 0;
 
 }
 
@@ -128,6 +130,11 @@ void Animations::drawGui()
     effect[currentfx]->drawGui();
 }
 
+void Animations::begin()
+{
+    effect[currentfx]->begin();
+}
+
 void Animations::nextEffect()
 {
     currentfx++;
@@ -139,4 +146,24 @@ void Animations::nextEffect()
         effect[i]->enable(false);
     }
     effect[currentfx]->enable(true);
+}
+
+void Animations::save()
+{
+    for(int i = 0;i < effect.size();i++) {
+        settings.clear();
+        settings.serialize(effect[i]->parameters);
+        settings.save("EffectSettings/"+effect[i]->parameters.getName()+".xml");
+    }
+
+}
+
+void Animations::load()
+{
+    for(int i = 0;i < effect.size();i++) {
+        settings.clear();
+        settings.load("EffectSettings/"+effect[i]->parameters.getName()+".xml");
+        settings.deserialize(effect[i]->parameters);
+    }
+
 }

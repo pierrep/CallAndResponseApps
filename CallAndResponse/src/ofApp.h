@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxXmlSettings.h"
 #include "ofxArtnet.h"
 #include "ofxDatGui.h"
 #include "LightsEditor.h"
@@ -32,11 +31,11 @@ class ofApp : public ofBaseApp{
             void dragEvent(ofDragInfo dragInfo);
             void gotMessage(ofMessage msg);
 
+            void updateTreeDMX(int i);
             void clearTrees();
             void drawModel();
             void onButtonEvent(ofxDatGuiButtonEvent e);
             void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
-            void updateGui();
 
         /* Trees */
         LightsEditor editor;
@@ -58,10 +57,6 @@ class ofApp : public ofBaseApp{
         float wait_time;
 
         /* GUI */
-        //ofParameter<float> brightness;
-//        ofParameter<ofColor> colour;
-//        ofParameterGroup parameters;
-        //ofxPanel gui;
         ofxDatGui* gui;
         ofxDatGuiColorPicker *gui_colour;
         ofxDatGuiSlider *gui_brightness;

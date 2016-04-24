@@ -14,6 +14,7 @@ class CalibrateEffect : public BaseEffect
         void draw();
         void draw(float x, float y, float w, float h);
         void setup();
+        void begin();
 
         ofParameter<bool> orientation;
 

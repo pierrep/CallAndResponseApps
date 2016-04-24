@@ -18,6 +18,9 @@ class Animations
         void setTestPattern(int i);
         BaseEffect* getEffect() {return effect[currentfx];}
         void nextEffect();
+        void begin();
+        void save();
+        void load();
 
     protected:
         TreeData * data;
@@ -28,11 +31,13 @@ class Animations
         unsigned int pixelIndex;
 
         /* Animations */
-        ofxPlaylist playlist;
+        ofxPlaylist masterTimeline;
         ofFbo fxframe;
         vector<BaseEffect*> effect;
         int currentfx;
 
         ofPixels p;
+
+        ofXml settings;
 };
 
