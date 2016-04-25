@@ -42,6 +42,8 @@ void BloomEffect::update(float curTime)
 
 void BloomEffect::draw(float x, float y, float w, float h)
 {
+    if(!bEnabled) return;
+
     ofPushStyle();
 
     ofSetColor(c1.getLerped(c2,ratio));

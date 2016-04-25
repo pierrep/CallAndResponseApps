@@ -14,6 +14,8 @@ Project{
         files: [
             "src/Effects/EmptyEffect.cpp",
             "src/Effects/EmptyEffect.h",
+            "src/Effects/LineEffect.cpp",
+            "src/Effects/LineEffect.h",
             'src/Animations.cpp',
             'src/Animations.h',
             'src/Effects/BaseEffect.cpp',

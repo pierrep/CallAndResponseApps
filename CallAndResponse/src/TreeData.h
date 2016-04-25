@@ -21,6 +21,8 @@ class TreeData
         vector<Tree *> trees;
         unsigned int currentTree;
         unsigned int currentLight;
+        unsigned int nextTree;
+        unsigned int targetTree;
 
         ofColor colour;
         float brightness;

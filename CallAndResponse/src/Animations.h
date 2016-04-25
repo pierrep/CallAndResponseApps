@@ -15,8 +15,9 @@ class Animations
         void update();
         void drawGui();
         void draw(float x, float y);
-        void setTestPattern(int i);
+        void setPattern(int i);
         BaseEffect* getEffect() {return effect[currentfx];}
+        void setEffect(int i);
         void nextEffect();
         void begin();
         void save();
@@ -26,8 +27,7 @@ class Animations
         TreeData * data;
 
         /* Timing */
-        float curTime, prevTime;
-        int testPattern;
+        int pattern;
         unsigned int pixelIndex;
 
         /* Animations */

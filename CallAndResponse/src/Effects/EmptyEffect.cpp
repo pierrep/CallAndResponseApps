@@ -33,5 +33,5 @@ void EmptyEffect::update(float curTime)
 
 void EmptyEffect::draw(float x, float y, float w, float h)
 {
-    
+    if(!bEnabled) return;
 }

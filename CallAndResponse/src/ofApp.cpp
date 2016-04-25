@@ -5,7 +5,7 @@
 void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
-    ofSetFrameRate(30);
+    ofSetFrameRate(60);
 
     data.load();
     editor.setup(&data);
@@ -28,14 +28,25 @@ void ofApp::setup(){
     bEditing = false;
 
     clearTrees();    
-
     setupGui();
+
+
+    ofxKeyframeAnimRegisterEvents(this);
 
     curTimeTree = ofGetElapsedTimeMillis();
     prevTimeTree = curTimeTree;
     wait_time = 4000;
+
+    playhead = 0.0f;
+    bloomCount = 0;
     animations.load();
-    animations.begin();
+
+    cout << "START BLOOM\t time: " << ofGetElapsedTimeMillis() <<  endl;
+    bloomTree();
+
+    playhead = 0.0f;
+    timeline.addKeyFrame(Action::tween(10000.0f, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+    timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
 }
 
 //--------------------------------------------------------------
@@ -48,26 +59,133 @@ void ofApp::exit(){
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
-    curTimeTree = ofGetElapsedTimeMillis();
-    if((curTimeTree - prevTimeTree > wait_time) && (data.isPlaying))
-    {
-            if(data.state == data.LIGHTS_ON) {
-                data.state = data.LIGHTS_OFF;
-                wait_time = 1000;
-            }
-            else if(data.state == data.LIGHTS_OFF ) {
-                data.currentTree = (int) ofRandom(0,8);
-                //data->currentTree = 0;
-                data.state = data.LIGHTS_ON;
-                if(!editor.isEditing()) {
-                    animations.begin();
-                }
-                wait_time = 10000;
-            }
-            prevTimeTree = curTimeTree;
-            clearTrees();
+void ofApp::bloomTree()
+{
+    data.currentTree = data.nextTree;
+
+    if(data.currentTree == data.targetTree) {
+
+        animations.setEffect(1);
+
+    } else {
+        animations.setEffect(2);
     }
+
+    if(!editor.isEditing()) {
+        animations.begin();
+    }
+
+}
+
+//--------------------------------------------------------------
+int ofApp::getNextTree()
+{
+    int tree = data.currentTree;
+    tree--;
+
+    if(tree < 0 ) {
+        tree = data.trees.size()-1;
+    }
+    else if(tree > data.trees.size()-1) {
+        tree = 0;
+    }
+    return tree;
+}
+
+//--------------------------------------------------------------
+void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
+{
+    // this check is only necessary if you want to be absolutely sure that the onKeyFrame Event was sent by the same object as the receiver.
+   // if (args.pSender != static_cast<void*>(this)) return;
+   // ofLog(OF_LOG_VERBOSE) << "Keyframe Event received for (" << args.pSender << "): " << args.message << ": " << ofGetFrameNum();
+
+    if(args.message == "END_BLOOM") {
+        cout << "END BLOOM  \t time: " << ofGetElapsedTimeMillis() <<  endl;
+        clearTrees();
+        if(data.isPlaying) {
+            data.state = data.LIGHTS_OFF;
+        }
+
+        playhead = 0.0f;
+        bloomCount++;
+        if(bloomCount == 2) {
+            timeline.addKeyFrame(Action::pause(3000.0f));
+            bloomCount = 0;
+        }
+
+        data.targetTree = (int) ofRandom(0,8);
+        while(abs(data.targetTree - data.currentTree) < 2) {
+            data.targetTree = (int) ofRandom(0,8);
+        }
+
+        data.nextTree = getNextTree();
+        timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
+
+    } else if(args.message == "END_TRAIL") {
+        cout << "END TRAIL  \t time: " << ofGetElapsedTimeMillis() <<  endl;
+        clearTrees();
+        if(data.isPlaying) {
+            data.state = data.LIGHTS_OFF;
+        }
+
+        playhead = 0.0f;
+
+        data.nextTree = getNextTree();
+
+        if(data.nextTree == data.targetTree) {
+            timeline.addKeyFrame(Action::event(this,"START_BLOOM"));
+        } else {
+            timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
+        }
+    } else if(args.message == "START_BLOOM") {
+        cout << "START BLOOM\t time: " << ofGetElapsedTimeMillis() <<  endl;
+        clearTrees();
+        if(data.isPlaying) {
+            data.state = data.LIGHTS_ON;
+            bloomTree();
+        }
+
+        playhead = 0.0f;
+        timeline.addKeyFrame(Action::tween(5000.0f, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+        timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
+    } else if(args.message == "START_TRAIL") {
+        cout << "START TRAIL\t time: " << ofGetElapsedTimeMillis() <<  endl;
+        clearTrees();
+        if(data.isPlaying) {
+            data.state = data.LIGHTS_ON;
+            bloomTree();
+        }
+
+        playhead = 0.0f;
+        timeline.addKeyFrame(Action::tween(2000.0f, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+        timeline.addKeyFrame(Action::event(this,"END_TRAIL"));
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::update(){
+
+    timeline.update();
+
+//    curTimeTree = ofGetElapsedTimeMillis();
+//    if((curTimeTree - prevTimeTree > wait_time) && (data.isPlaying))
+//    {
+//            if(data.state == data.LIGHTS_ON) {
+//                data.state = data.LIGHTS_OFF;
+//                wait_time = 1000;
+//            }
+//            else if(data.state == data.LIGHTS_OFF ) {
+//                data.currentTree = (int) ofRandom(0,8);
+//                //data->currentTree = 0;
+//                data.state = data.LIGHTS_ON;
+//                if(!editor.isEditing()) {
+//                    animations.begin();
+//                }
+//                wait_time = 10000;
+//            }
+//            prevTimeTree = curTimeTree;
+//            clearTrees();
+//    }
 
     if(data.state == data.LIGHTS_OFF) return;
 
@@ -138,19 +256,19 @@ void ofApp::keyPressed(int key){
         }
     }
 
-    if(key == '1') animations.setTestPattern(1);
-    else if(key == '2') animations.setTestPattern(2);
-    else if(key == '3') animations.setTestPattern(3);
+    if(key == '1') animations.setPattern(1);
+    else if(key == '2') animations.setPattern(2);
+    else if(key == '3') animations.setPattern(3);
     else if(key == '4')
     {
-        animations.setTestPattern(4);
+        animations.setPattern(4);
 
         for(int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
         {
              data.trees[data.currentTree]->lights[i]->fadeOn();
         }
     }
-    else if(key == '5') animations.setTestPattern(5);
+    else if(key == '5') animations.setPattern(5);
 
 
     if(key == 'n') {

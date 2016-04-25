@@ -32,6 +32,7 @@ void CalibrateEffect::update(float curTime)
 
 void CalibrateEffect::draw(float x, float y, float w, float h)
 {
+    if(!bEnabled) return;
 
     ofPushStyle();
 

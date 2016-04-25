@@ -39,11 +39,22 @@ void GuiMap::draw(float x, float y, float w, float h)
     {
         /* Draw circle */
         ofVec2f pos = data->trees.at(j)->getMapPos();
-        if((data->currentTree == j) && (data->state == data->LIGHTS_ON)) {
-            ofSetColor(255,0,0);
-        } else {
-            ofSetColor(200,200,200);
+        //if(data->state == data->LIGHTS_ON)
+        {
+            if((data->targetTree == data->currentTree) && (data->currentTree == j)) {
+                ofSetColor(255,0,0);
+            } else if(data->targetTree == j) {
+                ofSetColor(0,255,0);
+            } else if(data->currentTree == j) {
+                ofSetColor(200,0,200);
+            } else {
+                ofSetColor(200,200,200);
+            }
         }
+        //else
+        //{
+          //  ofSetColor(200,200,200);
+        //}
         ofDrawCircle(pos,circleRadius);
     }
 

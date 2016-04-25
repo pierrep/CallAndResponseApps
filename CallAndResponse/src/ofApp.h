@@ -36,6 +36,9 @@ class ofApp : public ofBaseApp{
             void drawModel();
             void onButtonEvent(ofxDatGuiButtonEvent e);
             void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
+            void bloomTree();
+            int  getNextTree();
+            void onKeyframe(ofxPlaylistEventArgs& args);
 
         /* Trees */
         LightsEditor editor;
@@ -55,6 +58,9 @@ class ofApp : public ofBaseApp{
         Animations animations;
         float curTimeTree, prevTimeTree;
         float wait_time;
+        ofxPlaylist timeline;
+        float playhead;
+        int bloomCount;
 
         /* GUI */
         ofxDatGui* gui;
