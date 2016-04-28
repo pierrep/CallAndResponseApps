@@ -1,17 +1,25 @@
 #include "ofApp.h"
 
+ofApp::ofApp() :
+    gBloomTime(5000.0f),
+    gTrailTime(2000.0f),
+    gPauseTime(3000.0f)
+{
+
+}
 
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
-    ofSetFrameRate(60);
+    ofSetFrameRate(30);
+    ofSetLogLevel(OF_LOG_SILENT);
 
     data.load();
     editor.setup(&data);
     guiMap.setup(&data);
     animations.setup(&data);
-    bArtNetActive = artnet.setup("192.168.0.3"); //make sure the firewall is deactivated at this point
+    bArtNetActive = artnet.setup("192.168.0.43"); //make sure the firewall is deactivated at this point
     if(!bArtNetActive) {
         memset( dmxData_, 0, DMX_DATA_LENGTH );
         dmxInterface_ = ofxGenericDmx::openFirstDevice();
@@ -41,11 +49,12 @@ void ofApp::setup(){
     bloomCount = 0;
     animations.load();
 
-    cout << "START BLOOM\t time: " << ofGetElapsedTimeMillis() <<  endl;
+    ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+    data.currentTree = data.nextTree;
     bloomTree();
 
     playhead = 0.0f;
-    timeline.addKeyFrame(Action::tween(10000.0f, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+    timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
     timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
 }
 
@@ -61,7 +70,6 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::bloomTree()
 {
-    data.currentTree = data.nextTree;
 
     if(data.currentTree == data.targetTree) {
 
@@ -78,9 +86,29 @@ void ofApp::bloomTree()
 }
 
 //--------------------------------------------------------------
+int ofApp::calculateRandomTree()
+{
+
+   int tree = (int) ofRandom(0,8);
+    while(abs(tree - data.currentTree) < 2) {
+        tree = (int) ofRandom(0,8);
+    }
+
+    if(data.currentTree == 7 && tree == 0) tree = 1;
+    if(data.currentTree == 0 && tree == 7) tree = 6;
+
+    ofLogNotice() << "New target tree: " << tree << "(current tree: " << data.currentTree <<")";
+    return tree;
+}
+
+//--------------------------------------------------------------
 int ofApp::getNextTree()
 {
     int tree = data.currentTree;
+
+    if(tree == 3) return 0;
+    if(tree == 0) return 3;
+
     tree--;
 
     if(tree < 0 ) {
@@ -89,6 +117,7 @@ int ofApp::getNextTree()
     else if(tree > data.trees.size()-1) {
         tree = 0;
     }
+
     return tree;
 }
 
@@ -100,65 +129,107 @@ void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
    // ofLog(OF_LOG_VERBOSE) << "Keyframe Event received for (" << args.pSender << "): " << args.message << ": " << ofGetFrameNum();
 
     if(args.message == "END_BLOOM") {
-        cout << "END BLOOM  \t time: " << ofGetElapsedTimeMillis() <<  endl;
-        clearTrees();
-        if(data.isPlaying) {
-            data.state = data.LIGHTS_OFF;
-        }
-
-        playhead = 0.0f;
-        bloomCount++;
-        if(bloomCount == 2) {
-            timeline.addKeyFrame(Action::pause(3000.0f));
-            bloomCount = 0;
-        }
-
-        data.targetTree = (int) ofRandom(0,8);
-        while(abs(data.targetTree - data.currentTree) < 2) {
-            data.targetTree = (int) ofRandom(0,8);
-        }
-
-        data.nextTree = getNextTree();
-        timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
+        data.state = data.END_BLOOM;
 
     } else if(args.message == "END_TRAIL") {
-        cout << "END TRAIL  \t time: " << ofGetElapsedTimeMillis() <<  endl;
-        clearTrees();
-        if(data.isPlaying) {
-            data.state = data.LIGHTS_OFF;
-        }
+        data.state = data.END_TRAIL;
 
-        playhead = 0.0f;
-
-        data.nextTree = getNextTree();
-
-        if(data.nextTree == data.targetTree) {
-            timeline.addKeyFrame(Action::event(this,"START_BLOOM"));
-        } else {
-            timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
-        }
     } else if(args.message == "START_BLOOM") {
-        cout << "START BLOOM\t time: " << ofGetElapsedTimeMillis() <<  endl;
-        clearTrees();
-        if(data.isPlaying) {
-            data.state = data.LIGHTS_ON;
-            bloomTree();
-        }
+        data.state = data.START_BLOOM;
 
-        playhead = 0.0f;
-        timeline.addKeyFrame(Action::tween(5000.0f, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
-        timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
     } else if(args.message == "START_TRAIL") {
-        cout << "START TRAIL\t time: " << ofGetElapsedTimeMillis() <<  endl;
-        clearTrees();
-        if(data.isPlaying) {
-            data.state = data.LIGHTS_ON;
-            bloomTree();
-        }
+        data.state = data.START_TRAIL;
+    }
+}
 
-        playhead = 0.0f;
-        timeline.addKeyFrame(Action::tween(2000.0f, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
-        timeline.addKeyFrame(Action::event(this,"END_TRAIL"));
+//--------------------------------------------------------------
+void ofApp::processState()
+{
+    switch (data.state)
+    {
+        case data.START_BLOOM:
+        {
+            ofLogNotice() << " ";
+            ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            clearTrees();
+            if(data.isPlaying) {
+                data.state = data.LIGHTS_ON;
+                bloomTree();
+            }
+
+            playhead = 0.0f;
+            timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+            timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
+            break;
+        }
+        case data.END_BLOOM:
+        {
+            ofLogNotice() << "End Bloom  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            //clearTrees();
+            if(data.isPlaying) {
+                data.state = data.LIGHTS_OFF;
+            }
+
+            playhead = 0.0f;
+            bloomCount++;
+            if(bloomCount == 2) {
+                ofLogNotice() << "End call & response...start a new one.";
+                timeline.addKeyFrame(Action::pause(gPauseTime));
+                data.targetTree = calculateRandomTree();
+                data.currentTree = data.targetTree;
+                data.nextTree = data.currentTree;
+                timeline.addKeyFrame(Action::event(this,"START_BLOOM"));
+                bloomCount = 0;
+                return;
+            }
+
+            data.targetTree = calculateRandomTree();
+
+            data.nextTree = getNextTree();
+            timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
+            break;
+        }
+        case data.START_TRAIL:
+        {
+            ofLogNotice() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            clearTrees();
+            if(data.isPlaying) {
+                data.state = data.LIGHTS_ON;
+                data.currentTree = data.nextTree;
+                bloomTree();
+            }
+
+            playhead = 0.0f;
+            timeline.addKeyFrame(Action::tween(gTrailTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+            timeline.addKeyFrame(Action::event(this,"END_TRAIL"));
+            break;
+        }
+        case data.END_TRAIL:
+        {
+            ofLogNotice() << "End Trail  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            //clearTrees();
+            if(data.isPlaying) {
+                data.state = data.LIGHTS_OFF;
+            }
+
+            playhead = 0.0f;
+
+            data.nextTree = getNextTree();
+
+            if(data.nextTree == data.targetTree) {
+                timeline.addKeyFrame(Action::event(this,"START_BLOOM"));
+                data.currentTree = data.nextTree;
+            } else {
+                timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
+            }
+            break;
+        }
+        case data.LIGHTS_OFF:
+        case data.LIGHTS_ON:
+        default:
+        {
+            break;
+        }
     }
 }
 
@@ -167,25 +238,9 @@ void ofApp::update(){
 
     timeline.update();
 
-//    curTimeTree = ofGetElapsedTimeMillis();
-//    if((curTimeTree - prevTimeTree > wait_time) && (data.isPlaying))
-//    {
-//            if(data.state == data.LIGHTS_ON) {
-//                data.state = data.LIGHTS_OFF;
-//                wait_time = 1000;
-//            }
-//            else if(data.state == data.LIGHTS_OFF ) {
-//                data.currentTree = (int) ofRandom(0,8);
-//                //data->currentTree = 0;
-//                data.state = data.LIGHTS_ON;
-//                if(!editor.isEditing()) {
-//                    animations.begin();
-//                }
-//                wait_time = 10000;
-//            }
-//            prevTimeTree = curTimeTree;
-//            clearTrees();
-//    }
+    processState();
+
+
 
     if(data.state == data.LIGHTS_OFF) return;
 
@@ -274,7 +329,9 @@ void ofApp::keyPressed(int key){
     if(key == 'n') {
         animations.nextEffect();
     }
-
+    if(key == 'b') {
+        animations.begin();
+    }
 }
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
@@ -295,7 +352,22 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
         else {
             data.bShowBgImage = false;
         }
+    } else if (e.target == gui_editButton) {
+
+        if(e.enabled) {
+            bEditing = true;
+        }
+        else {
+            bEditing = false;
+        }
     }
+    else if (e.target == gui_triggerBeginButton) {
+
+        if(e.enabled) {
+            animations.begin();
+        }
+    }
+
 }
 
 //--------------------------------------------------------------
@@ -324,7 +396,10 @@ void ofApp::setupGui()
 
     gui_editLabel = gui->addLabel("");
     gui_playButton = gui->addToggle("PLAYING",true);
-    gui_showImageButton = gui->addToggle("SHOW BACKGROUND IMAGE (i)",true);
+    gui_editButton = gui->addToggle("Edit Mode",false);
+    gui_showImageButton = gui->addToggle("Show Background Animation (i)",true);
+    gui_triggerBeginButton = gui->addButton("Trigger Animation Start (b)");
+    gui_nextAnimationButton = gui->addButton("Trigger Next Animation (n)");
     gui->onButtonEvent(this, &ofApp::onButtonEvent);
 
     gui->addBreak();

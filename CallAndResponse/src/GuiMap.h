@@ -28,6 +28,7 @@ class GuiMap
         TreeData* data;
         float circleRadius;
         ofFbo   fbo;
+        ofTrueTypeFont font;
 
     private:
 };

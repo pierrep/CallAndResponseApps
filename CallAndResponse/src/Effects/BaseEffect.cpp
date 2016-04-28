@@ -6,6 +6,8 @@ BaseEffect::BaseEffect()
     bToggle = false;
     bEnabled = false;
     baseName = " Effect Settings";
+    effectHeight = 900;
+    effectWidth = 1200;
 }
 
 void BaseEffect::setupGui()

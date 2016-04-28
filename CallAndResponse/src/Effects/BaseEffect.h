@@ -29,6 +29,8 @@ class BaseEffect
         void enable(bool b) {bEnabled = b;}
         void setResolution(int rx, int ry) {resx = rx; resy = ry;}
 
+        float effectHeight, effectWidth;
+
         ofParameterGroup parameters;
 
     protected:

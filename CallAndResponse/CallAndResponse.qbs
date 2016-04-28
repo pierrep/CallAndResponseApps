@@ -16,6 +16,8 @@ Project{
             "src/Effects/EmptyEffect.h",
             "src/Effects/LineEffect.cpp",
             "src/Effects/LineEffect.h",
+            "src/Effects/NoiseParticlesEffect.cpp",
+            "src/Effects/NoiseParticlesEffect.h",
             'src/Animations.cpp',
             'src/Animations.h',
             'src/Effects/BaseEffect.cpp',

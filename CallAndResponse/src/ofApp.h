@@ -14,6 +14,7 @@
 class ofApp : public ofBaseApp{
 
     public:
+            ofApp();
             void setup();
             void setupGui();
             void update();
@@ -36,8 +37,10 @@ class ofApp : public ofBaseApp{
             void drawModel();
             void onButtonEvent(ofxDatGuiButtonEvent e);
             void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
-            void bloomTree();
+            void processState();
+            void bloomTree();            
             int  getNextTree();
+            int  calculateRandomTree();
             void onKeyframe(ofxPlaylistEventArgs& args);
 
         /* Trees */
@@ -61,6 +64,9 @@ class ofApp : public ofBaseApp{
         ofxPlaylist timeline;
         float playhead;
         int bloomCount;
+        const float gBloomTime;
+        const float gTrailTime;
+        const float gPauseTime;
 
         /* GUI */
         ofxDatGui* gui;
@@ -68,8 +74,11 @@ class ofApp : public ofBaseApp{
         ofxDatGuiSlider *gui_brightness;
         GuiMap guiMap;
         ofxDatGuiToggle* gui_playButton;
+        ofxDatGuiToggle* gui_editButton;
         ofxDatGuiLabel* gui_editLabel;
         ofxDatGuiToggle* gui_showImageButton;
+        ofxDatGuiButton* gui_triggerBeginButton;
+        ofxDatGuiButton* gui_nextAnimationButton;
         ofxDatGuiFolder* paramfolder;
         bool bEditing;
 };

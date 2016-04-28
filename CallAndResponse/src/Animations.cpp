@@ -2,6 +2,7 @@
 #include "Effects/BloomEffect.h"
 #include "Effects/NoiseEffect.h"
 #include "Effects/LineEffect.h"
+#include "Effects/NoiseParticlesEffect.h"
 #include "Effects/CalibrateEffect.h"
 
 Animations::Animations()
@@ -14,6 +15,7 @@ Animations::Animations()
     effect.push_back(new CalibrateEffect());
     effect.push_back(new BloomEffect());
     effect.push_back(new LineEffect());
+    effect.push_back(new NoiseParticlesEffect());
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
     currentfx = 1;
@@ -109,6 +111,7 @@ void Animations::drawGui()
 
 void Animations::begin()
 {
+    ofLogNotice() << "Begin FX: " << currentfx;
     effect[currentfx]->begin();
 }
 
@@ -134,6 +137,7 @@ void Animations::nextEffect()
     {
         effect[i]->enable(false);
     }
+    effect[currentfx]->begin();
     effect[currentfx]->enable(true);
 }
 

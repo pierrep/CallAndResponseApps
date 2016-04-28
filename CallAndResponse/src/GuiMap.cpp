@@ -8,6 +8,7 @@ GuiMap::GuiMap()
     disableMouseEvents();
     disableKeyEvents();
     fbo.allocate(400,900);
+    font.load("Gotham-Thin.otf",10);
 }
 
 GuiMap::~GuiMap()
@@ -39,23 +40,25 @@ void GuiMap::draw(float x, float y, float w, float h)
     {
         /* Draw circle */
         ofVec2f pos = data->trees.at(j)->getMapPos();
-        //if(data->state == data->LIGHTS_ON)
+       // if(data->state == data->LIGHTS_ON)
         {
             if((data->targetTree == data->currentTree) && (data->currentTree == j)) {
                 ofSetColor(255,0,0);
             } else if(data->targetTree == j) {
-                ofSetColor(0,255,0);
+                ofSetColor(100,100,100);
             } else if(data->currentTree == j) {
                 ofSetColor(200,0,200);
             } else {
                 ofSetColor(200,200,200);
             }
         }
-        //else
-        //{
-          //  ofSetColor(200,200,200);
-        //}
+//        else
+//        {
+//            ofSetColor(200,200,200);
+//        }
         ofDrawCircle(pos,circleRadius);
+        ofSetColor(0);
+        font.drawString(ofToString(data->trees.at(j)->getId()),pos.x,pos.y);
     }
 
 
