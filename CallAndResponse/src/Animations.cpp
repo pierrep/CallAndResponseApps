@@ -40,10 +40,13 @@ void Animations::setPattern(int i)
     pixelIndex = 0;
 }
 
-void Animations::update()
+void Animations::update(float curTime)
 {
-    effect[currentfx]->update(ofGetElapsedTimeMillis());
 
+    for(int i =0;i < effect.size();i++)
+    {
+        effect[i]->update(curTime);
+    }
 
     if(pattern == 1) {
         data->trees[data->currentTree]->clear();
@@ -125,6 +128,13 @@ void Animations::setEffect(int index)
     }
     effect[index]->enable(true);
 }
+
+void Animations::enableEffect(int index)
+{
+    index = ofClamp(index, 0, effect.size()-1);
+    effect[index]->enable(true);
+}
+
 
 void Animations::nextEffect()
 {

@@ -12,12 +12,13 @@ class Animations
         Animations();
 
         void setup(TreeData * _data);
-        void update();
+        void update(float curTime);
         void drawGui();
         void draw(float x, float y);
         void setPattern(int i);
         BaseEffect* getEffect() {return effect[currentfx];}
         void setEffect(int i);
+        void enableEffect(int index);
         void nextEffect();
         void begin();
         void save();

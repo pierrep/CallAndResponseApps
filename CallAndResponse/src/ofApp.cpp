@@ -74,6 +74,7 @@ void ofApp::bloomTree()
     if(data.currentTree == data.targetTree) {
 
         animations.setEffect(1);
+        animations.enableEffect(4);         /* TODO: REFERENCE FX BY NAME NOT INDEX!! */
 
     } else {
         animations.setEffect(2);
@@ -94,8 +95,8 @@ int ofApp::calculateRandomTree()
         tree = (int) ofRandom(0,8);
     }
 
-    if(data.currentTree == 7 && tree == 0) tree = 1;
-    if(data.currentTree == 0 && tree == 7) tree = 6;
+//    if(data.currentTree == 7 && tree == 0) tree = 1;
+//    if(data.currentTree == 0 && tree == 7) tree = 6;
 
     ofLogNotice() << "New target tree: " << tree << "(current tree: " << data.currentTree <<")";
     return tree;
@@ -106,10 +107,10 @@ int ofApp::getNextTree()
 {
     int tree = data.currentTree;
 
-    if(tree == 3) return 0;
-    if(tree == 0) return 3;
-
-    tree--;
+//    if(tree == 3) return 0;
+//    else if(tree == 0) return 3;
+//    else
+        tree--;
 
     if(tree < 0 ) {
         tree = data.trees.size()-1;
@@ -245,7 +246,7 @@ void ofApp::update(){
     if(data.state == data.LIGHTS_OFF) return;
 
     if(!editor.isEditing()) {
-        animations.update();
+        animations.update(playhead);
     }
 
     data.colour = gui_colour->getColor();
@@ -384,7 +385,7 @@ void ofApp::setupGui()
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
 
     ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
-    gui_brightness = folder->addSlider("Brightness", 0, 1, 1.0f);
+    gui_brightness = folder->addSlider("Brightness", 0, 1, 0.4f);
     gui_colour = folder->addColorPicker("Colour", ofColor(255,0,255));
     folder->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
 

@@ -36,6 +36,10 @@ void LineEffect::update(float curTime)
     for(int i = 0;i < lines.size();i++) {
         lines[i].p1.y -= lineSpeed.get();
         lines[i].p2.y -= lineSpeed.get();
+
+        lines[i].p1.x = curTime*1200;
+        lines[i].p2.x = lines[i].p1.x + 400;
+
         if(lines[i].p1.y < 0)
             lines[i].p1.y = ofGetHeight();
 
