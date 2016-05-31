@@ -7,3 +7,4 @@ ofxGameCamera
 ofxPlaylist
 ofxDatGui
 ofxGenericDmx
+ofxMarkovChain

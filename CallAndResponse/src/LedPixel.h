@@ -12,7 +12,7 @@ class LedPixel
         void set3DPosition(ofVec3f& _pos);
         unsigned char getDMXValue(int idx);
         void setBrightness(float value);
-        void setColour(ofColor c) {col = c;}
+        void setColour(ofColor c) {col = c; bIsDirty = true;}
         void setId(int _id) {id = _id;}
 
         const ofVec2f getPosition() {return pos;}
@@ -22,6 +22,7 @@ class LedPixel
 
         void fadeOn(int i);
         void update();
+        bool isDirty() {return (bIsDirty?true:false);}
         ofxPlaylist playlist;
 
 
@@ -32,6 +33,7 @@ class LedPixel
         ofFloatColor col;
         float   brightness;
         unsigned char dmx[3];
+        bool    bIsDirty;
 
     private:
 };

@@ -3,6 +3,7 @@
 Tree::Tree()
 {
     memset(buf, 0, 512*sizeof(unsigned char));
+    bIsDirty = true;
 }
 
 //--------------------------------------------------------------
@@ -46,6 +47,7 @@ void Tree::update()
                 buf[bufindex] = lights[i]->pixels[j]->getDMXValue(k);
                 bufindex++;
             }
+            //if(lights[i]->pixels[j].isDirty()) bIsDirty = true;
         }
         lights[i]->update();
 

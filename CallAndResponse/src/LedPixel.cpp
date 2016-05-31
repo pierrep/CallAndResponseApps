@@ -24,7 +24,7 @@ void LedPixel::fadeOn(int i)
     playlist.addKeyFrame(Action::pause(i*100.0f));
     playlist.addKeyFrame(Action::tween(200.f, &brightness, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
     playlist.addToKeyFrame(Action::tween(200.0f,200.f,&brightness, 0.0f, TWEEN_QUAD, TWEEN_EASE_OUT));
-
+    bIsDirty = true;
 }
 
 //--------------------------------------------------------------
@@ -43,6 +43,7 @@ void LedPixel::set3DPosition(ofVec3f& _pos)
 void LedPixel::setBrightness(float value)
 {
     brightness = value;
+    bIsDirty = true;
 }
 
 //--------------------------------------------------------------

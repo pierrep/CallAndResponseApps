@@ -2,7 +2,7 @@
 
 ofApp::ofApp() :
     gBloomTime(5000.0f),
-    gTrailTime(2000.0f),
+    gTrailTime(1500.0f),
     gPauseTime(3000.0f)
 {
 
@@ -13,7 +13,7 @@ void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
     ofSetFrameRate(30);
-    ofSetLogLevel(OF_LOG_SILENT);
+    ofSetLogLevel(OF_LOG_NOTICE);
 
     data.load();
     editor.setup(&data);
@@ -38,6 +38,9 @@ void ofApp::setup(){
     clearTrees();    
     setupGui();
 
+    ofxMC::Matrix mat("transitionMatrix.txt");
+
+    markov.setup(mat, 0);
 
     ofxKeyframeAnimRegisterEvents(this);
 
@@ -87,16 +90,11 @@ void ofApp::bloomTree()
 }
 
 //--------------------------------------------------------------
-int ofApp::calculateRandomTree()
+int ofApp::calculateDestinationTree()
 {
 
-   int tree = (int) ofRandom(0,8);
-    while(abs(tree - data.currentTree) < 2) {
-        tree = (int) ofRandom(0,8);
-    }
-
-//    if(data.currentTree == 7 && tree == 0) tree = 1;
-//    if(data.currentTree == 0 && tree == 7) tree = 6;
+    markov.update();
+    int tree = markov.getState();
 
     ofLogNotice() << "New target tree: " << tree << "(current tree: " << data.currentTree <<")";
     return tree;
@@ -105,20 +103,52 @@ int ofApp::calculateRandomTree()
 //--------------------------------------------------------------
 int ofApp::getNextTree()
 {
-    int tree = data.currentTree;
+    int tree = data.currentTree;    
 
-//    if(tree == 3) return 0;
-//    else if(tree == 0) return 3;
-//    else
-        tree--;
-
-    if(tree < 0 ) {
-        tree = data.trees.size()-1;
+    if(data.direction == 1) {
+        switch(tree) {
+            case 0:     tree = 1; break;
+            case 1:     tree = 2; break;
+            case 2:     tree = 8; break;
+            case 3:     tree = 0; break;
+            case 4:     tree = 3; break;
+            case 5:     tree = 4; break;
+            case 6:     tree = 5; break;
+            case 7:     tree = 6; break;
+            case 8:     tree = 9; break;
+            case 9:     tree = 10; break;
+            case 10:    tree = 11; break;
+            case 11:    tree = 12; break;
+            case 12:    tree = 16; break;
+            case 13:    tree = 7; break;
+            case 14:    tree = 13; break;
+            case 15:    tree = 14; break;
+            case 16:    tree = 15; break;
+        }
     }
-    else if(tree > data.trees.size()-1) {
-        tree = 0;
+    else if(data.direction == -1) {
+        switch(tree) {
+            case 0:     tree = 3; break;
+            case 1:     tree = 0; break;
+            case 2:     tree = 1; break;
+            case 3:     tree = 4; break;
+            case 4:     tree = 5; break;
+            case 5:     tree = 6; break;
+            case 6:     tree = 7; break;
+            case 7:     tree = 13; break;
+            case 8:     tree = 2; break;
+            case 9:     tree = 8; break;
+            case 10:    tree = 9; break;
+            case 11:    tree = 10; break;
+            case 12:    tree = 11; break;
+            case 13:    tree = 14; break;
+            case 14:    tree = 15; break;
+            case 15:    tree = 16; break;
+            case 16:    tree = 12; break;
+        }
     }
 
+    ofLogNotice() << " getNextTree = " << tree;
     return tree;
 }
 
@@ -176,7 +206,11 @@ void ofApp::processState()
             if(bloomCount == 2) {
                 ofLogNotice() << "End call & response...start a new one.";
                 timeline.addKeyFrame(Action::pause(gPauseTime));
-                data.targetTree = calculateRandomTree();
+                data.targetTree = calculateDestinationTree();
+                float val = ofRandom(0,1);
+                if(val < 0.5f) data.direction = -1;
+                else data.direction = 1;
+                ofLogNotice() << " Direction = " << data.direction;
                 data.currentTree = data.targetTree;
                 data.nextTree = data.currentTree;
                 timeline.addKeyFrame(Action::event(this,"START_BLOOM"));
@@ -184,7 +218,11 @@ void ofApp::processState()
                 return;
             }
 
-            data.targetTree = calculateRandomTree();
+            data.targetTree = calculateDestinationTree();
+            float val = ofRandom(0,1);
+            if(val < 0.5f) data.direction = -1;
+            else data.direction = 1;
+            ofLogNotice() << " Direction = " << data.direction;
 
             data.nextTree = getNextTree();
             timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
@@ -410,7 +448,11 @@ void ofApp::setupGui()
 //--------------------------------------------------------------
 void ofApp::updateTreeDMX(int i)
 {
-    if(bArtNetActive) artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
+    if(bArtNetActive) {
+        if(data.trees[i]->isDirty()) {
+            artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
+        }
+    }
     else if(bDmxUsbActive) {
         if(i == 0) { //only send 1st tree
         dmxData_[0] = 0;

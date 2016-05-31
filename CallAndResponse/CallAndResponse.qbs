@@ -12,22 +12,22 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
-            "src/Effects/EmptyEffect.cpp",
-            "src/Effects/EmptyEffect.h",
-            "src/Effects/LineEffect.cpp",
-            "src/Effects/LineEffect.h",
-            "src/Effects/NoiseParticlesEffect.cpp",
-            "src/Effects/NoiseParticlesEffect.h",
             'src/Animations.cpp',
             'src/Animations.h',
             'src/Effects/BaseEffect.cpp',
             'src/Effects/BaseEffect.h',
-            'src/Effects/CalibrateEffect.cpp',
-            'src/Effects/CalibrateEffect.h',
             'src/Effects/BloomEffect.cpp',
             'src/Effects/BloomEffect.h',
+            'src/Effects/CalibrateEffect.cpp',
+            'src/Effects/CalibrateEffect.h',
+            'src/Effects/EmptyEffect.cpp',
+            'src/Effects/EmptyEffect.h',
+            'src/Effects/LineEffect.cpp',
+            'src/Effects/LineEffect.h',
             'src/Effects/NoiseEffect.cpp',
             'src/Effects/NoiseEffect.h',
+            'src/Effects/NoiseParticlesEffect.cpp',
+            'src/Effects/NoiseParticlesEffect.h',
             'src/GuiMap.cpp',
             'src/GuiMap.h',
             'src/LedFixture.cpp',
@@ -55,6 +55,7 @@ Project{
             'ofxPlaylist',
             'ofxDatGui',
             'ofxGenericDmx',
+            'ofxMarkovChain',
         ]
 
         // additional flags for the project. the of module sets some

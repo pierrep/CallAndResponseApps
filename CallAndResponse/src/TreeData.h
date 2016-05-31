@@ -23,6 +23,7 @@ class TreeData
         unsigned int currentLight;
         unsigned int nextTree;
         unsigned int targetTree;
+        int direction;
 
         ofColor colour;
         float brightness;

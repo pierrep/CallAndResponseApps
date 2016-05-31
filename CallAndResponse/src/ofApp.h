@@ -7,8 +7,9 @@
 #include "TreeData.h"
 #include "GuiMap.h"
 #include "Animations.h"
-
+#include "ofxMarkovChain.h"
 #include "ofxGenericDmx.h"
+
 #define DMX_DATA_LENGTH 513
 
 class ofApp : public ofBaseApp{
@@ -40,7 +41,7 @@ class ofApp : public ofBaseApp{
             void processState();
             void bloomTree();            
             int  getNextTree();
-            int  calculateRandomTree();
+            int  calculateDestinationTree();
             void onKeyframe(ofxPlaylistEventArgs& args);
 
         /* Trees */
@@ -67,6 +68,7 @@ class ofApp : public ofBaseApp{
         const float gBloomTime;
         const float gTrailTime;
         const float gPauseTime;
+        ofxMC::MarkovChain markov;
 
         /* GUI */
         ofxDatGui* gui;

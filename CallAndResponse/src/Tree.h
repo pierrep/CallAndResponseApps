@@ -19,6 +19,7 @@ class Tree
         const string getName() {return name;}
         const unsigned char*  getBuffer() {return &buf[0];}
         void clear();
+        bool isDirty() {return (bIsDirty?true:false);}
 
         vector<LedFixture *> lights;
 
@@ -30,6 +31,7 @@ class Tree
         ofMesh mesh;
         unsigned char buf[512];
         ofVec2f pos;
+        bool    bIsDirty;
 
     private:
 };

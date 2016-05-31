@@ -3,10 +3,11 @@
 
 TreeData::TreeData()
 {
-   currentTree = 0;
+   currentTree = 8;
    currentLight = 0;
    nextTree = 0;
    targetTree = 0;
+   direction = 1;
    isPlaying = true;
    bShowBgImage = true;
    pixelWidth = 6.0f;
