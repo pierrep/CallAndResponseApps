@@ -58,7 +58,10 @@ void GuiMap::draw(float x, float y, float w, float h)
 //        }
         ofDrawCircle(pos,circleRadius);
         ofSetColor(0);
-        font.drawString(ofToString(data->trees.at(j)->getId()),pos.x,pos.y);
+        string text = ofToString(data->trees.at(j)->getId());
+        float w = font.stringWidth(text);
+        float h = font.stringHeight(text);
+        font.drawString(text,pos.x - w/2.0f,pos.y + h/2.0f);
     }
 
 

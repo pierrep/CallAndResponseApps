@@ -1,7 +1,13 @@
-
 #pragma once
+
+#define USE_GUI 1
+
 #include "ofMain.h"
+
+#ifdef USE_GUI
 #include "ofxDatGui.h"
+#endif
+
 #include "ofxPlaylist.h"
 
 using namespace Playlist;
@@ -39,7 +45,9 @@ class BaseEffect
         bool bToggle;
         bool bEnabled;
         string baseName;
+#ifdef USE_GUI
         ofxDatGuiFolder* paramfolder;
+#endif
         ofxPlaylist timeline;
 
 };

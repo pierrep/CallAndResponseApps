@@ -21,6 +21,7 @@ void ofApp::setup(){
     animations.setup(&data);
     bArtNetActive = artnet.setup("192.168.0.43"); //make sure the firewall is deactivated at this point
     if(!bArtNetActive) {
+#ifdef USE_USB_DMX
         memset( dmxData_, 0, DMX_DATA_LENGTH );
         dmxInterface_ = ofxGenericDmx::openFirstDevice();
         if ( dmxInterface_ == 0 ) {
@@ -31,12 +32,15 @@ void ofApp::setup(){
             ofLog(OF_LOG_NOTICE,"isOpen: %i", dmxInterface_->isOpen() );
             bDmxUsbActive = true;
         }
-
+#endif
     }
     bEditing = false;
 
-    clearTrees();    
+    clearTrees();
+#ifdef USE_GUI
     setupGui();
+    ping.load("ping.mp3");
+#endif
 
     ofxMC::Matrix mat("transitionMatrix.txt");
 
@@ -75,7 +79,7 @@ void ofApp::bloomTree()
 {
 
     if(data.currentTree == data.targetTree) {
-
+        ping.play();
         animations.setEffect(1);
         animations.enableEffect(4);         /* TODO: REFERENCE FX BY NAME NOT INDEX!! */
 
@@ -286,15 +290,17 @@ void ofApp::update(){
     if(!editor.isEditing()) {
         animations.update(playhead);
     }
-
+#ifdef USE_GUI
     data.colour = gui_colour->getColor();
     data.brightness = gui_brightness->getValue();
+#endif
+     data.brightness = 0.5f;
 
     for(int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->update();
         int universe = data.trees[i]->getId();
-        updateTreeDMX(i);
+        sendTreeDMX(i);
     }
 }
 
@@ -313,12 +319,42 @@ void ofApp::draw(){
 }
 
 //--------------------------------------------------------------
+void ofApp::sendTreeDMX(int i)
+{
+    if(bArtNetActive) {
+        if(data.trees[i]->isDirty()) {
+            artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
+        }
+    }
+    else if(bDmxUsbActive) {
+#ifdef USE_USB_DMX
+        if(i == 0) { //only send 1st tree
+        dmxData_[0] = 0;
+        memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
+        dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
+        }
+#endif
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::clearTrees()
+{
+    for(int i = 0;i < data.trees.size();i++)
+    {
+        data.trees[i]->clear();
+        sendTreeDMX(i);
+    }
+}
+
+//--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
     if((key == 'f') || (key == 'F')) {
         ofToggleFullscreen();
     }
 
+#ifdef USE_GUI
     if(key == 'e') {
         if(gui_editLabel->getLabel() == "") {
             gui_editLabel->setLabel("EDITING");
@@ -349,6 +385,7 @@ void ofApp::keyPressed(int key){
             data.bShowBgImage = false;
         }
     }
+#endif
 
     if(key == '1') animations.setPattern(1);
     else if(key == '2') animations.setPattern(2);
@@ -373,6 +410,7 @@ void ofApp::keyPressed(int key){
     }
 }
 
+#ifdef USE_GUI
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
     if (e.target == gui_playButton){
@@ -445,32 +483,7 @@ void ofApp::setupGui()
 
 }
 
-//--------------------------------------------------------------
-void ofApp::updateTreeDMX(int i)
-{
-    if(bArtNetActive) {
-        if(data.trees[i]->isDirty()) {
-            artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
-        }
-    }
-    else if(bDmxUsbActive) {
-        if(i == 0) { //only send 1st tree
-        dmxData_[0] = 0;
-        memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
-        dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
-        }
-    }
-}
-
-//--------------------------------------------------------------
-void ofApp::clearTrees()
-{
-    for(int i = 0;i < data.trees.size();i++)
-    {
-        data.trees[i]->clear();
-        updateTreeDMX(i);
-    }
-}
+#endif
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
@@ -509,7 +522,9 @@ void ofApp::mouseExited(int x, int y){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
+#ifdef USE_GUI
     gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
+#endif
 }
 
 //--------------------------------------------------------------

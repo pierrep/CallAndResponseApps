@@ -35,6 +35,12 @@ void Tree::setMesh(ofMesh& _mesh) {
 }
 
 //--------------------------------------------------------------
+void Tree::playPing()
+{
+    buf[510] = 255;
+}
+
+//--------------------------------------------------------------
 void Tree::update()
 {
     memset(buf, 0, 512*sizeof(unsigned char));

@@ -10,8 +10,10 @@ BaseEffect::BaseEffect()
     effectWidth = 1200;
 }
 
+
 void BaseEffect::setupGui()
 {
+#ifdef USE_GUI
         paramfolder = new ofxDatGuiFolder(ofToUpper(parameters.getName()), ofColor::green);
         ofParameterGroup& p = parameters;
         for(int i = 0; i < p.size();i++) {
@@ -38,18 +40,23 @@ void BaseEffect::setupGui()
 
 
         paramfolder->setPosition(ofGetWidth() - paramfolder->getWidth(), 400);
+#endif
 }
 
 void BaseEffect::update(float time)
 {
+#ifdef USE_GUI
     paramfolder->update();
+#endif
     timeline.update();
 }
 
 void BaseEffect::drawGui()
 {
+#ifdef USE_GUI
     paramfolder->setPosition(ofGetWidth() - paramfolder->getWidth(), ofGetHeight() - paramfolder->getHeight());
     paramfolder->draw();
+#endif
 }
 
 

@@ -20,6 +20,7 @@ class Tree
         const unsigned char*  getBuffer() {return &buf[0];}
         void clear();
         bool isDirty() {return (bIsDirty?true:false);}
+        void playPing();
 
         vector<LedFixture *> lights;
 

@@ -72,10 +72,12 @@ void LightsEditor::draw(float x, float y, float w, float h)
         }
         ofDrawCircle(pos,circleRadius);
 
+        /* draw lighth number */
         ofSetHexColor(0xff3355);
         float w = 10.0f + lightNum.stringWidth(ofToString(j+1));
         lightNum.drawString(ofToString(j+1),pos.x - w,pos.y + circleRadius);
 
+        /* draw connecting grey lines */
         ofSetColor(100,100,100);
         ofSetLineWidth(1);
         if(j+1 < numLights-1) {

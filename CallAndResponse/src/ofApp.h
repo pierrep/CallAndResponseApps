@@ -1,8 +1,14 @@
 #pragma once
 
+#define USE_GUI 1
+
 #include "ofMain.h"
 #include "ofxArtnet.h"
+
+#ifdef USE_GUI
 #include "ofxDatGui.h"
+#endif
+
 #include "LightsEditor.h"
 #include "TreeData.h"
 #include "GuiMap.h"
@@ -33,11 +39,13 @@ class ofApp : public ofBaseApp{
             void dragEvent(ofDragInfo dragInfo);
             void gotMessage(ofMessage msg);
 
-            void updateTreeDMX(int i);
+            void sendTreeDMX(int i);
             void clearTrees();
             void drawModel();
+#ifdef USE_GUI
             void onButtonEvent(ofxDatGuiButtonEvent e);
             void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
+#endif
             void processState();
             void bloomTree();            
             int  getNextTree();
@@ -53,10 +61,15 @@ class ofApp : public ofBaseApp{
         bool bArtNetActive;
 
         /* Enntec DMX USB Pro object */
+#ifdef USE_USB_DMX
         DmxDevice* dmxInterface_;
         //our DMX packet (which holds the channel values + 1st byte for the start code)
         unsigned char dmxData_[DMX_DATA_LENGTH];
+#endif
         bool bDmxUsbActive;
+
+        /* Audio pings */
+        ofSoundPlayer ping;
 
         /* Animations */
         Animations animations;
@@ -71,10 +84,10 @@ class ofApp : public ofBaseApp{
         ofxMC::MarkovChain markov;
 
         /* GUI */
+#ifdef USE_GUI
         ofxDatGui* gui;
         ofxDatGuiColorPicker *gui_colour;
         ofxDatGuiSlider *gui_brightness;
-        GuiMap guiMap;
         ofxDatGuiToggle* gui_playButton;
         ofxDatGuiToggle* gui_editButton;
         ofxDatGuiLabel* gui_editLabel;
@@ -82,5 +95,7 @@ class ofApp : public ofBaseApp{
         ofxDatGuiButton* gui_triggerBeginButton;
         ofxDatGuiButton* gui_nextAnimationButton;
         ofxDatGuiFolder* paramfolder;
+#endif
+        GuiMap guiMap;
         bool bEditing;
 };
