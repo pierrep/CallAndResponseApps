@@ -2,7 +2,8 @@
 
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
-#include "Tree.h"
+
+class Tree;
 
 class TreeData
 {

@@ -1,5 +1,7 @@
 #include "LightsEditor.h"
-
+#include "TreeData.h"
+#include "Tree.h"
+#include "LedFixture.h"
 
 LightsEditor::LightsEditor()
 {

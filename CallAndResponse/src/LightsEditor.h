@@ -2,7 +2,8 @@
 
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
-#include "TreeData.h"
+
+class TreeData;
 
 class LightsEditor
 {

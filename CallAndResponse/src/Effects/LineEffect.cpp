@@ -54,7 +54,7 @@ void LineEffect::draw(float x, float y, float w, float h)
     if(!bEnabled) return;
 
     ofPushStyle();
-    ofSetColor(255);
+    ofSetColor(255,0,255.0f);
     ofSetLineWidth(lineWidth.get());
     for(int i = 0;i < lines.size();i++) {
         ofDrawLine(lines[i].p1,lines[i].p2);

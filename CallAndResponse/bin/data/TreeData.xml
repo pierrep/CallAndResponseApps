@@ -4,6 +4,7 @@
         <TreeName>E1</TreeName>
         <MapPosX>275.000000000</MapPosX>
         <MapPosY>180.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>446.000000000</x>
@@ -66,8 +67,8 @@
         </Light>
         <Light>
             <id>12</id>
-            <x>603.000000000</x>
-            <y>385.000000000</y>
+            <x>1131.000000000</x>
+            <y>68.000000000</y>
         </Light>
         <Light>
             <id>13</id>
@@ -110,6 +111,7 @@
         <TreeName>E2</TreeName>
         <MapPosX>269.000000000</MapPosX>
         <MapPosY>240.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>343.000000000</x>
@@ -216,6 +218,7 @@
         <TreeName>E3</TreeName>
         <MapPosX>261.000000000</MapPosX>
         <MapPosY>301.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>447.000000000</x>
@@ -322,6 +325,7 @@
         <TreeName>W1</TreeName>
         <MapPosX>186.000000000</MapPosX>
         <MapPosY>200.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>472.000000000</x>
@@ -418,6 +422,7 @@
         <TreeName>W2</TreeName>
         <MapPosX>182.000000000</MapPosX>
         <MapPosY>258.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>434.000000000</x>
@@ -504,6 +509,7 @@
         <TreeName>W3</TreeName>
         <MapPosX>175.000000000</MapPosX>
         <MapPosY>315.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>482.000000000</x>
@@ -590,6 +596,7 @@
         <TreeName>W4</TreeName>
         <MapPosX>166.000000000</MapPosX>
         <MapPosY>368.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>380.000000000</x>
@@ -666,6 +673,7 @@
         <TreeName>W5</TreeName>
         <MapPosX>156.000000000</MapPosX>
         <MapPosY>432.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>469.000000000</x>
@@ -772,6 +780,7 @@
         <TreeName>E6</TreeName>
         <MapPosX>232.000000000</MapPosX>
         <MapPosY>525.000000000</MapPosY>
+        <Volume>5</Volume>
         <Light>
             <id>0</id>
             <x>519.000000000</x>
@@ -878,6 +887,7 @@
         <TreeName>E7</TreeName>
         <MapPosX>227.000000000</MapPosX>
         <MapPosY>585.000000000</MapPosY>
+        <Volume>5</Volume>
         <Light>
             <id>0</id>
             <x>364.000000000</x>
@@ -974,6 +984,7 @@
         <TreeName>E8</TreeName>
         <MapPosX>221.000000000</MapPosX>
         <MapPosY>647.000000000</MapPosY>
+        <Volume>5</Volume>
         <Light>
             <id>0</id>
             <x>438.000000000</x>
@@ -1080,6 +1091,7 @@
         <TreeName>E9</TreeName>
         <MapPosX>207.000000000</MapPosX>
         <MapPosY>715.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>364.000000000</x>
@@ -1186,6 +1198,7 @@
         <TreeName>E10</TreeName>
         <MapPosX>200.000000000</MapPosX>
         <MapPosY>818.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>463.000000000</x>
@@ -1292,6 +1305,7 @@
         <TreeName>W6</TreeName>
         <MapPosX>151.000000000</MapPosX>
         <MapPosY>500.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>440.000000000</x>
@@ -1373,6 +1387,7 @@
         <TreeName>W7</TreeName>
         <MapPosX>145.000000000</MapPosX>
         <MapPosY>577.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>495.000000000</x>
@@ -1459,6 +1474,7 @@
         <TreeName>W9</TreeName>
         <MapPosX>128.000000000</MapPosX>
         <MapPosY>730.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>480.000000000</x>
@@ -1565,6 +1581,7 @@
         <TreeName>W10</TreeName>
         <MapPosX>114.000000000</MapPosX>
         <MapPosY>814.000000000</MapPosY>
+        <Volume>2</Volume>
         <Light>
             <id>0</id>
             <x>505.000000000</x>

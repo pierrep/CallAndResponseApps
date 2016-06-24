@@ -1,9 +1,10 @@
 #pragma once
 
 #include "ofMain.h"
-#include "TreeData.h"
 #include "ofxPlaylist.h"
-#include "Effects/BaseEffect.h"
+
+class BaseEffect;
+class TreeData;
 
 class Animations
 {

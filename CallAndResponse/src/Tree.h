@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
-#include "LedFixture.h"
+
+class LedFixture;
 
 class Tree
 {
@@ -13,6 +14,8 @@ class Tree
         void setTransform(ofMatrix4x4& mat);
         void setId(int _id) {id = _id;}
         const int getId() {return id;}
+        void setVolume(int _vol) {volume = _vol;}
+        const int getVolume() {return volume;}
         void setName(string _name) {name = _name;}
         void setMapPos(ofVec2f _pos) {pos = _pos;}
         const ofVec2f getMapPos() { return pos;}
@@ -33,6 +36,9 @@ class Tree
         unsigned char buf[512];
         ofVec2f pos;
         bool    bIsDirty;
+        bool    bPlayPing;
+        int     pingcount;
+        int     volume;
 
     private:
 };

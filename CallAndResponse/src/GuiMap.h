@@ -1,7 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
-#include "TreeData.h"
+
+class TreeData;
 
 class GuiMap
 {

@@ -29,11 +29,10 @@ void BloomEffect::begin()
     radius = 0;
     ratio = 0;
 
-   // if(ofGetFrameNum()%2 == 0) c2.set(255,0,255);
-
     timeline.addKeyFrame(Action::tween(bloomspeed.get(), &radius, maxradius.get(),TWEEN_QUAD,TWEEN_EASE_OUT));
+    timeline.addKeyFrame(Action::pause(3000.0f));
     timeline.addKeyFrame(Action::tween(3000.0f,&radius, 0.0f, TWEEN_QUAD, TWEEN_EASE_IN));
-    timeline.addToKeyFrame(Action::tween(3000.0f, &ratio, 1.0f,TWEEN_QUAD,TWEEN_EASE_OUT));
+    timeline.addToKeyFrame(Action::tween(3000.0f, &ratio, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
 }
 
 void BloomEffect::update(float curTime)
@@ -50,7 +49,7 @@ void BloomEffect::draw(float x, float y, float w, float h)
 
     ofPushStyle();
 
-    ofSetColor(c1.getLerped(c2,ratio));
+    ofSetColor(c1.getLerped(c2,ratio),255.0f - 255.0f*ratio + 100.0f);
     ofDrawCircle(x + 600, ofGetHeight()/2, radius);
     ofPopStyle();
 }

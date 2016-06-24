@@ -1,5 +1,6 @@
 #include "GuiMap.h"
-
+#include "TreeData.h"
+#include "Tree.h"
 
 GuiMap::GuiMap()
 {

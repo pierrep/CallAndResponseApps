@@ -1,4 +1,8 @@
 #include "Animations.h"
+#include "Tree.h"
+#include "TreeData.h"
+#include "LedFixture.h"
+#include "Effects/BaseEffect.h"
 #include "Effects/BloomEffect.h"
 #include "Effects/NoiseEffect.h"
 #include "Effects/LineEffect.h"

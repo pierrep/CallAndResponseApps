@@ -1,9 +1,14 @@
 #include "ofApp.h"
+#include "Tree.h"
+#include "ofxPlaylist.h"
+#include "LedFixture.h"
+
+using namespace Playlist;
 
 ofApp::ofApp() :
-    gBloomTime(5000.0f),
-    gTrailTime(1500.0f),
-    gPauseTime(3000.0f)
+    gBloomTime(7000.0f),
+    gTrailTime(900.0f),
+    gPauseTime(1500.0f)
 {
 
 }
@@ -79,7 +84,9 @@ void ofApp::bloomTree()
 {
 
     if(data.currentTree == data.targetTree) {
-        ping.play();
+        /* play bellbird sound */
+        data.trees[data.currentTree]->playPing();
+
         animations.setEffect(1);
         animations.enableEffect(4);         /* TODO: REFERENCE FX BY NAME NOT INDEX!! */
 
@@ -91,69 +98,6 @@ void ofApp::bloomTree()
         animations.begin();
     }
 
-}
-
-//--------------------------------------------------------------
-int ofApp::calculateDestinationTree()
-{
-
-    markov.update();
-    int tree = markov.getState();
-
-    ofLogNotice() << "New target tree: " << tree << "(current tree: " << data.currentTree <<")";
-    return tree;
-}
-
-//--------------------------------------------------------------
-int ofApp::getNextTree()
-{
-    int tree = data.currentTree;    
-
-    if(data.direction == 1) {
-        switch(tree) {
-            case 0:     tree = 1; break;
-            case 1:     tree = 2; break;
-            case 2:     tree = 8; break;
-            case 3:     tree = 0; break;
-            case 4:     tree = 3; break;
-            case 5:     tree = 4; break;
-            case 6:     tree = 5; break;
-            case 7:     tree = 6; break;
-            case 8:     tree = 9; break;
-            case 9:     tree = 10; break;
-            case 10:    tree = 11; break;
-            case 11:    tree = 12; break;
-            case 12:    tree = 16; break;
-            case 13:    tree = 7; break;
-            case 14:    tree = 13; break;
-            case 15:    tree = 14; break;
-            case 16:    tree = 15; break;
-        }
-    }
-    else if(data.direction == -1) {
-        switch(tree) {
-            case 0:     tree = 3; break;
-            case 1:     tree = 0; break;
-            case 2:     tree = 1; break;
-            case 3:     tree = 4; break;
-            case 4:     tree = 5; break;
-            case 5:     tree = 6; break;
-            case 6:     tree = 7; break;
-            case 7:     tree = 13; break;
-            case 8:     tree = 2; break;
-            case 9:     tree = 8; break;
-            case 10:    tree = 9; break;
-            case 11:    tree = 10; break;
-            case 12:    tree = 11; break;
-            case 13:    tree = 14; break;
-            case 14:    tree = 15; break;
-            case 15:    tree = 16; break;
-            case 16:    tree = 12; break;
-        }
-    }
-
-    ofLogNotice() << " getNextTree = " << tree;
-    return tree;
 }
 
 //--------------------------------------------------------------
@@ -284,7 +228,6 @@ void ofApp::update(){
     processState();
 
 
-
     if(data.state == data.LIGHTS_OFF) return;
 
     if(!editor.isEditing()) {
@@ -299,7 +242,12 @@ void ofApp::update(){
     for(int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->update();
-        int universe = data.trees[i]->getId();
+        //int universe = data.trees[i]->getId();
+        #ifdef USE_GUI
+        if(data.trees[i]->getBuffer()[509] > 128) {
+            ping.play();
+        }
+        #endif
         sendTreeDMX(i);
     }
 }
@@ -484,6 +432,69 @@ void ofApp::setupGui()
 }
 
 #endif
+
+//--------------------------------------------------------------
+int ofApp::calculateDestinationTree()
+{
+
+    markov.update();
+    int tree = markov.getState();
+
+    ofLogNotice() << "New target tree: " << tree << "(current tree: " << data.currentTree <<")";
+    return tree;
+}
+
+//--------------------------------------------------------------
+int ofApp::getNextTree()
+{
+    int tree = data.currentTree;
+
+    if(data.direction == 1) {
+        switch(tree) {
+            case 0:     tree = 1; break;
+            case 1:     tree = 2; break;
+            case 2:     tree = 8; break;
+            case 3:     tree = 0; break;
+            case 4:     tree = 3; break;
+            case 5:     tree = 4; break;
+            case 6:     tree = 5; break;
+            case 7:     tree = 6; break;
+            case 8:     tree = 9; break;
+            case 9:     tree = 10; break;
+            case 10:    tree = 11; break;
+            case 11:    tree = 12; break;
+            case 12:    tree = 16; break;
+            case 13:    tree = 7; break;
+            case 14:    tree = 13; break;
+            case 15:    tree = 14; break;
+            case 16:    tree = 15; break;
+        }
+    }
+    else if(data.direction == -1) {
+        switch(tree) {
+            case 0:     tree = 3; break;
+            case 1:     tree = 0; break;
+            case 2:     tree = 1; break;
+            case 3:     tree = 4; break;
+            case 4:     tree = 5; break;
+            case 5:     tree = 6; break;
+            case 6:     tree = 7; break;
+            case 7:     tree = 13; break;
+            case 8:     tree = 2; break;
+            case 9:     tree = 8; break;
+            case 10:    tree = 9; break;
+            case 11:    tree = 10; break;
+            case 12:    tree = 11; break;
+            case 13:    tree = 14; break;
+            case 14:    tree = 15; break;
+            case 15:    tree = 16; break;
+            case 16:    tree = 12; break;
+        }
+    }
+
+    ofLogNotice() << " getNextTree = " << tree;
+    return tree;
+}
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){

@@ -1,5 +1,6 @@
 #include "TreeData.h"
-
+#include "Tree.h"
+#include "LedFixture.h"
 
 TreeData::TreeData()
 {
@@ -33,11 +34,13 @@ void TreeData::load()
         string name = xml.getValue("TreeName","none");
         int Mapx = xml.getValue("MapPosX",-1);
         int Mapy = xml.getValue("MapPosY",-1);
+        int vol = xml.getValue("Volume",2);
 
         Tree* tree = new Tree();
         tree->setId(treeId);
         tree->setName(name);
         tree->setMapPos(ofVec2f(Mapx,Mapy));
+        tree->setVolume(vol);
 
         int numLights = xml.getNumTags("Light");
 
@@ -79,6 +82,7 @@ void TreeData::save()
         xml.addValue("TreeName", trees[t]->getName());
         xml.addValue("MapPosX", trees[t]->getMapPos().x);
         xml.addValue("MapPosY", trees[t]->getMapPos().y);
+        xml.addValue("Volume", trees[t]->getVolume());
 
         for(int i = 0; i < trees[t]->lights.size(); i++)
         {

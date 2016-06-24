@@ -1,9 +1,13 @@
 #include "Tree.h"
+#include "LedFixture.h"
 
 Tree::Tree()
 {
     memset(buf, 0, 512*sizeof(unsigned char));
     bIsDirty = true;
+    bPlayPing = false;
+    pingcount = 0;
+    volume = 2;
 }
 
 //--------------------------------------------------------------
@@ -37,7 +41,7 @@ void Tree::setMesh(ofMesh& _mesh) {
 //--------------------------------------------------------------
 void Tree::playPing()
 {
-    buf[510] = 255;
+    bPlayPing = true;
 }
 
 //--------------------------------------------------------------
@@ -57,6 +61,19 @@ void Tree::update()
         }
         lights[i]->update();
 
+    }
+
+    buf[510] = volume;
+    if(bPlayPing) {
+
+        buf[509] = 250;
+        pingcount++;
+        if(pingcount >= 2) {
+            pingcount = 0;
+            bPlayPing = false;
+        }
+    } else {
+        buf[509] = 0;
     }
 
 }
