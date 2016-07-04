@@ -1,6 +1,6 @@
 #pragma once
 
-#define USE_GUI 1
+//#define USE_GUI 1
 
 #include "ofMain.h"
 #include "ofxArtnet.h"
@@ -14,7 +14,9 @@
 #include "GuiMap.h"
 #include "Animations.h"
 #include "ofxMarkovChain.h"
+#ifdef USE_USB_DMX
 #include "ofxGenericDmx.h"
+#endif
 
 #define DMX_DATA_LENGTH 513
 

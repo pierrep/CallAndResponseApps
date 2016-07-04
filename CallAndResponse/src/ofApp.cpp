@@ -24,7 +24,8 @@ void ofApp::setup(){
     editor.setup(&data);
     guiMap.setup(&data);
     animations.setup(&data);
-    bArtNetActive = artnet.setup("192.168.0.43"); //make sure the firewall is deactivated at this point
+    bArtNetActive = true;
+    artnet.setup("192.168.0.2"); //make sure the firewall is deactivated at this point
     if(!bArtNetActive) {
 #ifdef USE_USB_DMX
         memset( dmxData_, 0, DMX_DATA_LENGTH );
@@ -254,7 +255,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	#ifdef USE_GUI
     ofSetWindowTitle("X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY) + " fps:"+ofToString(ofGetFrameRate()));
+    #endif	
 
     guiMap.draw(0,0,400,900);
     animations.draw(400,0);
