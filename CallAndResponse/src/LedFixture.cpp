@@ -2,13 +2,18 @@
 
 LedFixture::LedFixture()
 {
-    //ctor
+    id = 0;
+    pos = ofVec2f::zero();
 }
 
 //--------------------------------------------------------------
 LedFixture::~LedFixture()
 {
-    //dtor
+    for (std::vector< LedPixel *>::iterator itr = pixels.begin() ; itr != pixels.end(); ++itr)
+    {
+      delete (*itr);
+    }
+    pixels.clear();
 }
 
 void LedFixture::setupPixels(ofVec2f pos, float pixelWidth)

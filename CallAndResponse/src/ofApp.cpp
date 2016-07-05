@@ -73,10 +73,16 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::exit(){
-
+    ofLogNotice() << "Exiting...";
     data.save();
     animations.save();
-    clearTrees();  
+    clearTrees();
+
+    #ifdef USE_GUI
+        ping.unload();
+        shared_ptr<ofOpenALSoundPlayer> player = dynamic_pointer_cast<ofOpenALSoundPlayer>(ping.getPlayer());
+        player->close();
+    #endif
 
 }
 

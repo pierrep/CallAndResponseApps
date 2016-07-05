@@ -1,8 +1,11 @@
 #pragma once
 
-//#define USE_GUI 1
-
 #include "ofMain.h"
+
+#ifdef TARGET_LINUX
+#define USE_GUI 1
+#endif
+
 #include "ofxArtnet.h"
 
 #ifdef USE_GUI
@@ -14,6 +17,7 @@
 #include "GuiMap.h"
 #include "Animations.h"
 #include "ofxMarkovChain.h"
+
 #ifdef USE_USB_DMX
 #include "ofxGenericDmx.h"
 #endif

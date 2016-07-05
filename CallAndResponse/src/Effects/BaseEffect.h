@@ -1,8 +1,10 @@
 #pragma once
 
-#define USE_GUI 1
-
 #include "ofMain.h"
+
+#ifdef TARGET_LINUX
+#define USE_GUI 1
+#endif
 
 #ifdef USE_GUI
 #include "ofxDatGui.h"
@@ -17,7 +19,7 @@ class BaseEffect
     public:
 
         BaseEffect();
-        virtual ~BaseEffect() {};
+        virtual ~BaseEffect();
 
         virtual void setup() = 0;
         virtual void drawGui();

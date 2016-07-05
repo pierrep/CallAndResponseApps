@@ -26,6 +26,15 @@ Animations::Animations()
 
 }
 
+Animations::~Animations()
+{
+    for (std::vector< BaseEffect *>::iterator itr = effect.begin() ; itr != effect.end(); ++itr)
+    {
+      delete (*itr);
+    }
+    effect.clear();
+}
+
 void Animations::setup(TreeData * _data)
 {
     data = _data;

@@ -4,9 +4,12 @@ using namespace Playlist;
 
 LedPixel::LedPixel()
 {
+    id = 0;
+    pos = ofVec2f::zero();
+    pos3D = ofVec3f::zero();
     col = ofColor::black;
-    col = ofColor::red;
     brightness = 1.0f;
+    bIsDirty = false;
 
 }
 

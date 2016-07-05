@@ -3,21 +3,40 @@
 #include "LedFixture.h"
 
 TreeData::TreeData()
+: state(LIGHTS_ON),
+  isPlaying(true),
+  bShowBgImage(true),
+  currentTree(0),
+  currentLight(0),
+  nextTree(0),
+  targetTree(0),
+  direction(1),
+  colour(ofColor::black),
+  brightness(1.0f),
+  pixelWidth(1.0f)
 {
-   currentTree = 8;
-   currentLight = 0;
-   nextTree = 0;
-   targetTree = 0;
-   direction = 1;
-   isPlaying = true;
-   bShowBgImage = true;
-   pixelWidth = 6.0f;
-   state = LIGHTS_ON;
+    currentTree = 8;
+    pixelWidth = 6.0f;
 }
 
 TreeData::~TreeData()
 {
-    //dtor
+
+    for (vector< Tree *>::iterator itr = trees.begin() ; itr != trees.end(); ++itr)
+    {
+        // delete the lights
+        for (vector< LedFixture *>::iterator itr2 = (*itr)->lights.begin() ; itr2 != (*itr)->lights.end(); ++itr2)
+        {
+            delete (*itr2);
+        }
+        (*itr)->lights.clear();
+
+        //delete the tree
+        delete (*itr);
+    }
+    trees.clear();
+
+
 }
 
 void TreeData::load()

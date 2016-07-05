@@ -10,6 +10,14 @@ BaseEffect::BaseEffect()
     effectWidth = 1200;
 }
 
+BaseEffect::~BaseEffect()
+{
+    #ifdef USE_GUI
+        delete paramfolder;
+    #endif
+
+}
+
 
 void BaseEffect::setupGui()
 {

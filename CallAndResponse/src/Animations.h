@@ -11,6 +11,7 @@ class Animations
 
     public:
         Animations();
+        ~Animations();
 
         void setup(TreeData * _data);
         void update(float curTime);

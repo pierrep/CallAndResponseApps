@@ -26,6 +26,7 @@ void LightsEditor::setup(TreeData* _data)
     for(int i=0; i < data->trees.size();i++) {
         string name = data->trees.at(i)->getName();
         ofImage img;
+        img.setUseTexture(true);
         img.load("TreePhotos/"+name+".jpg");
         img.setImageType(OF_IMAGE_GRAYSCALE);
         treeimg.push_back(img);
