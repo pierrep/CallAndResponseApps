@@ -17,6 +17,7 @@ class Animations
         void update(float curTime);
         void drawGui();
         void draw(float x, float y);
+        void updateFBO();
         void setPattern(int i);
         BaseEffect* getEffect() {return effect[currentfx];}
         void setEffect(int i);

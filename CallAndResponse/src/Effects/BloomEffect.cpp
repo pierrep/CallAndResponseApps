@@ -29,6 +29,7 @@ void BloomEffect::begin()
     radius = 0;
     ratio = 0;
 
+    timeline.clear();
     timeline.addKeyFrame(Action::tween(bloomspeed.get(), &radius, maxradius.get(),TWEEN_QUAD,TWEEN_EASE_OUT));
     timeline.addKeyFrame(Action::pause(3000.0f));
     timeline.addKeyFrame(Action::tween(3000.0f,&radius, 0.0f, TWEEN_QUAD, TWEEN_EASE_IN));

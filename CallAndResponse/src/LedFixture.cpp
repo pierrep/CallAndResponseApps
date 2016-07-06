@@ -4,6 +4,7 @@ LedFixture::LedFixture()
 {
     id = 0;
     pos = ofVec2f::zero();
+    bIsDirty = false;
 }
 
 //--------------------------------------------------------------
@@ -16,6 +17,15 @@ LedFixture::~LedFixture()
     pixels.clear();
 }
 
+void LedFixture::clear()
+{
+    for(int i = 0;i < pixels.size();i++)
+    {
+        pixels[i]->clear();
+    }
+    bIsDirty = false;
+}
+
 void LedFixture::setupPixels(ofVec2f pos, float pixelWidth)
 {
     for(int i=0; i < NUM_PIXELS_PER_FIXTURE; i++) {
@@ -26,11 +36,6 @@ void LedFixture::setupPixels(ofVec2f pos, float pixelWidth)
         p->setPosition(v);
         pixels.push_back(p);
     }
-}
-
-//--------------------------------------------------------------
-void LedFixture::setMesh(ofMesh& _mesh) {
-    mesh = _mesh;
 }
 
 //--------------------------------------------------------------
@@ -61,36 +66,20 @@ void LedFixture::fadeOn()
 }
 
 //--------------------------------------------------------------
-void LedFixture::update()
+bool LedFixture::update()
 {
     for(int i = 0;i < pixels.size();i++)
     {
-        pixels[i]->update();
+        bool val = pixels[i]->update();
+        if(val) {
+            bIsDirty = true;
+        }
     }
-
+    return bIsDirty;
 }
 
 //--------------------------------------------------------------
 void LedFixture::draw()
 {
-    ofPushStyle();
-    ofSetColor(0,0,255);
 
-	ofEnableDepthTest();
-
-    ofPushMatrix();
-        ofMultMatrix(getLocalTransformMatrix());
-        //model.drawWireframe();
-        mesh.drawWireframe();
-        ofVec3f c = mesh.getCentroid();
-        ofDrawSphere(c.x,c.y,c.z,0.05f);
-        //mesh.getVertices();
-//        for(int i = 0 ; i < mesh.getNumVertices();i++) {
-//          ofVec3f v = mesh.getVertices().at(i);
-//        }
-    ofPopMatrix();
-
-
-    ofDisableDepthTest();
-    ofPopStyle();
 }

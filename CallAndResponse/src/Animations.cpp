@@ -109,14 +109,16 @@ void Animations::update(float curTime)
 
 }
 
-void Animations::draw(float x, float y)
+void Animations::updateFBO()
 {
     fxframe.begin();
         ofClear(0,0,0, 0);
         effect[currentfx]->draw(0,0,1200,900);
-
     fxframe.end();
+}
 
+void Animations::draw(float x, float y)
+{
     fxframe.draw(x,y,1200,900);
 }
 

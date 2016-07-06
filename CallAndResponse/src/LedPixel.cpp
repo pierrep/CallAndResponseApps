@@ -20,10 +20,24 @@ LedPixel::~LedPixel()
 }
 
 //--------------------------------------------------------------
+void LedPixel::clear()
+{
+    setBrightness(0.0f);
+    setColour(ofColor::black);
+    bIsDirty = false;
+}
+
+//--------------------------------------------------------------
+void LedPixel::setColour(ofColor c)
+{
+    col = c;
+    bIsDirty = true;
+}
+
+//--------------------------------------------------------------
 void LedPixel::fadeOn(int i)
 {
     brightness = 0.0f;
-    col.r = 1.0f;
     playlist.addKeyFrame(Action::pause(i*100.0f));
     playlist.addKeyFrame(Action::tween(200.f, &brightness, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
     playlist.addToKeyFrame(Action::tween(200.0f,200.f,&brightness, 0.0f, TWEEN_QUAD, TWEEN_EASE_OUT));
@@ -50,9 +64,11 @@ void LedPixel::setBrightness(float value)
 }
 
 //--------------------------------------------------------------
-void LedPixel::update()
+bool LedPixel::update()
 {
     playlist.update();
+
+    return bIsDirty;
 }
 
 //--------------------------------------------------------------

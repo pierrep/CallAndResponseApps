@@ -8,10 +8,8 @@ class Tree
     public:
         Tree();
         ~Tree();
-        void draw();
+        void draw(int x, int y);
         void update();
-        void setMesh(ofMesh& mesh);
-        void setTransform(ofMatrix4x4& mat);
         void setId(int _id) {id = _id;}
         const int getId() {return id;}
         void setVolume(int _vol) {volume = _vol;}
@@ -20,9 +18,11 @@ class Tree
         void setMapPos(ofVec2f _pos) {pos = _pos;}
         const ofVec2f getMapPos() { return pos;}
         const string getName() {return name;}
-        const unsigned char*  getBuffer() {return &buf[0];}
+        void updateBufferPixels();
+        const unsigned char*  getBufferPixels() {return &buf[0];}
         void clear();
         bool isDirty() {return (bIsDirty?true:false);}
+        void updatePing();
         void playPing();
 
         vector<LedFixture *> lights;
@@ -31,8 +31,6 @@ class Tree
     protected:
         int id;
         string name;
-        ofNode node;
-        ofMesh mesh;
         unsigned char buf[512];
         ofVec2f pos;
         bool    bIsDirty;

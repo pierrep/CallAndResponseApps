@@ -4,10 +4,10 @@
 Tree::Tree()
 {
     memset(buf, 0, 512*sizeof(unsigned char));
-    bIsDirty = true;
     bPlayPing = false;
     pingcount = 0;
     volume = 2;
+    bIsDirty = false;
 }
 
 //--------------------------------------------------------------
@@ -22,33 +22,56 @@ void Tree::clear()
     memset(buf, 0, 512*sizeof(unsigned char));
     for(int i = 0; i < lights.size();i++)
     {
-        lights[i]->setColour(ofColor::black);
-        lights[i]->setBrightness(0.0f);
+        lights[i]->clear();
     }
-}
-
-//--------------------------------------------------------------
-void Tree::setTransform(ofMatrix4x4& mat)
-{
-    node.setTransformMatrix(mat);
-}
-
-//--------------------------------------------------------------
-void Tree::setMesh(ofMesh& _mesh) {
-    mesh = _mesh;
-}
-
-//--------------------------------------------------------------
-void Tree::playPing()
-{
-    bPlayPing = true;
+    bIsDirty = false;
 }
 
 //--------------------------------------------------------------
 void Tree::update()
 {
-    memset(buf, 0, 512*sizeof(unsigned char));
 
+    for(int i=0; i < lights.size();i++)
+    {
+        bool val = lights[i]->update();
+        if(val) {
+            cout << "tree is dirty" << endl;
+            bIsDirty = true;
+        }
+    }
+
+    updatePing();
+
+    updateBufferPixels();
+}
+
+//--------------------------------------------------------------
+void Tree::draw(int x, int y)
+{
+    const int pixsize = 4;
+    int idx = 0;
+
+    ofPushStyle();
+    for(unsigned int i=0; i < lights.size();i++)
+    {
+        for(unsigned int j=0; j < lights[i]->pixels.size();j++) {
+            ofSetColor((int) buf[idx], (int) buf[idx+1], (int) buf[idx+2]);
+            ofDrawRectangle(10 + x+i*pixsize,y+j*pixsize,pixsize,pixsize);
+            idx+=3;
+        }
+        if(bIsDirty) {
+            ofSetColor(255,0,0);
+            ofDrawRectangle(10 + x -pixsize,y,pixsize,pixsize*8);
+        }
+    }
+
+    ofPopStyle();
+
+}
+
+//--------------------------------------------------------------
+void Tree::updateBufferPixels()
+{
     int bufindex = 0;
     for(int i=0; i < lights.size();i++)
     {
@@ -57,13 +80,17 @@ void Tree::update()
                 buf[bufindex] = lights[i]->pixels[j]->getDMXValue(k);
                 bufindex++;
             }
-            //if(lights[i]->pixels[j].isDirty()) bIsDirty = true;
         }
-        lights[i]->update();
-
     }
+}
 
+//--------------------------------------------------------------
+void Tree::updatePing()
+{
+    /* set per tree volume */
     buf[510] = volume;
+
+    /* check if we should play the ping */
     if(bPlayPing) {
 
         buf[509] = 250;
@@ -75,30 +102,10 @@ void Tree::update()
     } else {
         buf[509] = 0;
     }
-
 }
 
 //--------------------------------------------------------------
-void Tree::draw()
+void Tree::playPing()
 {
-    ofSetColor(0);
-
-    ofEnableDepthTest();
-
-    ofPushMatrix();
-        ofMultMatrix(node.getLocalTransformMatrix());
-        //model.drawWireframe();
-        mesh.drawWireframe();
-        ofVec3f c = mesh.getCentroid();
-        ofSetColor(0,0,255);
-        //ofSphere(c.x,c.y,c.z,1);
-        //mesh.getVertices();
-//        for(int i = 0 ; i < mesh.getNumVertices();i++) {
-//          ofVec3f v = mesh.getVertices().at(i);
-//        }
-    ofPopMatrix();
-
-
-    ofDisableDepthTest();
-
+    bPlayPing = true;
 }

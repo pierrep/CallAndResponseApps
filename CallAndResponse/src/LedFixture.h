@@ -10,9 +10,9 @@ class LedFixture : public ofNode
         LedFixture();
         ~LedFixture();
         void draw();
-        void update();
+        bool update();
 
-        void setMesh(ofMesh& mesh);        
+        void clear();
         void setId(int _id) {id = _id;}
         void setColour(ofColor c);
         void setBrightness(float val);
@@ -27,9 +27,9 @@ class LedFixture : public ofNode
         vector<LedPixel* > pixels;
 
     protected:
-        ofMesh mesh;
         int id;
         ofVec2f pos;
+        bool    bIsDirty;
 
     private:
 };

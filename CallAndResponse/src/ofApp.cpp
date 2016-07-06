@@ -6,26 +6,21 @@
 using namespace Playlist;
 
 ofApp::ofApp() :
-    gBloomTime(7000.0f),
+    bloomCount(0),
+    gBloomTime(7500.0f),
     gTrailTime(900.0f),
-    gPauseTime(1500.0f)
+    gPauseTime(1500.0f),
+    gIPAddress("192.168.0.2"),
+    bEditing(false)
 {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::setup(){
-    ofBackground(50,50,50);
-    ofSetVerticalSync(false);
-    ofSetFrameRate(30);
-    ofSetLogLevel(OF_LOG_NOTICE);
-
-    data.load();
-    editor.setup(&data);
-    guiMap.setup(&data);
-    animations.setup(&data);
+void ofApp::setupDMX()
+{
     bArtNetActive = true;
-    artnet.setup("192.168.0.2"); //make sure the firewall is deactivated at this point
+    artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
     if(!bArtNetActive) {
 #ifdef USE_USB_DMX
         memset( dmxData_, 0, DMX_DATA_LENGTH );
@@ -40,35 +35,48 @@ void ofApp::setup(){
         }
 #endif
     }
-    bEditing = false;
+    resetTrees();
+}
 
-    clearTrees();
+//--------------------------------------------------------------
+void ofApp::setup(){
+    ofBackground(50,50,50);
+    ofSetVerticalSync(false);
+    ofSetFrameRate(30);
+    ofSetLogLevel(OF_LOG_NOTICE);
+
+    data.load();
+    editor.setup(&data);
+    guiMap.setup(&data);
+    animations.setup(&data);
+    animations.load();
+
 #ifdef USE_GUI
     setupGui();
     ping.load("ping.mp3");
 #endif
 
+    /* set up markov chain */
     ofxMC::Matrix mat("transitionMatrix.txt");
-
     markov.setup(mat, 0);
 
-    ofxKeyframeAnimRegisterEvents(this);
-
+    /* Set up timer */
     curTimeTree = ofGetElapsedTimeMillis();
     prevTimeTree = curTimeTree;
-    wait_time = 4000;
 
-    playhead = 0.0f;
-    bloomCount = 0;
-    animations.load();
+    /* Set Global Brightness */
+    data.brightness = 0.5f;
 
+    /* Playlist setup */
+    playhead = 0.0f;    
+    ofxKeyframeAnimRegisterEvents(this);
+    timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+    timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
+
+    /* Perform first bloom */
     ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
     data.currentTree = data.nextTree;
     bloomTree();
-
-    playhead = 0.0f;
-    timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
-    timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
 }
 
 //--------------------------------------------------------------
@@ -76,7 +84,7 @@ void ofApp::exit(){
     ofLogNotice() << "Exiting...";
     data.save();
     animations.save();
-    clearTrees();
+    resetTrees();
 
     #ifdef USE_GUI
         ping.unload();
@@ -137,7 +145,7 @@ void ofApp::processState()
         {
             ofLogNotice() << " ";
             ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
-            clearTrees();
+
             if(data.isPlaying) {
                 data.state = data.LIGHTS_ON;
                 bloomTree();
@@ -151,10 +159,10 @@ void ofApp::processState()
         case data.END_BLOOM:
         {
             ofLogNotice() << "End Bloom  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
-            //clearTrees();
             if(data.isPlaying) {
                 data.state = data.LIGHTS_OFF;
             }
+            data.trees[data.currentTree]->clear();
 
             playhead = 0.0f;
             bloomCount++;
@@ -186,7 +194,7 @@ void ofApp::processState()
         case data.START_TRAIL:
         {
             ofLogNotice() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
-            clearTrees();
+
             if(data.isPlaying) {
                 data.state = data.LIGHTS_ON;
                 data.currentTree = data.nextTree;
@@ -201,7 +209,6 @@ void ofApp::processState()
         case data.END_TRAIL:
         {
             ofLogNotice() << "End Trail  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
-            //clearTrees();
             if(data.isPlaying) {
                 data.state = data.LIGHTS_OFF;
             }
@@ -240,19 +247,19 @@ void ofApp::update(){
     if(!editor.isEditing()) {
         animations.update(playhead);
     }
+
 #ifdef USE_GUI
     data.colour = gui_colour->getColor();
     data.brightness = gui_brightness->getValue();
 #endif
-     data.brightness = 0.5f;
 
     for(int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->update();
         //int universe = data.trees[i]->getId();
         #ifdef USE_GUI
-        if(data.trees[i]->getBuffer()[509] > 128) {
-            ping.play();
+        if(data.trees[i]->getBufferPixels()[509] > 128) {
+            //ping.play();
         }
         #endif
         sendTreeDMX(i);
@@ -265,13 +272,17 @@ void ofApp::draw(){
     ofSetWindowTitle("X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY) + " fps:"+ofToString(ofGetFrameRate()));
     #endif	
 
+    animations.updateFBO();
+
     guiMap.draw(0,0,400,900);
     animations.draw(400,0);
-    if(editor.isEditing()) {
-
-    }
     editor.draw(400,0,1200,900);
     animations.drawGui();
+
+    for(int i = 0;i < data.trees.size();i++)
+    {
+        data.trees[i]->draw(400,i*50);
+    }
 
 }
 
@@ -280,14 +291,14 @@ void ofApp::sendTreeDMX(int i)
 {
     if(bArtNetActive) {
         if(data.trees[i]->isDirty()) {
-            artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBuffer(), 512);
+            artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBufferPixels(), 512);
         }
     }
     else if(bDmxUsbActive) {
 #ifdef USE_USB_DMX
         if(i == 0) { //only send 1st tree
         dmxData_[0] = 0;
-        memcpy(&dmxData_[1],data.trees[i]->getBuffer(),512);
+        memcpy(&dmxData_[1],data.trees[i]->getBufferPixels(),512);
         dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
         }
 #endif
@@ -300,6 +311,15 @@ void ofApp::clearTrees()
     for(int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->clear();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::resetTrees()
+{
+    clearTrees();
+    for(int i = 0;i < data.trees.size();i++)
+    {
         sendTreeDMX(i);
     }
 }
@@ -353,7 +373,8 @@ void ofApp::keyPressed(int key){
 
         for(int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
         {
-             data.trees[data.currentTree]->lights[i]->fadeOn();
+            data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
+            data.trees[data.currentTree]->lights[i]->fadeOn();
         }
     }
     else if(key == '5') animations.setPattern(5);

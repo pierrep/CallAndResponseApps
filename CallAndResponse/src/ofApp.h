@@ -45,8 +45,10 @@ class ofApp : public ofBaseApp{
             void dragEvent(ofDragInfo dragInfo);
             void gotMessage(ofMessage msg);
 
+            void setupDMX();
             void sendTreeDMX(int i);
             void clearTrees();
+            void resetTrees();
             void drawModel();
 #ifdef USE_GUI
             void onButtonEvent(ofxDatGuiButtonEvent e);
@@ -80,14 +82,17 @@ class ofApp : public ofBaseApp{
         /* Animations */
         Animations animations;
         float curTimeTree, prevTimeTree;
-        float wait_time;
         ofxPlaylist timeline;
         float playhead;
         int bloomCount;
+        ofxMC::MarkovChain markov;
+
+        /* Global Constants */
         const float gBloomTime;
         const float gTrailTime;
         const float gPauseTime;
-        ofxMC::MarkovChain markov;
+        string gIPAddress;
+
 
         /* GUI */
 #ifdef USE_GUI
