@@ -121,14 +121,14 @@ void LightsEditor::keyPressed(ofKeyEventArgs& args)
     }
 
     if(args.key == '[') {
-        data->trees[currentTree]->clear();
+        data->trees[data->currentTree]->clear();
         data->currentTree--;
         if(data->currentTree >= data->trees.size()) {
             data->currentTree = data->trees.size()-1;
         }
     }
     if(args.key == ']') {
-        data->trees[currentTree]->clear();
+        data->trees[data->currentTree]->clear();
         data->currentTree++;
         if(data->currentTree >= data->trees.size()) data->currentTree = 0;
     }

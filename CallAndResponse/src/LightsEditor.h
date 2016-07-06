@@ -28,7 +28,7 @@ class LightsEditor
         ofxXmlSettings xml;
         vector<ofImage> treeimg;
         int currentLight;
-        int currentTree;
+//        int currentSelectedTree;
         TreeData * data;
         float circleRadius;
         ofTrueTypeFont lightNum;

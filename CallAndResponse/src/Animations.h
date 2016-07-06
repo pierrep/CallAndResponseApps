@@ -28,6 +28,8 @@ class Animations
         void load();
 
     protected:
+        void testPattern();
+
         TreeData * data;
 
         /* Timing */

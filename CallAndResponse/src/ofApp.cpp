@@ -253,7 +253,7 @@ void ofApp::update(){
     data.brightness = gui_brightness->getValue();
 #endif
 
-    for(int i = 0;i < data.trees.size();i++)
+    for(unsigned int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->update();
         //int universe = data.trees[i]->getId();
@@ -464,20 +464,20 @@ void ofApp::setupGui()
 #endif
 
 //--------------------------------------------------------------
-int ofApp::calculateDestinationTree()
+unsigned int ofApp::calculateDestinationTree()
 {
 
     markov.update();
-    int tree = markov.getState();
+    unsigned int tree = markov.getState();
 
     ofLogNotice() << "New target tree: " << tree << "(current tree: " << data.currentTree <<")";
     return tree;
 }
 
 //--------------------------------------------------------------
-int ofApp::getNextTree()
+unsigned int ofApp::getNextTree()
 {
-    int tree = data.currentTree;
+    unsigned int tree = data.currentTree;
 
     if(data.direction == 1) {
         switch(tree) {

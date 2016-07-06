@@ -4,7 +4,7 @@
 //========================================================================
 int main( ){
 
-    ofSetLogLevel(OF_LOG_VERBOSE);
+//    ofSetLogLevel(OF_LOG_VERBOSE);
 
     ofSetupOpenGL(1600,900,OF_WINDOW);			// <-------- setup the GL context
 

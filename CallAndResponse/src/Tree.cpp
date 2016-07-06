@@ -30,15 +30,20 @@ void Tree::clear()
 //--------------------------------------------------------------
 void Tree::update()
 {
+    bool val = false;
+    unsigned int count = 0;
 
-    for(int i=0; i < lights.size();i++)
+    for(unsigned int i=0; i < lights.size();i++)
     {
-        bool val = lights[i]->update();
+        val = lights[i]->update();
         if(val) {
-            cout << "tree is dirty" << endl;
             bIsDirty = true;
         }
+        else {
+            count++;
+        }
     }
+    if (count >= lights.size()) bIsDirty = false;
 
     updatePing();
 

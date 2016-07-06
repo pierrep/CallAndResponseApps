@@ -68,6 +68,11 @@ bool LedPixel::update()
 {
     playlist.update();
 
+    if((brightness <= 0.0f) || (col == ofColor::black))
+    {
+        bIsDirty = false;
+    }
+
     return bIsDirty;
 }
 

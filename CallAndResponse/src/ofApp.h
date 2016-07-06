@@ -56,8 +56,8 @@ class ofApp : public ofBaseApp{
 #endif
             void processState();
             void bloomTree();            
-            int  getNextTree();
-            int  calculateDestinationTree();
+            unsigned int  getNextTree();
+            unsigned int  calculateDestinationTree();
             void onKeyframe(ofxPlaylistEventArgs& args);
 
         /* Trees */

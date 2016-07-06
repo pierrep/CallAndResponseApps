@@ -11,7 +11,7 @@
 
 Animations::Animations()
 {
-    pattern = 5;
+    pattern = 0;
     currentfx = 0;
     pixelIndex = 0;
 
@@ -38,7 +38,7 @@ Animations::~Animations()
 void Animations::setup(TreeData * _data)
 {
     data = _data;
-    for(int i =0;i < effect.size();i++) {        
+    for(unsigned int i =0;i < effect.size();i++) {
         effect[i]->setup();
         effect[i]->setupGui();
         effect[i]->enable(false);
@@ -55,49 +55,19 @@ void Animations::setPattern(int i)
 
 void Animations::update(float curTime)
 {
-
-    for(int i =0;i < effect.size();i++)
+    for(unsigned int i =0;i < effect.size();i++)
     {
         effect[i]->update(curTime);
     }
 
-    if(pattern == 1) {
-        data->trees[data->currentTree]->clear();
-        data->trees[data->currentTree]->lights[data->currentLight]->setColour(ofColor::purple);
-        data->trees[data->currentTree]->lights[data->currentLight]->setBrightness(1.0f);
-        data->currentLight++;
-        if(data->currentLight > data->trees[data->currentTree]->lights.size()-1) data->currentLight = 0;
-    }
-    else if(pattern == 2) {
-        data->trees[data->currentTree]->clear();
-        data->currentLight = (pixelIndex / NUM_PIXELS_PER_FIXTURE);
-        unsigned int idx = pixelIndex - (data->currentLight * NUM_PIXELS_PER_FIXTURE);
-        data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setColour(ofColor::chartreuse);
-        data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setBrightness(1.0f);
-        pixelIndex++;
-        if(pixelIndex > (5*NUM_PIXELS_PER_FIXTURE - 1)) pixelIndex = 0;
-    } else if(pattern == 3) {
-        for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
-        {
-            data->trees[data->currentTree]->lights[i]->setColour(data->colour);
-            data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
-        }
-    }
-    else if(pattern == 4) {
-        for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
-        {
-            data->trees[data->currentTree]->lights[i]->setColour(data->colour);
-        }
-    }
-    else if(pattern == 5) {
-
+    if(pattern == 0) {
         fxframe.readToPixels(p);
 
         for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
         {
             for(unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size();j++) {
-                int x = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
-                int y = data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
+                int x = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
+                int y = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
                 int index = ( x + (y-1)*fxframe.getWidth() ) *3;
                 ofColor c = ofColor(p[index],p[index+1], p[index+2]);
 
@@ -105,6 +75,8 @@ void Animations::update(float curTime)
             }
             data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
         }
+    } else {
+        testPattern();
     }
 
 }
@@ -184,4 +156,36 @@ void Animations::load()
         settings.deserialize(effect[i]->parameters);
     }
 
+}
+
+void Animations::testPattern()
+{
+    if(pattern == 1) {
+        data->trees[data->currentTree]->clear();
+        data->trees[data->currentTree]->lights[data->currentLight]->setColour(ofColor::purple);
+        data->trees[data->currentTree]->lights[data->currentLight]->setBrightness(1.0f);
+        data->currentLight++;
+        if(data->currentLight > data->trees[data->currentTree]->lights.size()-1) data->currentLight = 0;
+    }
+    else if(pattern == 2) {
+        data->trees[data->currentTree]->clear();
+        data->currentLight = (pixelIndex / NUM_PIXELS_PER_FIXTURE);
+        unsigned int idx = pixelIndex - (data->currentLight * NUM_PIXELS_PER_FIXTURE);
+        data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setColour(ofColor::chartreuse);
+        data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setBrightness(1.0f);
+        pixelIndex++;
+        if(pixelIndex > (5*NUM_PIXELS_PER_FIXTURE - 1)) pixelIndex = 0;
+    } else if(pattern == 3) {
+        for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
+        {
+            data->trees[data->currentTree]->lights[i]->setColour(data->colour);
+            data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
+        }
+    }
+    else if(pattern == 4) {
+        for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
+        {
+            data->trees[data->currentTree]->lights[i]->setColour(data->colour);
+        }
+    }
 }

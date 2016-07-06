@@ -68,13 +68,20 @@ void LedFixture::fadeOn()
 //--------------------------------------------------------------
 bool LedFixture::update()
 {
-    for(int i = 0;i < pixels.size();i++)
+    bool val = false;
+    unsigned int count = 0;
+    for(unsigned int i = 0;i < pixels.size();i++)
     {
-        bool val = pixels[i]->update();
+        val = pixels[i]->update();
         if(val) {
             bIsDirty = true;
         }
+        else {
+            count++;
+        }
     }
+    if (count >= pixels.size()) bIsDirty = false;
+
     return bIsDirty;
 }
 
