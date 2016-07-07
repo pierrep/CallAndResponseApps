@@ -83,6 +83,7 @@ void ofApp::setup(){
 void ofApp::exit(){
     ofLogNotice() << "Exiting...";
     data.save();
+    animations.clearActiveEffects();
     animations.save();
     resetTrees();
 
@@ -102,11 +103,15 @@ void ofApp::bloomTree()
         /* play bellbird sound */
         data.trees[data.currentTree]->playPing();
 
-        animations.setEffect(1);
-        animations.enableEffect(4);         /* TODO: REFERENCE FX BY NAME NOT INDEX!! */
+        /* set bloom effect */
+        animations.clearActiveEffects();
+        animations.enableEffect("noise");
+        animations.enableEffect("noise particles");
 
     } else {
-        animations.setEffect(2);
+        /* set light trails */
+        animations.clearActiveEffects();
+        animations.enableEffect("line");
     }
 
     if(!editor.isEditing()) {

@@ -2,8 +2,8 @@
 
 LineEffect::LineEffect()
 {
-
-    parameters.setName("Line" + baseName);
+    name = "Line";
+    parameters.setName(name + baseName);
     parameters.add(numLines.set("Number of lines",5,1,20));
     parameters.add(lineWidth.set("Line width",2,1,10));
     parameters.add(lineSpeed.set("Line speed",2.0f,1.0f,10.0f));

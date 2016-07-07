@@ -2,11 +2,8 @@
 
 NoiseEffect::NoiseEffect()
 {
-
-    noiseStartX = 0;
-    noiseStartY = 0;
-
-    parameters.setName("Noise" + baseName);
+    name = "Noise";
+    parameters.setName(name + baseName);
     parameters.add(resolution.set( "Resolution", 512, 2, 64 ));
     parameters.add(noiseFrequency.set( "Noise Frequency", 20.0f, 0.00001f, 4096.0f ));
     parameters.add(animate.set( "Animate", true ));
@@ -14,6 +11,9 @@ NoiseEffect::NoiseEffect()
     parameters.add(thresholdLow.set( "Treshold Low", 0, 0, 255 ));
     parameters.add(thresholdHigh.set( "Treshold High", 127, 0, 255 ));
     parameters.add(invert.set( "Invert Threshold", false ));
+
+    noiseStartX = 0;
+    noiseStartY = 0;
 }
 
 NoiseEffect::~NoiseEffect()

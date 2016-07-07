@@ -2,8 +2,8 @@
 
 EmptyEffect::EmptyEffect()
 {
-
-    parameters.setName("Empty" + baseName);
+    name = "Empty";
+    parameters.setName(name + baseName);
 
 
 }

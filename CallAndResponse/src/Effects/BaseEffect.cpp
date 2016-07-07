@@ -8,6 +8,7 @@ BaseEffect::BaseEffect()
     baseName = " Effect Settings";
     effectHeight = 900;
     effectWidth = 1200;
+    parameters.add(bEnabled.set("Enabled",false));
 }
 
 BaseEffect::~BaseEffect()
@@ -24,6 +25,7 @@ void BaseEffect::setupGui()
 #ifdef USE_GUI
         paramfolder = new ofxDatGuiFolder(ofToUpper(parameters.getName()), ofColor::green);
         ofParameterGroup& p = parameters;
+
         for(int i = 0; i < p.size();i++) {
             if(p.getType(i) == "11ofParameterIfE") {
                 paramfolder->addSlider(p.getFloat(i));
@@ -67,6 +69,10 @@ void BaseEffect::drawGui()
 #endif
 }
 
+const string BaseEffect::getName()
+{
+    return ofToLower(name);
+}
 
 void BaseEffect::keyPressed(ofKeyEventArgs& args)
 {

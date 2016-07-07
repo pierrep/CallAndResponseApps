@@ -2,8 +2,8 @@
 
 CalibrateEffect::CalibrateEffect()
 {
-
-    parameters.setName("Calibrate" + baseName);
+    name = "Calibrate";
+    parameters.setName(name + baseName);
     parameters.add(orientation.set( "Orientation", false ));
 }
 

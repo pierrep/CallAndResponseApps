@@ -2,9 +2,8 @@
 
 NoiseParticlesEffect::NoiseParticlesEffect()
 {
-
-    parameters.setName("Noise Particles" + baseName);
-
+    name = "Noise Particles";
+    parameters.setName(name + baseName);
 
 }
 

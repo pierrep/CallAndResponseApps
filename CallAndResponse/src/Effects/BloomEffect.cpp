@@ -2,7 +2,8 @@
 
 BloomEffect::BloomEffect()
 {
-    parameters.setName("Bloom" + baseName);
+    name = "Bloom";
+    parameters.setName(name + baseName);
     parameters.add(maxradius.set( "Max radius", 300, 100, 500 ));
     parameters.add(bloomspeed.set("Bloom speed", 1000,500,3000));
 

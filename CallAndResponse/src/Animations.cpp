@@ -22,8 +22,6 @@ Animations::Animations()
     effect.push_back(new NoiseParticlesEffect());
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
-    currentfx = 1;
-
 }
 
 Animations::~Animations()
@@ -85,7 +83,9 @@ void Animations::updateFBO()
 {
     fxframe.begin();
         ofClear(0,0,0, 0);
-        effect[currentfx]->draw(0,0,1200,900);
+        for(int i = 0; i < activeFx.size();i++) {
+            activeFx[i]->draw(0,0,1200,900);
+        }
     fxframe.end();
 }
 
@@ -102,24 +102,63 @@ void Animations::drawGui()
 void Animations::begin()
 {
     ofLogNotice() << "Begin FX: " << currentfx;
-    effect[currentfx]->begin();
+    for(int i = 0; i < activeFx.size();i++) {
+        activeFx[i]->begin();
+    }
 }
 
-void Animations::setEffect(int index)
+//void Animations::setEffect(const string name)
+//{
+//    int index = -1;
+//    for(int i = 0;i < effect.size();i++)
+//    {
+//        if(effect[i]->getName() == name) {
+//            index = i;
+//            break;
+//        }
+//    }
+//    if(index >= 0) {
+//        setEffect(index);
+//    }
+//}
+
+//void Animations::setEffect(int index)
+//{
+//    index = ofClamp(index, 0, effect.size()-1);
+//    currentfx = index;
+//    for(int i =0;i < effect.size();i++)
+//    {
+//        effect[i]->enable(false);
+//    }
+//    effect[index]->enable(true);
+//}
+
+void Animations::enableEffect(const string name)
 {
-    index = ofClamp(index, 0, effect.size()-1);
-    currentfx = index;
-    for(int i =0;i < effect.size();i++)
+    int index = -1;
+    for(int i = 0;i < effect.size();i++)
     {
-        effect[i]->enable(false);
+        if(effect[i]->getName() == name) {
+            index = i;
+            break;
+        }
     }
-    effect[index]->enable(true);
+    if(index >= 0) {
+        enableEffect(index);
+    }
+}
+
+void Animations::clearActiveEffects()
+{
+    activeFx.clear();
 }
 
 void Animations::enableEffect(int index)
 {
     index = ofClamp(index, 0, effect.size()-1);
+    currentfx = index;
     effect[index]->enable(true);
+    activeFx.push_back(effect[index]);
 }
 
 

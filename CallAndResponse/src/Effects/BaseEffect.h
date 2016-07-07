@@ -35,6 +35,7 @@ class BaseEffect
         void mouseReleased(ofMouseEventArgs& args);
         void keyPressed(ofKeyEventArgs& args);
         void enable(bool b) {bEnabled = b;}
+        const string getName();
         void setResolution(int rx, int ry) {resx = rx; resy = ry;}
 
         float effectHeight, effectWidth;
@@ -45,8 +46,9 @@ class BaseEffect
         float resx, resy;
         float mouseX, mouseY;
         bool bToggle;
-        bool bEnabled;
+        ofParameter<bool> bEnabled;
         string baseName;
+        string name;
 #ifdef USE_GUI
         ofxDatGuiFolder* paramfolder;
 #endif

@@ -38,9 +38,9 @@ void LedPixel::setColour(ofColor c)
 void LedPixel::fadeOn(int i)
 {
     brightness = 0.0f;
-    playlist.addKeyFrame(Action::pause(i*100.0f));
-    playlist.addKeyFrame(Action::tween(200.f, &brightness, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
-    playlist.addToKeyFrame(Action::tween(200.0f,200.f,&brightness, 0.0f, TWEEN_QUAD, TWEEN_EASE_OUT));
+    //playlist.addKeyFrame(Action::pause(i*100.0f));
+    playlist.addKeyFrame(Action::tween(50.f, &brightness, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
+    playlist.addToKeyFrame(Action::tween(200.0f,10000.f,&brightness, 0.0f, TWEEN_QUAD, TWEEN_EASE_OUT));
     bIsDirty = true;
 }
 
