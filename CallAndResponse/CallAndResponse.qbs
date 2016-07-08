@@ -12,6 +12,8 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
+            "src/Effects/LineEffect2.cpp",
+            "src/Effects/LineEffect2.h",
             'src/Animations.cpp',
             'src/Animations.h',
             'src/Effects/BaseEffect.cpp',

@@ -6,6 +6,7 @@
 #include "Effects/BloomEffect.h"
 #include "Effects/NoiseEffect.h"
 #include "Effects/LineEffect.h"
+#include "Effects/LineEffect2.h"
 #include "Effects/NoiseParticlesEffect.h"
 #include "Effects/CalibrateEffect.h"
 
@@ -19,6 +20,7 @@ Animations::Animations()
     effect.push_back(new CalibrateEffect());
     effect.push_back(new BloomEffect());
     effect.push_back(new LineEffect());
+    effect.push_back(new LineEffect2());
     effect.push_back(new NoiseParticlesEffect());
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);

@@ -105,8 +105,8 @@ void ofApp::bloomTree()
 
         /* set bloom effect */
         animations.clearActiveEffects();
-        animations.enableEffect("noise");
-        animations.enableEffect("noise particles");
+        animations.enableEffect("bloom");
+        animations.enableEffect("line2");
 
     } else {
         /* set light trails */
