@@ -16,8 +16,12 @@ class TreeData
         /* State */
         enum State {LIGHTS_OFF, LIGHTS_ON, START_TRAIL, END_TRAIL, START_BLOOM, END_BLOOM, NEW_TREE, NEXT_TREE };
         State state;
-        bool isPlaying;
-        bool bShowBgImage;
+
+        ofParameterGroup parameters;
+        ofParameter<bool>   bIsPlaying;
+        ofParameter<bool>   bShowBgImage;
+//        bool isPlaying;
+//        bool bShowBgImage;
 
         vector<Tree *> trees;
         unsigned int currentTree;

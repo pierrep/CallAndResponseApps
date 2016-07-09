@@ -4,7 +4,7 @@
 
 TreeData::TreeData()
 : state(LIGHTS_ON),
-  isPlaying(true),
+  bIsPlaying(true),
   bShowBgImage(true),
   currentTree(0),
   currentLight(0),
@@ -17,6 +17,9 @@ TreeData::TreeData()
 {
     currentTree = 8;
     pixelWidth = 6.0f;
+
+    parameters.setName("parameters");
+    parameters.add(bIsPlaying.set("Playing",true));
 }
 
 TreeData::~TreeData()

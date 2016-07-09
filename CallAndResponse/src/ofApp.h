@@ -12,6 +12,7 @@
 #include "ofxDatGui.h"
 #endif
 
+#include "ofxOscParameterSync.h"
 #include "LightsEditor.h"
 #include "TreeData.h"
 #include "GuiMap.h"
@@ -91,22 +92,24 @@ class ofApp : public ofBaseApp{
         const float gBloomTime;
         const float gTrailTime;
         const float gPauseTime;
-        string gIPAddress;
+        string      gIPAddress;
 
 
         /* GUI */
 #ifdef USE_GUI
         ofxDatGui* gui;
-        ofxDatGuiColorPicker *gui_colour;
-        ofxDatGuiSlider *gui_brightness;
-        ofxDatGuiToggle* gui_playButton;
-        ofxDatGuiToggle* gui_editButton;
-        ofxDatGuiLabel* gui_editLabel;
-        ofxDatGuiToggle* gui_showImageButton;
-        ofxDatGuiButton* gui_triggerBeginButton;
-        ofxDatGuiButton* gui_nextAnimationButton;
-        ofxDatGuiFolder* paramfolder;
+        ofxDatGuiColorPicker*   gui_colour;
+        ofxDatGuiSlider*        gui_brightness;
+        ofxDatGuiToggle*        gui_playButton;
+        ofxDatGuiToggle*        gui_editButton;
+        ofxDatGuiLabel*         gui_editLabel;
+        ofxDatGuiToggle*        gui_showImageButton;
+        ofxDatGuiButton*        gui_triggerBeginButton;
+        ofxDatGuiButton*        gui_nextAnimationButton;
+        ofxDatGuiFolder*        paramfolder;
 #endif
         GuiMap guiMap;
         bool bEditing;
+
+        ofxOscParameterSync sync;
 };

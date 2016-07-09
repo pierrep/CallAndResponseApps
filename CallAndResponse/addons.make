@@ -1,9 +1,6 @@
-ofxAssimpModelLoader
-ofxGui
 ofxOsc
 ofxXmlSettings
 ofxArtnet
-ofxGameCamera
 ofxPlaylist
 ofxDatGui
 ofxGenericDmx

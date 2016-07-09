@@ -66,6 +66,7 @@ void ofApp::setup(){
 
     /* Set Global Brightness */
     data.brightness = 0.5f;
+    sync.setup(data.parameters,6666,"localhost",6667);
 
     /* Playlist setup */
     playhead = 0.0f;    
@@ -151,7 +152,7 @@ void ofApp::processState()
             ofLogNotice() << " ";
             ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
-            if(data.isPlaying) {
+            if(data.bIsPlaying) {
                 data.state = data.LIGHTS_ON;
                 bloomTree();
             }
@@ -164,7 +165,7 @@ void ofApp::processState()
         case data.END_BLOOM:
         {
             ofLogNotice() << "End Bloom  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
-            if(data.isPlaying) {
+            if(data.bIsPlaying) {
                 data.state = data.LIGHTS_OFF;
             }
             data.trees[data.currentTree]->clear();
@@ -200,7 +201,7 @@ void ofApp::processState()
         {
             ofLogNotice() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
-            if(data.isPlaying) {
+            if(data.bIsPlaying) {
                 data.state = data.LIGHTS_ON;
                 data.currentTree = data.nextTree;
                 bloomTree();
@@ -214,7 +215,7 @@ void ofApp::processState()
         case data.END_TRAIL:
         {
             ofLogNotice() << "End Trail  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
-            if(data.isPlaying) {
+            if(data.bIsPlaying) {
                 data.state = data.LIGHTS_OFF;
             }
 
@@ -241,7 +242,7 @@ void ofApp::processState()
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    sync.update();
     timeline.update();
 
     processState();
@@ -284,9 +285,12 @@ void ofApp::draw(){
     editor.draw(400,0,1200,900);
     animations.drawGui();
 
-    for(int i = 0;i < data.trees.size();i++)
-    {
-        data.trees[i]->draw(400,i*50);
+    /* draw raw tree LED output */
+    if(data.bShowBgImage) {
+        for(unsigned int i = 0;i < data.trees.size();i++)
+        {
+            data.trees[i]->draw(400,i*50);
+        }
     }
 
 }
@@ -351,10 +355,10 @@ void ofApp::keyPressed(int key){
         gui_playButton->toggle();
         if(gui_playButton->getLabel() == "PLAYING") {
             gui_playButton->setLabel("PAUSED");
-            data.isPlaying = false;
+            data.bIsPlaying = false;
         } else {
             gui_playButton->setLabel("PLAYING");
-            data.isPlaying = true;
+            data.bIsPlaying = true;
         }
     }
 
@@ -399,10 +403,10 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     if (e.target == gui_playButton){
         if(e.target->getLabel() == "PLAYING") {
             e.target->setLabel("PAUSED");
-            data.isPlaying = false;
+            data.bIsPlaying = false;
         } else if (e.target->getLabel() == "PAUSED") {
             e.target->setLabel("PLAYING");
-            data.isPlaying = true;
+            data.bIsPlaying = true;
         }
     } else if (e.target == gui_showImageButton) {
 
@@ -455,7 +459,23 @@ void ofApp::setupGui()
     gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
 
     gui_editLabel = gui->addLabel("");
-    gui_playButton = gui->addToggle("PLAYING",true);
+    //gui_playButton = gui->addToggle("PLAYING",true);
+
+    ofParameterGroup& p = data.parameters;
+
+    for(int i = 0; i < p.size();i++) {
+        if(p.getType(i) == "11ofParameterIfE") {
+            gui->addSlider(p.getFloat(i));
+        }
+        else if(p.getType(i) == "11ofParameterIiE") {
+            gui->addSlider(p.getInt(i));
+        }
+        else if(p.getType(i) == "11ofParameterIbE") {
+            gui->addToggle(p.getBool(i));
+        }
+    }
+
+
     gui_editButton = gui->addToggle("Edit Mode",false);
     gui_showImageButton = gui->addToggle("Show Background Animation (i)",true);
     gui_triggerBeginButton = gui->addButton("Trigger Animation Start (b)");
