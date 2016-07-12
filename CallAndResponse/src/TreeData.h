@@ -14,25 +14,31 @@ class TreeData
         void save();
 
         /* State */
-        enum State {LIGHTS_OFF, LIGHTS_ON, START_TRAIL, END_TRAIL, START_BLOOM, END_BLOOM, NEW_TREE, NEXT_TREE };
+        enum State {LIGHTS_OFF, LIGHTS_ON, PAUSED, START_TRAIL, END_TRAIL, START_BLOOM, END_BLOOM, NEW_TREE, NEXT_TREE };
         State state;
+        State lastState;
 
         ofParameterGroup parameters;
+        ofParameter<float>  brightness;
         ofParameter<bool>   bIsPlaying;
+        ofParameter<bool>   bTogglePlaying;
         ofParameter<bool>   bShowBgImage;
-//        bool isPlaying;
-//        bool bShowBgImage;
+        ofParameter<bool>   bEditMode;
+        ofParameter<bool>   bToggleEditMode;
+        ofParameter<int>    currentLight;
+        ofParameter<int>    currentTree;
+        ofParameter<int>    nextTree;
+        ofParameter<int>    targetTree;
+        ofParameter<ofVec2f> lightPosition;
+        ofParameter<ofVec2f> mousePosition;
+
+        void lightPositionChanged(ofVec2f & lightPosition);
 
         vector<Tree *> trees;
-        unsigned int currentTree;
-        unsigned int currentLight;
-        unsigned int nextTree;
-        unsigned int targetTree;
         int direction;
 
         ofColor colour;
-        float brightness;
-        float pixelWidth;
+        const float pixelWidth;
 
     protected:
 

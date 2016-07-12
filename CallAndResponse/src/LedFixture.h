@@ -16,7 +16,7 @@ class LedFixture : public ofNode
         void setId(int _id) {id = _id;}
         void setColour(ofColor c);
         void setBrightness(float val);
-        void setPosition(ofVec2f _pos) {pos = _pos;}
+        void setPosition(ofVec2f _pos);
 
         const int getId() {return id;}
         const ofVec2f getPosition() {return pos;}
@@ -30,6 +30,7 @@ class LedFixture : public ofNode
         int id;
         ofVec2f pos;
         bool    bIsDirty;
+        float   pixelWidth;
 
     private:
 };

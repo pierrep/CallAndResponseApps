@@ -5,7 +5,6 @@
 
 LightsEditor::LightsEditor()
 {
-    currentLight = 0;
     circleRadius = 8.0f;
 
     editorWidth = 1200;
@@ -59,16 +58,16 @@ void LightsEditor::draw(float x, float y, float w, float h)
         ofVec2f pos = data->trees[data->currentTree]->lights.at(j)->getPosition();
         ofNoFill();
         ofSetLineWidth(3);
-        if(currentLight == j) {
+        if(data->currentLight == j) {
             ofSetColor(0,0,255);
-            if(bEditing) {
+            if(data->bEditMode) {
                 data->trees[data->currentTree]->lights.at(j)->setColour(ofColor(255,255,255));
                 data->trees[data->currentTree]->lights[j]->setBrightness(data->brightness);
             }
         }
         else {
             ofSetColor(100,100,100);
-            if(bEditing) {
+            if(data->bEditMode) {
                 data->trees[data->currentTree]->lights.at(j)->setColour(ofColor(0,0,0));
                 data->trees[data->currentTree]->lights[j]->setBrightness(data->brightness);
             }
@@ -101,7 +100,7 @@ void LightsEditor::draw(float x, float y, float w, float h)
     }
 
     ofSetColor(255);
-    ofDrawBitmapString("Name = " + data->trees[data->currentTree]->getName()+" Tree = "+ofToString(data->currentTree)+"  Light Id= "+ofToString(currentLight) ,20,ofGetHeight()-20);
+    ofDrawBitmapString("Name = " + data->trees[data->currentTree]->getName()+" Tree = "+ofToString(data->currentTree)+"  Light Id= "+ofToString(data->currentLight) ,20,ofGetHeight()-20);
 
     ofPopStyle();
     ofPopMatrix();
@@ -112,12 +111,12 @@ void LightsEditor::keyPressed(ofKeyEventArgs& args)
 {
 
     if(args.key == OF_KEY_LEFT) {
-        currentLight--;
-        if(currentLight < 0) currentLight = data->trees[data->currentTree]->lights.size()-1;
+        data->currentLight--;
+        if(data->currentLight < 0) data->currentLight = data->trees[data->currentTree]->lights.size()-1;
     }
     if(args.key == OF_KEY_RIGHT) {
-        currentLight++;
-        if(currentLight >= (data->trees[data->currentTree]->lights.size())) currentLight = 0;
+        data->currentLight++;
+        if(data->currentLight >= (data->trees[data->currentTree]->lights.size())) data->currentLight = 0;
     }
 
     if(args.key == '[') {
@@ -150,22 +149,17 @@ void LightsEditor::mousePressed(ofMouseEventArgs& args)
 
     }
     if(distance < circleRadius/2) {
-        currentLight = id;
+        data->currentLight = id;
     } else {
-        data->trees[data->currentTree]->lights[currentLight]->setPosition(ofVec2f(args.x-400, args.y));
-        ofVec2f pixpos = ofVec2f(args.x-400, args.y);
-        for(int k=0; k < data->trees[data->currentTree]->lights.at(currentLight)->pixels.size(); k++)
-        {
-            data->trees[data->currentTree]->lights.at(currentLight)->pixels[k]->setPosition(pixpos);
-            pixpos.y = pixpos.y + data->pixelWidth+1;
-        }
+        //data->trees[data->currentTree]->lights[data->currentLight]->setPosition(ofVec2f(args.x-400, args.y));
+        data->lightPosition = ofVec2f(args.x-400, args.y);
     }
 }
 
 void LightsEditor::mouseDragged(ofMouseEventArgs& args)
 {
-    data->trees[data->currentTree]->lights.at(currentLight)->setPosition(ofVec2f(args.x-400, args.y));
-
+    //data->trees[data->currentTree]->lights.at(data->currentLight)->setPosition(ofVec2f(args.x-400, args.y));
+    data->lightPosition = ofVec2f(args.x-400, args.y);
 }
 
 void LightsEditor::mouseMoved(ofMouseEventArgs& args) {
@@ -176,26 +170,19 @@ void LightsEditor::mouseReleased(ofMouseEventArgs& args) {
 
 }
 
-
 void LightsEditor::enableEditing() {
-    bEditing = true;
     ofAddListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
     ofAddListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
     ofAddListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
     ofAddListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
-
     ofAddListener(ofEvents().keyPressed, this, &LightsEditor::keyPressed);
-    //ofAddListener(ofEvents().keyReleased, this, &LightsEditor::keyReleased);
 }
 
 void LightsEditor::disableEditing() {
-    bEditing = false;
     ofRemoveListener(ofEvents().mousePressed, this, &LightsEditor::mousePressed);
     ofRemoveListener(ofEvents().mouseMoved, this, &LightsEditor::mouseMoved);
     ofRemoveListener(ofEvents().mouseDragged, this, &LightsEditor::mouseDragged);
     ofRemoveListener(ofEvents().mouseReleased, this, &LightsEditor::mouseReleased);
-
     ofRemoveListener(ofEvents().keyPressed, this, &LightsEditor::keyPressed);
-    //ofRemoveListener(ofEvents().keyReleased, this, &LightsEditor::keyReleased);
 
 }

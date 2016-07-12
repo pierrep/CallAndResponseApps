@@ -6,7 +6,9 @@ void ofApp::setup(){
     parameters.setName("parameters");
     parameters.add(paramBrightness.set("Brightness",0.4f,0,1.0f));
     parameters.add(paramColour.set("Colour",ofColor(255,0,255)));
-    parameters.add(paramPlayButton.set("Playing",true));
+    parameters.add(paramPlayButton.set("Playing (spacebar)",true));
+    parameters.add(paramEditButton.set("Edit Mode (e)",false));
+    parameters.add(paramShowImageButton.set("Show Background (i)",true));
     setupGui();
 
     sync.setup(parameters,6667,"localhost",6666);

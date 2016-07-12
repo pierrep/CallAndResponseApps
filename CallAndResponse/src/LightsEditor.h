@@ -18,7 +18,6 @@ class LightsEditor
         void mouseMoved(ofMouseEventArgs& args);
         void mouseReleased(ofMouseEventArgs& args);
         void keyPressed(ofKeyEventArgs& args);
-        bool isEditing() {return bEditing;}
 
         void enableEditing();
         void disableEditing();
@@ -27,14 +26,13 @@ class LightsEditor
 
         ofxXmlSettings xml;
         vector<ofImage> treeimg;
-        int currentLight;
+//        int currentLight;
 //        int currentSelectedTree;
         TreeData * data;
         float circleRadius;
         ofTrueTypeFont lightNum;
         float editorWidth;
         float editorHeight;
-        bool bEditing;
 
     private:
 };

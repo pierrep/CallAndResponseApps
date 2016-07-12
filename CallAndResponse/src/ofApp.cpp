@@ -10,8 +10,9 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(900.0f),
     gPauseTime(1500.0f),
-    gIPAddress("192.168.0.2"),
-    bEditing(false)
+    gIPAddress("192.168.0.43"),
+    gHOST_IPAddress("192.168.0.2"),
+    bHost(true)
 {
 
 }
@@ -19,9 +20,14 @@ ofApp::ofApp() :
 //--------------------------------------------------------------
 void ofApp::setupDMX()
 {
-    bArtNetActive = true;
-    artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
+    if(bHost) {
+        bArtNetActive = artnet.setup(gHOST_IPAddress.c_str()); //make sure the firewall is deactivated at this point
+    } else {
+        bArtNetActive = artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
+    }
+
     if(!bArtNetActive) {
+       ofLogNotice("ArtNet failed to setup.");
 #ifdef USE_USB_DMX
         memset( dmxData_, 0, DMX_DATA_LENGTH );
         dmxInterface_ = ofxGenericDmx::openFirstDevice();
@@ -64,20 +70,27 @@ void ofApp::setup(){
     curTimeTree = ofGetElapsedTimeMillis();
     prevTimeTree = curTimeTree;
 
-    /* Set Global Brightness */
-    data.brightness = 0.5f;
-    sync.setup(data.parameters,6666,"localhost",6667);
+    /* Parameter Sync setup */
+    if(bHost) {
+        sync.setup(data.parameters,6666,"localhost",6667);
+    } else {
+        sync.setup(data.parameters,6667,"localhost",6666);
+    }
 
     /* Playlist setup */
-    playhead = 0.0f;    
-    ofxKeyframeAnimRegisterEvents(this);
-    timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
-    timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
+    if(bHost) {
+        playhead = 0.0f;
+        ofxKeyframeAnimRegisterEvents(this);
+        timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
+        timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
+    }
 
     /* Perform first bloom */
-    ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
-    data.currentTree = data.nextTree;
-    bloomTree();
+    if(bHost) {
+        ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+        data.currentTree = data.nextTree;
+        bloomTree();
+    }
 }
 
 //--------------------------------------------------------------
@@ -107,7 +120,7 @@ void ofApp::bloomTree()
         /* set bloom effect */
         animations.clearActiveEffects();
         animations.enableEffect("bloom");
-        animations.enableEffect("line2");
+        animations.enableEffect("noise particles");
 
     } else {
         /* set light trails */
@@ -115,7 +128,7 @@ void ofApp::bloomTree()
         animations.enableEffect("line");
     }
 
-    if(!editor.isEditing()) {
+    if(!data.bEditMode) {
         animations.begin();
     }
 
@@ -145,6 +158,34 @@ void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
 //--------------------------------------------------------------
 void ofApp::processState()
 {
+    if(data.bToggleEditMode != data.bEditMode) {
+        if(data.bToggleEditMode) {
+            data.bEditMode = true;
+            editor.enableEditing();
+            gui->collapse();
+            data.currentTree = 0;
+        } else {
+            data.bEditMode = false;
+            editor.disableEditing();
+            gui->expand();
+        }
+    }
+
+    if(data.bTogglePlaying != data.bIsPlaying) {
+        if(data.bTogglePlaying) {
+            data.bIsPlaying = true;
+            data.state = data.END_TRAIL;
+            resetTrees();
+            timeline.clear();
+        } else {
+            data.bIsPlaying = false;
+            data.lastState = data.state;
+            data.state = data.PAUSED;
+            resetTrees();
+            timeline.clear();
+        }
+    }
+
     switch (data.state)
     {
         case data.START_BLOOM:
@@ -233,6 +274,7 @@ void ofApp::processState()
         }
         case data.LIGHTS_OFF:
         case data.LIGHTS_ON:
+        case data.PAUSED:
         default:
         {
             break;
@@ -250,13 +292,12 @@ void ofApp::update(){
 
     if(data.state == data.LIGHTS_OFF) return;
 
-    if(!editor.isEditing()) {
+    if(!data.bEditMode) {
         animations.update(playhead);
     }
 
 #ifdef USE_GUI
     data.colour = gui_colour->getColor();
-    data.brightness = gui_brightness->getValue();
 #endif
 
     for(unsigned int i = 0;i < data.trees.size();i++)
@@ -275,7 +316,12 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	#ifdef USE_GUI
-    ofSetWindowTitle("X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY) + " fps:"+ofToString(ofGetFrameRate()));
+    if(data.bEditMode) {
+        ofSetWindowTitle( "EDITING: X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY));
+    } else {
+        if(bHost) ofSetWindowTitle( "HOST  state: "+ ofToString(data.state)  );
+        else ofSetWindowTitle( "CLIENT  state: "+ ofToString(data.state)  );
+    }
     #endif	
 
     animations.updateFBO();
@@ -303,15 +349,16 @@ void ofApp::sendTreeDMX(int i)
             artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBufferPixels(), 512);
         }
     }
-    else if(bDmxUsbActive) {
 #ifdef USE_USB_DMX
+    else if(bDmxUsbActive) {
         if(i == 0) { //only send 1st tree
         dmxData_[0] = 0;
         memcpy(&dmxData_[1],data.trees[i]->getBufferPixels(),512);
         dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
         }
-#endif
     }
+#endif
+
 }
 
 //--------------------------------------------------------------
@@ -342,34 +389,14 @@ void ofApp::keyPressed(int key){
 
 #ifdef USE_GUI
     if(key == 'e') {
-        if(gui_editLabel->getLabel() == "") {
-            gui_editLabel->setLabel("EDITING");
-            editor.enableEditing();
-        } else {
-            gui_editLabel->setLabel("");
-            editor.disableEditing();
-        }
-
+        data.bToggleEditMode = !data.bToggleEditMode;
     }
     if(key == ' ') {
-        gui_playButton->toggle();
-        if(gui_playButton->getLabel() == "PLAYING") {
-            gui_playButton->setLabel("PAUSED");
-            data.bIsPlaying = false;
-        } else {
-            gui_playButton->setLabel("PLAYING");
-            data.bIsPlaying = true;
-        }
+        data.bTogglePlaying = !data.bTogglePlaying;
     }
 
     if(key == 'i') {
-        gui_showImageButton->toggle();
-        if(gui_showImageButton->getEnabled()) {
-            data.bShowBgImage = true;
-        }
-        else {
-            data.bShowBgImage = false;
-        }
+         data.bShowBgImage = !data.bShowBgImage;
     }
 #endif
 
@@ -400,37 +427,13 @@ void ofApp::keyPressed(int key){
 #ifdef USE_GUI
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
-    if (e.target == gui_playButton){
-        if(e.target->getLabel() == "PLAYING") {
-            e.target->setLabel("PAUSED");
-            data.bIsPlaying = false;
-        } else if (e.target->getLabel() == "PAUSED") {
-            e.target->setLabel("PLAYING");
-            data.bIsPlaying = true;
-        }
-    } else if (e.target == gui_showImageButton) {
 
-        if(e.enabled) {
-            data.bShowBgImage = true;
-        }
-        else {
-            data.bShowBgImage = false;
-        }
-    } else if (e.target == gui_editButton) {
+//    if (e.target == gui_triggerBeginButton) {
 
-        if(e.enabled) {
-            bEditing = true;
-        }
-        else {
-            bEditing = false;
-        }
-    }
-    else if (e.target == gui_triggerBeginButton) {
-
-        if(e.enabled) {
-            animations.begin();
-        }
-    }
+//        if(e.enabled) {
+//            animations.begin();
+//        }
+//    }
 
 }
 
@@ -445,44 +448,54 @@ void ofApp::setupGui()
 {
     /* GUI */
     ofxDatGuiLog::quiet();
-    gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
-
-    ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
-    gui_brightness = folder->addSlider("Brightness", 0, 1, 0.4f);
-    gui_colour = folder->addColorPicker("Colour", ofColor(255,0,255));
-    folder->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
-
-    folder->expand();
-
+    ofxDatGui::setAssetPath("../../../../../addons/ofxDatGui/");
+    gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );    
     gui->addHeader("LIGHT SETTINGS");
+    gui->addFRM();
     gui->addFooter();
     gui->setPosition(ofGetWidth() - gui->getWidth(), 0);
 
-    gui_editLabel = gui->addLabel("");
-    //gui_playButton = gui->addToggle("PLAYING",true);
+    ofxDatGuiFolder* folder = gui->addFolder("Master Controls", ofColor::green);
+    gui_colour = folder->addColorPicker("Colour", ofColor(255,0,255));
+    folder->onColorPickerEvent(this,&ofApp::onColorPickerEvent);
+
+    gui->addBreak();
+
+    ofxDatGuiFolder* lightFolder = gui->addFolder("Sequence Controls", ofColor::blue);
 
     ofParameterGroup& p = data.parameters;
 
     for(int i = 0; i < p.size();i++) {
         if(p.getType(i) == "11ofParameterIfE") {
-            gui->addSlider(p.getFloat(i));
+            lightFolder->addSlider(p.getFloat(i));
         }
         else if(p.getType(i) == "11ofParameterIiE") {
-            gui->addSlider(p.getInt(i));
+            lightFolder->addSlider(p.getInt(i));
         }
         else if(p.getType(i) == "11ofParameterIbE") {
-            gui->addToggle(p.getBool(i));
+            lightFolder->addToggle(p.getBool(i));
         }
     }
 
+    lightFolder->expand();
 
-    gui_editButton = gui->addToggle("Edit Mode",false);
-    gui_showImageButton = gui->addToggle("Show Background Animation (i)",true);
     gui_triggerBeginButton = gui->addButton("Trigger Animation Start (b)");
     gui_nextAnimationButton = gui->addButton("Trigger Next Animation (n)");
-    gui->onButtonEvent(this, &ofApp::onButtonEvent);
-
+    //gui->onButtonEvent(this, &ofApp::onButtonEvent);
     gui->addBreak();
+
+    data.mousePosition.addListener(this, &ofApp::mousePositionChanged);
+
+}
+
+
+//--------------------------------------------------------------
+void ofApp::mousePositionChanged(ofVec2f & mousePosition)
+{
+    if(bHost)
+    {
+        animations.updateActiveEffectPos(mousePosition);
+    }
 
 }
 
@@ -558,7 +571,10 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    if(!bHost)
+    {
+        data.mousePosition = ofVec2f(x,y);
+    }
 }
 
 //--------------------------------------------------------------

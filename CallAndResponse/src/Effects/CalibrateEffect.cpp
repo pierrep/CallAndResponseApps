@@ -28,6 +28,9 @@ void CalibrateEffect::update(float curTime)
 
     BaseEffect::update(curTime);
 
+//    linePos1 = ofVec2f(mouseX-400,0);
+//    linePos2
+
 }
 
 void CalibrateEffect::draw(float x, float y, float w, float h)

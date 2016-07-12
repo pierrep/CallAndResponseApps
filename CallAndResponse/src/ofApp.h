@@ -60,6 +60,7 @@ class ofApp : public ofBaseApp{
             unsigned int  getNextTree();
             unsigned int  calculateDestinationTree();
             void onKeyframe(ofxPlaylistEventArgs& args);
+            void mousePositionChanged(ofVec2f & mousePosition);
 
         /* Trees */
         LightsEditor editor;
@@ -93,23 +94,19 @@ class ofApp : public ofBaseApp{
         const float gTrailTime;
         const float gPauseTime;
         string      gIPAddress;
+        string      gHOST_IPAddress;
 
 
         /* GUI */
 #ifdef USE_GUI
         ofxDatGui* gui;
         ofxDatGuiColorPicker*   gui_colour;
-        ofxDatGuiSlider*        gui_brightness;
-        ofxDatGuiToggle*        gui_playButton;
-        ofxDatGuiToggle*        gui_editButton;
-        ofxDatGuiLabel*         gui_editLabel;
-        ofxDatGuiToggle*        gui_showImageButton;
         ofxDatGuiButton*        gui_triggerBeginButton;
         ofxDatGuiButton*        gui_nextAnimationButton;
         ofxDatGuiFolder*        paramfolder;
 #endif
         GuiMap guiMap;
-        bool bEditing;
 
         ofxOscParameterSync sync;
+        bool bHost;
 };

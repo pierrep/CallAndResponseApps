@@ -16,6 +16,8 @@ Animations::Animations()
     currentfx = 0;
     pixelIndex = 0;
 
+    ofxDatGui::setAssetPath("../../../../../addons/ofxDatGui/");
+
     fxframe.allocate(1200,900,GL_RGB);
     effect.push_back(new CalibrateEffect());
     effect.push_back(new BloomEffect());
@@ -89,6 +91,13 @@ void Animations::updateFBO()
             activeFx[i]->draw(0,0,1200,900);
         }
     fxframe.end();
+}
+
+void Animations::updateActiveEffectPos(ofVec2f pos)
+{
+    for(int i = 0; i < activeFx.size();i++) {
+        activeFx[i]->updateMouse(pos);
+    }
 }
 
 void Animations::draw(float x, float y)
@@ -166,6 +175,8 @@ void Animations::enableEffect(int index)
 
 void Animations::nextEffect()
 {
+    clearActiveEffects();
+
     currentfx++;
     if(currentfx >= effect.size()) {
         currentfx = 0;
@@ -175,6 +186,8 @@ void Animations::nextEffect()
     {
         effect[i]->enable(false);
     }
+
+    enableEffect(currentfx);
     effect[currentfx]->begin();
     effect[currentfx]->enable(true);
 }

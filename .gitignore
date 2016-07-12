@@ -9,7 +9,11 @@ Trees pictures 2/
 build-CallAndResponse-Desktop-Debug/
 CallAndResponse/CallAndResponse.qbs.user
 CallAndResponse/bin/CallAndResponse_debug
-CallAndResponse/bin/CallAndResponse
+CallAndResponse/bin/CallAndResponse*
 CallAndResponse/obj/
 ofxArtNetExample/bin/ofxArtNetExample_debug
 ofxArtNetExample/ofxArtNetExample.qbs.user
+controllerClient/controllerClient.qbs.user
+controllerClient/bin/controllerClient_debug
+controllerClient/bin/controllerClient
+controllerClient/build/

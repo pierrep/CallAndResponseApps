@@ -28,6 +28,7 @@ class Animations
         void enableEffect(const string name);
         void nextEffect();
         void clearActiveEffects();
+        void updateActiveEffectPos(ofVec2f);
         void begin();
         void save();
         void load();

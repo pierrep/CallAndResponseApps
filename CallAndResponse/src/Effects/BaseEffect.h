@@ -37,6 +37,7 @@ class BaseEffect
         void enable(bool b) {bEnabled = b;}
         const string getName();
         void setResolution(int rx, int ry) {resx = rx; resy = ry;}
+        void updateMouse(ofVec2f pos) {mouseX = pos.x; mouseY = pos.y;}
 
         float effectHeight, effectWidth;
 

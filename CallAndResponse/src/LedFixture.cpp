@@ -26,8 +26,10 @@ void LedFixture::clear()
     bIsDirty = false;
 }
 
-void LedFixture::setupPixels(ofVec2f pos, float pixelWidth)
+void LedFixture::setupPixels(ofVec2f pos, float _pixelWidth)
 {
+    pixelWidth = _pixelWidth;
+
     for(int i=0; i < NUM_PIXELS_PER_FIXTURE; i++) {
         LedPixel* p = new LedPixel();
         p->setId((id -1)*NUM_PIXELS_PER_FIXTURE + i);
@@ -35,6 +37,18 @@ void LedFixture::setupPixels(ofVec2f pos, float pixelWidth)
         ofVec2f v = ofVec2f(pos.x , y);
         p->setPosition(v);
         pixels.push_back(p);
+    }
+}
+
+//--------------------------------------------------------------
+void LedFixture::setPosition(ofVec2f _pos)
+{
+    pos = _pos;
+    ofVec2f pixpos = pos;
+    for(int k=0; k < pixels.size(); k++)
+    {
+        pixels[k]->setPosition(pixpos);
+        pixpos.y = pixpos.y + pixelWidth+1;
     }
 }
 

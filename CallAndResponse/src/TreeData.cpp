@@ -4,26 +4,35 @@
 
 TreeData::TreeData()
 : state(LIGHTS_ON),
+  lastState(LIGHTS_ON),
   bIsPlaying(true),
   bShowBgImage(true),
-  currentTree(0),
-  currentLight(0),
-  nextTree(0),
-  targetTree(0),
+  bEditMode(false),
   direction(1),
   colour(ofColor::black),
-  brightness(1.0f),
-  pixelWidth(1.0f)
+  pixelWidth(6.0f)
 {
     currentTree = 8;
-    pixelWidth = 6.0f;
 
     parameters.setName("parameters");
-    parameters.add(bIsPlaying.set("Playing",true));
+    parameters.add(brightness.set("Brightness",0.4f,0.0f,1.0f));
+    parameters.add(bTogglePlaying.set("Playing (spacebar)",true));
+    parameters.add(bShowBgImage.set("Show Background (i)",true));
+    parameters.add(bToggleEditMode.set("Edit Mode (e)",false));
+    parameters.add(currentTree.set("Current Tree",0,0,16));
+    parameters.add(currentLight.set("Current Light",0,0,19));
+    parameters.add(nextTree.set("Next Tree",0,0,16));
+    parameters.add(targetTree.set("Target Tree",0,0,16));
+    parameters.add(lightPosition.set("Light Position",ofVec2f(400,0), ofVec2f(400,0), ofVec2f(1600,900)));
+    parameters.add(mousePosition.set("Mouse Position",ofVec2f(400,0), ofVec2f(400,0), ofVec2f(1600,900)));
+
+    lightPosition.addListener(this, &TreeData::lightPositionChanged);
 }
 
+//--------------------------------------------------------------
 TreeData::~TreeData()
 {
+    lightPosition.removeListener(this,&TreeData::lightPositionChanged);
 
     for (vector< Tree *>::iterator itr = trees.begin() ; itr != trees.end(); ++itr)
     {
@@ -42,6 +51,13 @@ TreeData::~TreeData()
 
 }
 
+//--------------------------------------------------------------
+void TreeData::lightPositionChanged(ofVec2f & lightPosition){
+
+    trees[currentTree]->lights[currentLight]->setPosition(lightPosition);
+}
+
+//--------------------------------------------------------------
 void TreeData::load()
 {
     xml.load("TreeData.xml");
@@ -86,7 +102,7 @@ void TreeData::load()
 
 }
 
-
+//--------------------------------------------------------------
 void TreeData::save()
 {
     xml.clear();
