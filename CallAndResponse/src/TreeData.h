@@ -25,6 +25,8 @@ class TreeData
         ofParameter<bool>   bShowBgImage;
         ofParameter<bool>   bEditMode;
         ofParameter<bool>   bToggleEditMode;
+        ofParameter<bool>   bBeginAnimation;
+        ofParameter<bool>   bNextAnimation;
         ofParameter<int>    currentLight;
         ofParameter<int>    currentTree;
         ofParameter<int>    nextTree;

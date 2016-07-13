@@ -52,7 +52,7 @@ class ofApp : public ofBaseApp{
             void resetTrees();
             void drawModel();
 #ifdef USE_GUI
-            void onButtonEvent(ofxDatGuiButtonEvent e);
+            //void onButtonEvent(ofxDatGuiButtonEvent e);
             void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
 #endif
             void processState();
@@ -61,6 +61,8 @@ class ofApp : public ofBaseApp{
             unsigned int  calculateDestinationTree();
             void onKeyframe(ofxPlaylistEventArgs& args);
             void mousePositionChanged(ofVec2f & mousePosition);
+            void TriggerAnimationBegin(bool &val);
+            void TriggerNextAnimation(bool &val);
 
         /* Trees */
         LightsEditor editor;

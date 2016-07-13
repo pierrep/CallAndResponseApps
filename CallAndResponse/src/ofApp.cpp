@@ -12,7 +12,7 @@ ofApp::ofApp() :
     gPauseTime(1500.0f),
     gIPAddress("192.168.0.43"),
     gHOST_IPAddress("192.168.0.2"),
-    bHost(true)
+    bHost(false)
 {
 
 }
@@ -425,8 +425,8 @@ void ofApp::keyPressed(int key){
 }
 
 #ifdef USE_GUI
-void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
-{
+//void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
+//{
 
 //    if (e.target == gui_triggerBeginButton) {
 
@@ -434,6 +434,32 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 //            animations.begin();
 //        }
 //    }
+
+//}
+
+//--------------------------------------------------------------
+void ofApp::TriggerNextAnimation(bool & val)
+{
+    if(val) {
+        animations.nextEffect();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::TriggerAnimationBegin(bool & val)
+{
+    if(val) {
+        animations.begin();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::mousePositionChanged(ofVec2f & mousePosition)
+{
+    if(bHost)
+    {
+        animations.updateActiveEffectPos(mousePosition);
+    }
 
 }
 
@@ -479,23 +505,14 @@ void ofApp::setupGui()
 
     lightFolder->expand();
 
-    gui_triggerBeginButton = gui->addButton("Trigger Animation Start (b)");
-    gui_nextAnimationButton = gui->addButton("Trigger Next Animation (n)");
+    //gui_triggerBeginButton = gui->addButton("Trigger Animation Start (b)");
+    //gui_nextAnimationButton = gui->addButton("Trigger Next Animation (n)");
     //gui->onButtonEvent(this, &ofApp::onButtonEvent);
     gui->addBreak();
 
     data.mousePosition.addListener(this, &ofApp::mousePositionChanged);
-
-}
-
-
-//--------------------------------------------------------------
-void ofApp::mousePositionChanged(ofVec2f & mousePosition)
-{
-    if(bHost)
-    {
-        animations.updateActiveEffectPos(mousePosition);
-    }
+    data.bBeginAnimation.addListener(this,&ofApp::TriggerAnimationBegin);
+    data.bNextAnimation.addListener(this,&ofApp::TriggerNextAnimation);
 
 }
 
