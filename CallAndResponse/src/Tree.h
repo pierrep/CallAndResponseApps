@@ -11,7 +11,7 @@ class Tree
         void draw(int x, int y);
         void update();
         void setId(int _id) {id = _id;}
-        const int getId() {return id;}
+        const int getId() {return id;} // id = universe
         void setVolume(int _vol) {volume = _vol;}
         const int getVolume() {return volume;}
         void setName(string _name) {name = _name;}

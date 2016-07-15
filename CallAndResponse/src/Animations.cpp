@@ -1,6 +1,5 @@
 #include "Animations.h"
 #include "Tree.h"
-#include "TreeData.h"
 #include "LedFixture.h"
 #include "Effects/BaseEffect.h"
 #include "Effects/BloomEffect.h"
@@ -13,10 +12,12 @@
 Animations::Animations()
 {
     pattern = 0;
-    currentfx = 0;
     pixelIndex = 0;
+    currentFx = 0;
 
+    #ifdef USE_GUI
     ofxDatGui::setAssetPath("../../../../../addons/ofxDatGui/");
+    #endif
 
     fxframe.allocate(1200,900,GL_RGB);
     effect.push_back(new CalibrateEffect());
@@ -45,7 +46,7 @@ void Animations::setup(TreeData * _data)
         effect[i]->setupGui();
         effect[i]->enable(false);
     }
-    effect[currentfx]->enable(true);
+    effect[currentFx]->enable(true);
 }
 
 void Animations::setPattern(int i)
@@ -107,42 +108,16 @@ void Animations::draw(float x, float y)
 
 void Animations::drawGui()
 {
-    effect[currentfx]->drawGui();
+    effect[currentFx]->drawGui();
 }
 
 void Animations::begin()
 {
-    ofLogNotice() << "Begin FX: " << currentfx;
+    ofLogNotice() << "Begin FX: " << currentFx;
     for(int i = 0; i < activeFx.size();i++) {
         activeFx[i]->begin();
     }
 }
-
-//void Animations::setEffect(const string name)
-//{
-//    int index = -1;
-//    for(int i = 0;i < effect.size();i++)
-//    {
-//        if(effect[i]->getName() == name) {
-//            index = i;
-//            break;
-//        }
-//    }
-//    if(index >= 0) {
-//        setEffect(index);
-//    }
-//}
-
-//void Animations::setEffect(int index)
-//{
-//    index = ofClamp(index, 0, effect.size()-1);
-//    currentfx = index;
-//    for(int i =0;i < effect.size();i++)
-//    {
-//        effect[i]->enable(false);
-//    }
-//    effect[index]->enable(true);
-//}
 
 void Animations::enableEffect(const string name)
 {
@@ -167,7 +142,7 @@ void Animations::clearActiveEffects()
 void Animations::enableEffect(int index)
 {
     index = ofClamp(index, 0, effect.size()-1);
-    currentfx = index;
+    currentFx = index;
     effect[index]->enable(true);
     activeFx.push_back(effect[index]);
 }
@@ -177,9 +152,9 @@ void Animations::nextEffect()
 {
     clearActiveEffects();
 
-    currentfx++;
-    if(currentfx >= effect.size()) {
-        currentfx = 0;
+    currentFx++;
+    if(currentFx >= effect.size()) {
+        currentFx = 0;
     }
 
     for(int i =0;i < effect.size();i++)
@@ -187,9 +162,9 @@ void Animations::nextEffect()
         effect[i]->enable(false);
     }
 
-    enableEffect(currentfx);
-    effect[currentfx]->begin();
-    effect[currentfx]->enable(true);
+    enableEffect(currentFx);
+    effect[currentFx]->begin();
+    effect[currentFx]->enable(true);
 }
 
 void Animations::save()

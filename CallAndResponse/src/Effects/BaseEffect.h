@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#ifdef TARGET_LINUX
+#if !defined(TARGET_RASPBERRY_PI)
 #define USE_GUI 1
 #endif
 

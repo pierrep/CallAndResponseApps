@@ -4,13 +4,14 @@
 //========================================================================
 int main( ){
 
-//    ofSetLogLevel(OF_LOG_VERBOSE);
+    ofSetLogLevel(OF_LOG_WARNING);
 
-    ofSetupOpenGL(1600,900,OF_WINDOW);			// <-------- setup the GL context
+    #if defined(TARGET_RASPBERRY_PI)
+        ofSetupOpenGL(400,300,OF_WINDOW);
+    #else
+        ofSetupOpenGL(1600,900,OF_WINDOW);
+    #endif
 
-    // this kicks off the running of my app
-    // can be OF_WINDOW or OF_FULLSCREEN
-    // pass in width and height too:
     ofRunApp(new ofApp());
 
 }

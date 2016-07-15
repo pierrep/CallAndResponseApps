@@ -2,9 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxPlaylist.h"
+#include "TreeData.h"
 
 class BaseEffect;
-class TreeData;
 
 enum EffectNames {FX_CALIBRATION = 0,FX_BLOOM,FX_LINE, FX_NOISEPARTICLE,FX_NOISE};
 
@@ -21,9 +21,7 @@ class Animations
         void draw(float x, float y);
         void updateFBO();
         void setPattern(int i);
-        BaseEffect* getEffect() {return effect[currentfx];}
-//        void setEffect(int i);
-//        void setEffect(const string name);
+        BaseEffect* getEffect() {return effect[currentFx];}
         void enableEffect(int i);
         void enableEffect(const string name);
         void nextEffect();
@@ -47,7 +45,7 @@ class Animations
         ofFbo fxframe;
         vector<BaseEffect*> effect;
         vector<BaseEffect*> activeFx;
-        int currentfx;
+        unsigned int currentFx;
 
         ofPixels p;
 

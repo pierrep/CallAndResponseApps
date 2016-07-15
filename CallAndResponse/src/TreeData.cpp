@@ -21,6 +21,7 @@ TreeData::TreeData()
     parameters.add(bToggleEditMode.set("Edit Mode (e)",false));
     parameters.add(bBeginAnimation.set("Begin Animation (b)",false));
     parameters.add(bNextAnimation.set("Next Animation (n)",false));
+    //parameters.add(currentFx.set("Current Fx",0,0,100));
     parameters.add(currentTree.set("Current Tree",0,0,16));
     parameters.add(currentLight.set("Current Light",0,0,19));
     parameters.add(nextTree.set("Next Tree",0,0,16));

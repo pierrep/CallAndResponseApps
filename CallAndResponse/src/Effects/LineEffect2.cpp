@@ -25,6 +25,7 @@ void LineEffect2::begin()
     if(!bEnabled) return;
 
     resetLines();
+    ofSetLineWidth(lineWidth.get());
 }
 
 void LineEffect2::update(float curTime)
@@ -55,7 +56,7 @@ void LineEffect2::draw(float x, float y, float w, float h)
 
     ofPushStyle();
     ofSetColor(255,255.0f,255.0f);
-    ofSetLineWidth(lineWidth.get());
+//    ofSetLineWidth(lineWidth.get());
     for(int i = 0;i < lines.size();i++) {
         ofDrawLine(lines[i].p1,lines[i].p2);
     }

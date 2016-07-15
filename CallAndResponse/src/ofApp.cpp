@@ -10,8 +10,12 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(900.0f),
     gPauseTime(1500.0f),
-    gIPAddress("192.168.0.43"),
-    gHOST_IPAddress("192.168.0.2"),
+    //gIPAddress("192.168.0.43"),
+    gIPAddress("192.168.2.16"),
+    //gIPAddress("localhost"),
+    //gHOST_IPAddress("192.168.0.2"),
+    gHOST_IPAddress("192.168.2.15"),
+   // gHOST_IPAddress("localhost"),
     bHost(false)
 {
 
@@ -22,6 +26,7 @@ void ofApp::setupDMX()
 {
     if(bHost) {
         bArtNetActive = artnet.setup(gHOST_IPAddress.c_str()); //make sure the firewall is deactivated at this point
+        if(!bArtNetActive) ofLogError() << "Artnet failed to set up";
     } else {
         bArtNetActive = artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
     }
@@ -49,7 +54,6 @@ void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
     ofSetFrameRate(30);
-    ofSetLogLevel(OF_LOG_NOTICE);
 
     data.load();
     editor.setup(&data);
@@ -70,11 +74,16 @@ void ofApp::setup(){
     curTimeTree = ofGetElapsedTimeMillis();
     prevTimeTree = curTimeTree;
 
+    /* setup callbacks */
+    data.mousePosition.addListener(this, &ofApp::mousePositionChanged);
+    data.bBeginAnimation.addListener(this,&ofApp::TriggerAnimationBegin);
+    data.bNextAnimation.addListener(this,&ofApp::TriggerNextAnimation);
+
     /* Parameter Sync setup */
     if(bHost) {
-        sync.setup(data.parameters,6666,"localhost",6667);
+        sync.setup(data.parameters,6666,gIPAddress,6667);
     } else {
-        sync.setup(data.parameters,6667,"localhost",6666);
+        sync.setup(data.parameters,6667,gHOST_IPAddress,6666);
     }
 
     /* Playlist setup */
@@ -112,7 +121,7 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::bloomTree()
 {
-
+    ofLogNotice() << "Bloom Tree";
     if(data.currentTree == data.targetTree) {
         /* play bellbird sound */
         data.trees[data.currentTree]->playPing();
@@ -158,16 +167,28 @@ void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
 //--------------------------------------------------------------
 void ofApp::processState()
 {
+#if defined(TARGET_RASPBERRY_PI)
+    if(ofGetFrameNum()%30 == 0) {
+        ofLogWarning() << "FPS: " << ofGetFrameRate();
+    }
+#endif
+
     if(data.bToggleEditMode != data.bEditMode) {
         if(data.bToggleEditMode) {
             data.bEditMode = true;
             editor.enableEditing();
+        #ifdef USE_GUI
             gui->collapse();
+        #endif
             data.currentTree = 0;
         } else {
             data.bEditMode = false;
             editor.disableEditing();
+            animations.clearActiveEffects();
+            animations.enableEffect("calibrate");
+        #ifdef USE_GUI
             gui->expand();
+        #endif
         }
     }
 
@@ -284,11 +305,11 @@ void ofApp::processState()
 
 //--------------------------------------------------------------
 void ofApp::update(){
+
     sync.update();
     timeline.update();
 
     processState();
-
 
     if(data.state == data.LIGHTS_OFF) return;
 
@@ -303,7 +324,7 @@ void ofApp::update(){
     for(unsigned int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->update();
-        //int universe = data.trees[i]->getId();
+
         #ifdef USE_GUI
         if(data.trees[i]->getBufferPixels()[509] > 128) {
             //ping.play();
@@ -325,10 +346,10 @@ void ofApp::draw(){
     #endif	
 
     animations.updateFBO();
-
-    guiMap.draw(0,0,400,900);
+    #if !defined(TARGET_RASPBERRY_PI)
     animations.draw(400,0);
     editor.draw(400,0,1200,900);
+    guiMap.draw(0,0,400,900);
     animations.drawGui();
 
     /* draw raw tree LED output */
@@ -338,6 +359,11 @@ void ofApp::draw(){
             data.trees[i]->draw(400,i*50);
         }
     }
+#endif
+
+
+
+
 
 }
 
@@ -364,7 +390,7 @@ void ofApp::sendTreeDMX(int i)
 //--------------------------------------------------------------
 void ofApp::clearTrees()
 {
-    for(int i = 0;i < data.trees.size();i++)
+    for(unsigned int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->clear();
     }
@@ -374,7 +400,7 @@ void ofApp::clearTrees()
 void ofApp::resetTrees()
 {
     clearTrees();
-    for(int i = 0;i < data.trees.size();i++)
+    for(unsigned int i = 0;i < data.trees.size();i++)
     {
         sendTreeDMX(i);
     }
@@ -407,7 +433,7 @@ void ofApp::keyPressed(int key){
     {
         animations.setPattern(4);
 
-        for(int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
+        for(unsigned int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
         {
             data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
             data.trees[data.currentTree]->lights[i]->fadeOn();
@@ -417,11 +443,33 @@ void ofApp::keyPressed(int key){
 
 
     if(key == 'n') {
-        animations.nextEffect();
+        data.bNextAnimation = !data.bNextAnimation;
     }
     if(key == 'b') {
-        animations.begin();
+        data.bBeginAnimation = !data.bBeginAnimation;
     }
+}
+
+//--------------------------------------------------------------
+void ofApp::TriggerNextAnimation(bool & val)
+{
+    animations.nextEffect();
+}
+
+//--------------------------------------------------------------
+void ofApp::TriggerAnimationBegin(bool & val)
+{
+    animations.begin();
+}
+
+//--------------------------------------------------------------
+void ofApp::mousePositionChanged(ofVec2f & mousePosition)
+{
+    if(bHost)
+    {
+        animations.updateActiveEffectPos(mousePosition);
+    }
+
 }
 
 #ifdef USE_GUI
@@ -436,32 +484,6 @@ void ofApp::keyPressed(int key){
 //    }
 
 //}
-
-//--------------------------------------------------------------
-void ofApp::TriggerNextAnimation(bool & val)
-{
-    if(val) {
-        animations.nextEffect();
-    }
-}
-
-//--------------------------------------------------------------
-void ofApp::TriggerAnimationBegin(bool & val)
-{
-    if(val) {
-        animations.begin();
-    }
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePositionChanged(ofVec2f & mousePosition)
-{
-    if(bHost)
-    {
-        animations.updateActiveEffectPos(mousePosition);
-    }
-
-}
 
 //--------------------------------------------------------------
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
@@ -509,10 +531,6 @@ void ofApp::setupGui()
     //gui_nextAnimationButton = gui->addButton("Trigger Next Animation (n)");
     //gui->onButtonEvent(this, &ofApp::onButtonEvent);
     gui->addBreak();
-
-    data.mousePosition.addListener(this, &ofApp::mousePositionChanged);
-    data.bBeginAnimation.addListener(this,&ofApp::TriggerAnimationBegin);
-    data.bNextAnimation.addListener(this,&ofApp::TriggerNextAnimation);
 
 }
 

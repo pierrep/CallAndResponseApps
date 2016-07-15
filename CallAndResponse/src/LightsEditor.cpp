@@ -45,7 +45,6 @@ void LightsEditor::draw(float x, float y, float w, float h)
     ofPushMatrix();
     ofTranslate(x,y,0);
     ofPushStyle();
-    //ofClear(255,255,255, 0);
     if(data->bShowBgImage) {
         treeimg[data->currentTree].draw(0,0,editorWidth,editorHeight);
     }
