@@ -97,7 +97,7 @@ class ofApp : public ofBaseApp{
         const float gPauseTime;
         string      gIPAddress;
         string      gHOST_IPAddress;
-
+        string      gStorm_IPAddress;
 
         /* GUI */
 #ifdef USE_GUI

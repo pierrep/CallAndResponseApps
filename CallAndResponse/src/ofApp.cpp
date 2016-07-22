@@ -16,6 +16,7 @@ ofApp::ofApp() :
     gHOST_IPAddress("192.168.0.2"),
     //gHOST_IPAddress("192.168.2.15"),
    // gHOST_IPAddress("localhost"),
+    gStorm_IPAddress("192.168.0.11"),
     bHost(true)
 {
 
@@ -69,7 +70,7 @@ void ofApp::setup(){
 #endif
 
     /* set up markov chain */
-    ofLogVerbose() << "Setting up Markov chain...";
+    ofLogNotice() << "Setting up Markov chain...";
     ofxMC::Matrix mat("transitionMatrix.txt");
     markov.setup(mat, 0);
 
@@ -78,13 +79,13 @@ void ofApp::setup(){
     prevTimeTree = curTimeTree;
 
     /* setup callbacks */
-    ofLogVerbose() << "Setting up callbacks...";
+    ofLogNotice() << "Setting up callbacks...";
     data.mousePosition.addListener(this, &ofApp::mousePositionChanged);
     data.bBeginAnimation.addListener(this,&ofApp::TriggerAnimationBegin);
     data.bNextAnimation.addListener(this,&ofApp::TriggerNextAnimation);
 
     /* Parameter Sync setup */
-    ofLogVerbose() << "Setting up paramter sync...";
+    ofLogNotice() << "Setting up parameter sync...";
     if(bHost) {
         sync.setup(data.parameters,6666,gIPAddress,6667);
     } else {
@@ -93,7 +94,7 @@ void ofApp::setup(){
 
     /* Playlist setup */
     if(bHost) {
-        ofLogVerbose() << "Setting up playlist...";
+        ofLogNotice() << "Setting up playlist...";
         playhead = 0.0f;
         ofxKeyframeAnimRegisterEvents(this);
         timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
@@ -102,7 +103,7 @@ void ofApp::setup(){
 
     /* Perform first bloom */
     if(bHost) {
-        ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+        ofLogVerbose() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
         data.currentTree = data.nextTree;
         bloomTree();
     }
@@ -217,8 +218,8 @@ void ofApp::processState()
     {
         case data.START_BLOOM:
         {
-            ofLogNotice() << " ";
-            ofLogNotice() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            ofLogVerbose() << " ";
+            ofLogVerbose() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
             if(data.bIsPlaying) {
                 data.state = data.LIGHTS_ON;
@@ -232,7 +233,7 @@ void ofApp::processState()
         }
         case data.END_BLOOM:
         {
-            ofLogNotice() << "End Bloom  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            ofLogVerbose() << "End Bloom  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
             if(data.bIsPlaying) {
                 data.state = data.LIGHTS_OFF;
             }
@@ -241,13 +242,13 @@ void ofApp::processState()
             playhead = 0.0f;
             bloomCount++;
             if(bloomCount == 2) {
-                ofLogNotice() << "End call & response...start a new one.";
+                ofLogVerbose() << "End call & response...start a new one.";
                 timeline.addKeyFrame(Action::pause(gPauseTime));
                 data.targetTree = calculateDestinationTree();
                 float val = ofRandom(0,1);
                 if(val < 0.5f) data.direction = -1;
                 else data.direction = 1;
-                ofLogNotice() << " Direction = " << data.direction;
+                ofLogVerbose() << " Direction = " << data.direction;
                 data.currentTree = data.targetTree;
                 data.nextTree = data.currentTree;
                 timeline.addKeyFrame(Action::event(this,"START_BLOOM"));
@@ -259,7 +260,7 @@ void ofApp::processState()
             float val = ofRandom(0,1);
             if(val < 0.5f) data.direction = -1;
             else data.direction = 1;
-            ofLogNotice() << " Direction = " << data.direction;
+            ofLogVerbose() << " Direction = " << data.direction;
 
             data.nextTree = getNextTree();
             timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
@@ -267,7 +268,7 @@ void ofApp::processState()
         }
         case data.START_TRAIL:
         {
-            ofLogNotice() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            ofLogVerbose() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
             if(data.bIsPlaying) {
                 data.state = data.LIGHTS_ON;
@@ -282,7 +283,7 @@ void ofApp::processState()
         }
         case data.END_TRAIL:
         {
-            ofLogNotice() << "End Trail  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            ofLogVerbose() << "End Trail  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
             if(data.bIsPlaying) {
                 data.state = data.LIGHTS_OFF;
             }
@@ -378,7 +379,7 @@ void ofApp::sendTreeDMX(int i)
 {
     if(bArtNetActive) {
         if(data.trees[i]->isDirty()) {
-            artnet.sendDmx("192.168.0.11", 0, data.trees[i]->getId(), data.trees[i]->getBufferPixels(), 512);
+            artnet.sendDmx(gStorm_IPAddress, 0, data.trees[i]->getId(), data.trees[i]->getBufferPixels(), 512);
         }
     }
 #ifdef USE_USB_DMX
@@ -601,7 +602,7 @@ unsigned int ofApp::getNextTree()
         }
     }
 
-    ofLogNotice() << " getNextTree = " << tree;
+    ofLogVerbose() << " getNextTree = " << tree;
     return tree;
 }
 

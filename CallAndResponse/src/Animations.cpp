@@ -190,20 +190,24 @@ void Animations::load()
 void Animations::testPattern()
 {
     if(pattern == 1) {
-        data->trees[data->currentTree]->clear();
-        data->trees[data->currentTree]->lights[data->currentLight]->setColour(ofColor::purple);
-        data->trees[data->currentTree]->lights[data->currentLight]->setBrightness(1.0f);
-        data->currentLight++;
-        if(data->currentLight > data->trees[data->currentTree]->lights.size()-1) data->currentLight = 0;
+        if(ofGetFrameNum()%10 == 0) {
+            data->trees[data->currentTree]->clear();
+            data->trees[data->currentTree]->lights[data->currentLight]->setColour(ofColor::purple);
+            data->trees[data->currentTree]->lights[data->currentLight]->setBrightness(1.0f);
+            data->currentLight++;
+            if(data->currentLight > data->trees[data->currentTree]->lights.size()-1) data->currentLight = 0;
+        }
     }
     else if(pattern == 2) {
-        data->trees[data->currentTree]->clear();
-        data->currentLight = (pixelIndex / NUM_PIXELS_PER_FIXTURE);
-        unsigned int idx = pixelIndex - (data->currentLight * NUM_PIXELS_PER_FIXTURE);
-        data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setColour(ofColor::chartreuse);
-        data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setBrightness(1.0f);
-        pixelIndex++;
-        if(pixelIndex > (5*NUM_PIXELS_PER_FIXTURE - 1)) pixelIndex = 0;
+        if(ofGetFrameNum()%5 == 0) {
+            data->trees[data->currentTree]->clear();
+            data->currentLight = (pixelIndex / NUM_PIXELS_PER_FIXTURE);
+            unsigned int idx = pixelIndex - (data->currentLight * NUM_PIXELS_PER_FIXTURE);
+            data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setColour(ofColor::chartreuse);
+            data->trees[data->currentTree]->lights[data->currentLight]->pixels[idx]->setBrightness(1.0f);
+            pixelIndex++;
+            if(pixelIndex > (data->trees[data->currentTree]->lights.size()* NUM_PIXELS_PER_FIXTURE - 1)) pixelIndex = 0;
+        }
     } else if(pattern == 3) {
         for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
         {
