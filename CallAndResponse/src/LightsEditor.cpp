@@ -31,7 +31,7 @@ void LightsEditor::setup(TreeData* _data)
         treeimg.push_back(img);
     }
 
-    lightNum.load("Gotham-Thin.otf",11,true);
+    //lightNum.load("Fonts/Gotham-Thin.otf",11,true);
 
 }
 

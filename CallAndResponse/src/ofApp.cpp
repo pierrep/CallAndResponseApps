@@ -10,13 +10,13 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(900.0f),
     gPauseTime(1500.0f),
-    //gIPAddress("192.168.0.43"),
-    gIPAddress("192.168.2.16"),
+    gIPAddress("192.168.0.43"),
+    //gIPAddress("192.168.2.16"),
     //gIPAddress("localhost"),
-    //gHOST_IPAddress("192.168.0.2"),
-    gHOST_IPAddress("192.168.2.15"),
+    gHOST_IPAddress("192.168.0.2"),
+    //gHOST_IPAddress("192.168.2.15"),
    // gHOST_IPAddress("localhost"),
-    bHost(false)
+    bHost(true)
 {
 
 }
@@ -25,6 +25,7 @@ ofApp::ofApp() :
 void ofApp::setupDMX()
 {
     if(bHost) {
+        ofLogVerbose() << "Setup DMX...";
         bArtNetActive = artnet.setup(gHOST_IPAddress.c_str()); //make sure the firewall is deactivated at this point
         if(!bArtNetActive) ofLogError() << "Artnet failed to set up";
     } else {
@@ -60,6 +61,7 @@ void ofApp::setup(){
     guiMap.setup(&data);
     animations.setup(&data);
     animations.load();
+    setupDMX();
 
 #ifdef USE_GUI
     setupGui();
@@ -67,6 +69,7 @@ void ofApp::setup(){
 #endif
 
     /* set up markov chain */
+    ofLogVerbose() << "Setting up Markov chain...";
     ofxMC::Matrix mat("transitionMatrix.txt");
     markov.setup(mat, 0);
 
@@ -75,11 +78,13 @@ void ofApp::setup(){
     prevTimeTree = curTimeTree;
 
     /* setup callbacks */
+    ofLogVerbose() << "Setting up callbacks...";
     data.mousePosition.addListener(this, &ofApp::mousePositionChanged);
     data.bBeginAnimation.addListener(this,&ofApp::TriggerAnimationBegin);
     data.bNextAnimation.addListener(this,&ofApp::TriggerNextAnimation);
 
     /* Parameter Sync setup */
+    ofLogVerbose() << "Setting up paramter sync...";
     if(bHost) {
         sync.setup(data.parameters,6666,gIPAddress,6667);
     } else {
@@ -88,6 +93,7 @@ void ofApp::setup(){
 
     /* Playlist setup */
     if(bHost) {
+        ofLogVerbose() << "Setting up playlist...";
         playhead = 0.0f;
         ofxKeyframeAnimRegisterEvents(this);
         timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));

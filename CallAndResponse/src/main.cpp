@@ -4,7 +4,7 @@
 //========================================================================
 int main( ){
 
-    ofSetLogLevel(OF_LOG_WARNING);
+    ofSetLogLevel(OF_LOG_VERBOSE);
 
     #if defined(TARGET_RASPBERRY_PI)
         ofSetupOpenGL(400,300,OF_WINDOW);

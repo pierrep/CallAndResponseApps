@@ -9,7 +9,7 @@ GuiMap::GuiMap()
     disableMouseEvents();
     disableKeyEvents();
     fbo.allocate(400,900);
-    font.load("Gotham-Thin.otf",10);
+    font.load("Fonts/Gotham-Thin.otf",10);
 }
 
 GuiMap::~GuiMap()
