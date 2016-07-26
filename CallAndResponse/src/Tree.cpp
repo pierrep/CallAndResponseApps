@@ -32,7 +32,7 @@ void Tree::doPixelFade()
     for(unsigned int i=0; i < lights.size();i++)
     {
         for(unsigned int j=0; j < lights[i]->pixels.size();j++) {
-            lights[i]->pixels[j]->fadeOff(ofRandom(500,5000));
+            lights[i]->pixels[j]->turnOff(ofRandom(100,1500));
         }
     }
 }
@@ -79,9 +79,7 @@ void Tree::draw(int x, int y)
             ofDrawRectangle(10 + x -pixsize,y,pixsize,pixsize*8);
         }
     }
-
     ofPopStyle();
-
 }
 
 //--------------------------------------------------------------

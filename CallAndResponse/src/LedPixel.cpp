@@ -50,6 +50,14 @@ void LedPixel::fadeOff(float time)
 }
 
 //--------------------------------------------------------------
+void LedPixel::turnOff(float time)
+{
+    playlist.addKeyFrame(Action::pause(time));
+    playlist.addKeyFrame(Action::tween(0, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
+
+}
+
+//--------------------------------------------------------------
 void LedPixel::setPosition(ofVec2f& _pos)
 {
     pos = _pos;

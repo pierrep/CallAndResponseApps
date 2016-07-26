@@ -23,39 +23,10 @@ ofApp::ofApp() :
 }
 
 //--------------------------------------------------------------
-void ofApp::setupDMX()
-{
-    if(bHost) {
-        ofLogVerbose() << "Setup DMX...";
-        bArtNetActive = artnet.setup(gHOST_IPAddress.c_str()); //make sure the firewall is deactivated at this point
-        if(!bArtNetActive) ofLogError() << "Artnet failed to set up";
-    } else {
-        bArtNetActive = artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
-    }
-
-    if(!bArtNetActive) {
-       ofLogNotice("ArtNet failed to setup.");
-#ifdef USE_USB_DMX
-        memset( dmxData_, 0, DMX_DATA_LENGTH );
-        dmxInterface_ = ofxGenericDmx::openFirstDevice();
-        if ( dmxInterface_ == 0 ) {
-            ofLog(OF_LOG_ERROR, "No Enttec Device Found" );
-            bDmxUsbActive = false;
-        }
-        else {
-            ofLog(OF_LOG_NOTICE,"isOpen: %i", dmxInterface_->isOpen() );
-            bDmxUsbActive = true;
-        }
-#endif
-    }
-    resetTrees();
-}
-
-//--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
-    ofSetFrameRate(30);
+    ofSetFrameRate(25);
 
     data.load();
     editor.setup(&data);
@@ -134,14 +105,13 @@ void ofApp::bloomTree()
         data.trees[data.currentTree]->playPing();
 
         /* set bloom effect */
-        animations.clearActiveEffects();
         //animations.enableEffect("bloom");
         //animations.enableEffect("noise particles");
         animations.enableEffect("image pan");
+        animations.enableEffect("line2");
 
     } else {
         /* set light trails */
-        animations.clearActiveEffects();
         animations.enableEffect("line");
     }
 
@@ -239,6 +209,7 @@ void ofApp::processState()
                 data.state = data.LIGHTS_OFF;
             }
             data.trees[data.currentTree]->clear();
+            animations.clearActiveEffects();
 
             playhead = 0.0f;
             bloomCount++;
@@ -370,9 +341,6 @@ void ofApp::draw(){
 #endif
 
 
-
-
-
 }
 
 //--------------------------------------------------------------
@@ -499,6 +467,7 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
     data.colour = e.color;
 }
 
+
 //--------------------------------------------------------------
 void ofApp::setupGui()
 {
@@ -543,6 +512,35 @@ void ofApp::setupGui()
 }
 
 #endif
+
+//--------------------------------------------------------------
+void ofApp::setupDMX()
+{
+    if(bHost) {
+        ofLogVerbose() << "Setup DMX...";
+        bArtNetActive = artnet.setup(gHOST_IPAddress.c_str()); //make sure the firewall is deactivated at this point
+        if(!bArtNetActive) ofLogError() << "Artnet failed to set up";
+    } else {
+        bArtNetActive = artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
+    }
+
+    if(!bArtNetActive) {
+       ofLogNotice("ArtNet failed to setup.");
+#ifdef USE_USB_DMX
+        memset( dmxData_, 0, DMX_DATA_LENGTH );
+        dmxInterface_ = ofxGenericDmx::openFirstDevice();
+        if ( dmxInterface_ == 0 ) {
+            ofLog(OF_LOG_ERROR, "No Enttec Device Found" );
+            bDmxUsbActive = false;
+        }
+        else {
+            ofLog(OF_LOG_NOTICE,"isOpen: %i", dmxInterface_->isOpen() );
+            bDmxUsbActive = true;
+        }
+#endif
+    }
+    resetTrees();
+}
 
 //--------------------------------------------------------------
 unsigned int ofApp::calculateDestinationTree()

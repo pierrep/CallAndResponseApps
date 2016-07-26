@@ -42,11 +42,11 @@ void LineEffect2::update(float curTime)
         lines[i].p1.x = 0;
         lines[i].p2.x = ofGetWidth();
 
-        if(lines[i].p1.y < 0)
-            lines[i].p1.y = ofGetHeight();
+//        if(lines[i].p1.y < 0)
+//            lines[i].p1.y = ofGetHeight();
 
-        if(lines[i].p2.y < 0)
-            lines[i].p2.y = ofGetHeight();
+//        if(lines[i].p2.y < 0)
+//            lines[i].p2.y = ofGetHeight();
     }
 
 }
@@ -70,9 +70,9 @@ void LineEffect2::resetLines()
     lines.clear();
     for(int i=0;i < numLines.get();i++)
     {
-        float interval = 900 / numLines.get();
-        ofVec2f p1 = ofVec2f(0,(i)*interval);
-        ofVec2f p2 = ofVec2f(ofGetWidth(),(i)*interval);
+        float interval = i*50;
+        ofVec2f p1 = ofVec2f(0,800-(i*interval));
+        ofVec2f p2 = ofVec2f(ofGetWidth(),800-(i*interval));
         Line line;
         line.p1 = p1;
         line.p2 = p2;

@@ -1,6 +1,6 @@
 <Line2_Effect_Settings>
 	<Enabled>0</Enabled>
-	<Number_of_lines>11</Number_of_lines>
+	<Number_of_lines>3</Number_of_lines>
 	<Line_width>4</Line_width>
-	<Line_speed>5.15</Line_speed>
+	<Line_speed>10</Line_speed>
 </Line2_Effect_Settings>

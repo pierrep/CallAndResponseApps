@@ -22,8 +22,9 @@ class LedPixel
         const ofColor getColour() {return col;}
         const int getId() {return id;}
 
-        void fadeOn(float time);
-        void fadeOff(float time);
+        void turnOff(float milliseconds);
+        void fadeOn(float milliseconds);
+        void fadeOff(float milliseconds);
         bool update();
         bool isDirty() {return bIsDirty;}
         ofxPlaylist playlist;

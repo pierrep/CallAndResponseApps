@@ -58,7 +58,6 @@ void ImagePan::update(float curTime)
     if(bEndSequence) {
         data->trees[currentTree]->doPixelFade();
         bEndSequence = false;
-        //bShowImage = false;
         data->bUseFrameBuffer = false;
     }
 
@@ -69,4 +68,5 @@ void ImagePan::draw(float x, float y, float w, float h)
     if(!bEnabled) return;
 
     image.draw(0,1200-height);
+
 }
