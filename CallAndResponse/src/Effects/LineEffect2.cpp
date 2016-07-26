@@ -70,7 +70,7 @@ void LineEffect2::resetLines()
     lines.clear();
     for(int i=0;i < numLines.get();i++)
     {
-        float interval = i*50;
+        float interval = 50;
         ofVec2f p1 = ofVec2f(0,800-(i*interval));
         ofVec2f p2 = ofVec2f(ofGetWidth(),800-(i*interval));
         Line line;

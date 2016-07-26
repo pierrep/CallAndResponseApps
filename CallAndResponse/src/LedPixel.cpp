@@ -17,6 +17,7 @@ LedPixel::LedPixel()
 LedPixel::~LedPixel()
 {
     //dtor
+    playlist.clear();
 }
 
 //--------------------------------------------------------------
@@ -24,6 +25,7 @@ void LedPixel::clear()
 {
     setBrightness(0.0f);
     setColour(ofColor::black);
+    playlist.clear();
     bIsDirty = false;
 }
 
@@ -45,7 +47,7 @@ void LedPixel::fadeOn(float time)
 //--------------------------------------------------------------
 void LedPixel::fadeOff(float time)
 {
-    playlist.addKeyFrame(Action::tween(time, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
+    playlist.addKeyFrame(Action::tween(1000.0f,time, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
 
 }
 
@@ -53,7 +55,7 @@ void LedPixel::fadeOff(float time)
 void LedPixel::turnOff(float time)
 {
     playlist.addKeyFrame(Action::pause(time));
-    playlist.addKeyFrame(Action::tween(0, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
+    playlist.addKeyFrame(Action::tween(1.0f, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
 
 }
 

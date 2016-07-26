@@ -12,10 +12,16 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
+            "bin/data/Shaders/Billboard.frag",
+            "bin/data/Shaders/Billboard.vert",
+            "bin/data/Shaders/BillboardGLES.frag",
+            "bin/data/Shaders/BillboardGLES.vert",
             "src/Effects/ImagePan.cpp",
             "src/Effects/ImagePan.h",
             "src/Effects/LineEffect2.cpp",
             "src/Effects/LineEffect2.h",
+            "src/Effects/TrailParticles.cpp",
+            "src/Effects/TrailParticles.h",
             'src/Animations.cpp',
             'src/Animations.h',
             'src/Effects/BaseEffect.cpp',

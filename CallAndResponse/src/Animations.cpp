@@ -9,6 +9,7 @@
 #include "Effects/NoiseParticlesEffect.h"
 #include "Effects/CalibrateEffect.h"
 #include "Effects/ImagePan.h"
+#include "Effects/TrailParticles.h"
 
 Animations::Animations()
 {
@@ -26,7 +27,9 @@ Animations::Animations()
     effect.push_back(new ImagePan());
     effect.push_back(new LineEffect());
     effect.push_back(new LineEffect2());
+    effect.push_back(new TrailParticles());
     effect.push_back(new NoiseParticlesEffect());
+
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
 }
@@ -120,7 +123,6 @@ void Animations::drawGui()
 
 void Animations::begin()
 {
-    ofLogNotice() << "Begin FX: " << currentFx;
     for(int i = 0; i < activeFx.size();i++) {
         activeFx[i]->begin();
     }
@@ -154,8 +156,10 @@ void Animations::enableEffect(int index)
 {
     index = ofClamp(index, 0, effect.size()-1);
     currentFx = index;
-    effect[index]->enable(true);
-    activeFx.push_back(effect[index]);
+    if(effect[index]->isEnabled() == false) {
+        activeFx.push_back(effect[index]);
+        effect[index]->enable(true);
+    }
 }
 
 

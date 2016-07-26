@@ -8,14 +8,14 @@ using namespace Playlist;
 ofApp::ofApp() :
     bloomCount(0),
     gBloomTime(7500.0f),
-    gTrailTime(900.0f),
+    gTrailTime(2100.0f),
     gPauseTime(1500.0f),
-    gIPAddress("192.168.0.43"),
+    //gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
-    //gIPAddress("localhost"),
-    gHOST_IPAddress("192.168.0.2"),
+    gIPAddress("localhost"),
+    //gHOST_IPAddress("192.168.0.2"),
     //gHOST_IPAddress("192.168.2.15"),
-   // gHOST_IPAddress("localhost"),
+    gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
     bHost(true)
 {
@@ -105,6 +105,7 @@ void ofApp::bloomTree()
         data.trees[data.currentTree]->playPing();
 
         /* set bloom effect */
+        animations.clearActiveEffects();
         //animations.enableEffect("bloom");
         //animations.enableEffect("noise particles");
         animations.enableEffect("image pan");
@@ -112,7 +113,8 @@ void ofApp::bloomTree()
 
     } else {
         /* set light trails */
-        animations.enableEffect("line");
+        //animations.enableEffect("line");
+        animations.enableEffect("trail particles");
     }
 
     if(!data.bEditMode) {
@@ -306,7 +308,7 @@ void ofApp::update(){
 
         #ifdef USE_GUI
         if(data.trees[i]->getBufferPixels()[509] > 128) {
-            //ping.play();
+            ping.play();
         }
         #endif
         sendTreeDMX(i);
@@ -325,7 +327,7 @@ void ofApp::draw(){
     #endif	
 
     animations.updateFBO();
-    #if !defined(TARGET_RASPBERRY_PI)
+#if !defined(TARGET_RASPBERRY_PI)
     animations.draw(400,0);
     editor.draw(400,0,1200,900);
     guiMap.draw(0,0,400,900);
@@ -429,12 +431,14 @@ void ofApp::keyPressed(int key){
 //--------------------------------------------------------------
 void ofApp::TriggerNextAnimation(bool & val)
 {
+    clearTrees();
     animations.nextEffect();
 }
 
 //--------------------------------------------------------------
 void ofApp::TriggerAnimationBegin(bool & val)
 {
+    clearTrees();
     animations.begin();
 }
 
@@ -517,16 +521,16 @@ void ofApp::setupGui()
 void ofApp::setupDMX()
 {
     if(bHost) {
-        ofLogVerbose() << "Setup DMX...";
+        ofLogNotice() << "Setup Artnet DMX...";
         bArtNetActive = artnet.setup(gHOST_IPAddress.c_str()); //make sure the firewall is deactivated at this point
-        if(!bArtNetActive) ofLogError() << "Artnet failed to set up";
     } else {
         bArtNetActive = artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
     }
 
     if(!bArtNetActive) {
-       ofLogNotice("ArtNet failed to setup.");
+       ofLogError("ArtNet failed to setup.");
 #ifdef USE_USB_DMX
+       ofLogNotice() << "Setup USB DMX...";
         memset( dmxData_, 0, DMX_DATA_LENGTH );
         dmxInterface_ = ofxGenericDmx::openFirstDevice();
         if ( dmxInterface_ == 0 ) {
@@ -534,7 +538,7 @@ void ofApp::setupDMX()
             bDmxUsbActive = false;
         }
         else {
-            ofLog(OF_LOG_NOTICE,"isOpen: %i", dmxInterface_->isOpen() );
+            ofLogNotice("DMX USB opened...");
             bDmxUsbActive = true;
         }
 #endif
@@ -549,7 +553,7 @@ unsigned int ofApp::calculateDestinationTree()
     markov.update();
     unsigned int tree = markov.getState();
 
-    ofLogNotice() << "New target tree: " << tree << "(current tree: " << data.currentTree <<")";
+    ofLogNotice() << "New target tree: " << tree << " (current tree: " << data.currentTree <<")";
     return tree;
 }
 

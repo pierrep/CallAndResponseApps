@@ -25,13 +25,13 @@ void ImagePan::begin()
     if(!bEnabled) return;
     data->bUseFrameBuffer = true;
 
-    height = 100;
+    height = 150;
     bEndSequence = false;
     currentTree = data->currentTree;
 
     timeline.clear();
-    timeline.addKeyFrame(Action::tween(pan_speed.get(), &height, 1200, TWEEN_QUAD,TWEEN_EASE_OUT));
-    timeline.addKeyFrame(Action::pause(3000.0f));
+    timeline.addKeyFrame(Action::tween(pan_speed.get(), &height, effectWidth, TWEEN_QUAD,TWEEN_EASE_OUT));
+    timeline.addKeyFrame(Action::pause(4000.0f));
     timeline.addKeyFrame(Action::event(this,"finished"));
 
 }
@@ -67,6 +67,6 @@ void ImagePan::draw(float x, float y, float w, float h)
 {
     if(!bEnabled) return;
 
-    image.draw(0,1200-height);
+    image.draw(0,effectWidth - height);
 
 }

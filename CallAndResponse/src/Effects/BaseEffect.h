@@ -36,6 +36,7 @@ class BaseEffect
         void mouseReleased(ofMouseEventArgs& args);
         void keyPressed(ofKeyEventArgs& args);
         void enable(bool b) {bEnabled = b;}
+        const bool isEnabled() {return bEnabled;}
         const string getName();
         void setData(TreeData *_data);
         void setResolution(int rx, int ry) {resx = rx; resy = ry;}

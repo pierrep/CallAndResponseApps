@@ -24,6 +24,7 @@ class Tree
         bool isDirty() {return (bIsDirty?true:false);}
         void updatePing();
         void playPing();
+        void doFade();
         void doPixelFade();
 
         vector<LedFixture *> lights;
