@@ -11,6 +11,7 @@
 #endif
 
 #include "ofxPlaylist.h"
+#include "TreeData.h"
 
 using namespace Playlist;
 
@@ -36,6 +37,7 @@ class BaseEffect
         void keyPressed(ofKeyEventArgs& args);
         void enable(bool b) {bEnabled = b;}
         const string getName();
+        void setData(TreeData *_data);
         void setResolution(int rx, int ry) {resx = rx; resy = ry;}
         void updateMouse(ofVec2f pos) {mouseX = pos.x; mouseY = pos.y;}
 
@@ -44,6 +46,7 @@ class BaseEffect
         ofParameterGroup parameters;
 
     protected:
+        TreeData * data;
         float resx, resy;
         float mouseX, mouseY;
         bool bToggle;

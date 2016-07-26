@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
 
-class Tree;
+#include "Tree.h"
 
 class TreeData
 {
@@ -42,6 +42,7 @@ class TreeData
 
         ofColor colour;
         const float pixelWidth;
+        bool bUseFrameBuffer;
 
     protected:
 

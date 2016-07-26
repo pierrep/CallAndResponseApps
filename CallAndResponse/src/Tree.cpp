@@ -1,5 +1,4 @@
 #include "Tree.h"
-#include "LedFixture.h"
 
 Tree::Tree()
 {
@@ -25,6 +24,17 @@ void Tree::clear()
         lights[i]->clear();
     }
     bIsDirty = false;
+}
+
+//--------------------------------------------------------------
+void Tree::doPixelFade()
+{
+    for(unsigned int i=0; i < lights.size();i++)
+    {
+        for(unsigned int j=0; j < lights[i]->pixels.size();j++) {
+            lights[i]->pixels[j]->fadeOff(ofRandom(500,5000));
+        }
+    }
 }
 
 //--------------------------------------------------------------

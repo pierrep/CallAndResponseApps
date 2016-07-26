@@ -1,5 +1,4 @@
 #include "TreeData.h"
-#include "Tree.h"
 #include "LedFixture.h"
 
 TreeData::TreeData()
@@ -10,7 +9,8 @@ TreeData::TreeData()
   bEditMode(false),
   direction(1),
   colour(ofColor::black),
-  pixelWidth(6.0f)
+  pixelWidth(6.0f),
+  bUseFrameBuffer(true)
 {
     currentTree = 8;
 

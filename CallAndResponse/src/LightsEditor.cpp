@@ -26,7 +26,10 @@ void LightsEditor::setup(TreeData* _data)
         string name = data->trees.at(i)->getName();
         ofImage img;
         img.setUseTexture(true);
-        img.load("TreePhotos/"+name+".jpg");
+        #if !defined(TARGET_RASPBERRY_PI)
+            ofLogNotice("Loading "+name+".jpg");
+            img.load("TreePhotos/"+name+".jpg");
+        #endif
         img.setImageType(OF_IMAGE_GRAYSCALE);
         treeimg.push_back(img);
     }

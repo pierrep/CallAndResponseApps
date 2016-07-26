@@ -19,6 +19,11 @@ BaseEffect::~BaseEffect()
 
 }
 
+void BaseEffect::setData(TreeData *_data)
+{
+    data = _data;
+}
+
 
 void BaseEffect::setupGui()
 {

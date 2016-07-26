@@ -1,5 +1,5 @@
 <Bloom_Effect_Settings>
-	<Enabled>1</Enabled>
+	<Enabled>0</Enabled>
 	<Max_radius>300</Max_radius>
 	<Bloom_speed>1000</Bloom_speed>
 </Bloom_Effect_Settings>

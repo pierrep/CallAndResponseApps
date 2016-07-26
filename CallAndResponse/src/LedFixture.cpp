@@ -71,11 +71,11 @@ void LedFixture::setBrightness(float val)
 }
 
 //--------------------------------------------------------------
-void LedFixture::fadeOn()
+void LedFixture::fadeOn(float time)
 {
     for(int i = 0;i < pixels.size();i++)
     {
-        pixels[i]->fadeOn(i);
+        pixels[i]->fadeOn(time);
     }
 }
 

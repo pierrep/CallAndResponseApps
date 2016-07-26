@@ -23,6 +23,7 @@ void LineEffect2::setup()
 void LineEffect2::begin()
 {
     if(!bEnabled) return;
+    data->bUseFrameBuffer = true;
 
     resetLines();
     ofSetLineWidth(lineWidth.get());

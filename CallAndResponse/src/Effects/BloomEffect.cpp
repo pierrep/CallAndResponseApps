@@ -11,6 +11,8 @@ BloomEffect::BloomEffect()
     //c1.setHex(0x6B6100);
     //c2.set(0x811400);
     c2.set(0,0,255);
+
+    pixelIndex = 0;
 }
 
 BloomEffect::~BloomEffect()
@@ -26,6 +28,7 @@ void BloomEffect::setup()
 void BloomEffect::begin()
 {
     if(!bEnabled) return;
+    data->bUseFrameBuffer = true;
 
     radius = 0;
     ratio = 0;

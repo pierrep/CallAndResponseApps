@@ -4,10 +4,10 @@
 //========================================================================
 int main( ){
 
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    ofSetLogLevel(OF_LOG_NOTICE);
 
     #if defined(TARGET_RASPBERRY_PI)
-        ofSetupOpenGL(400,300,OF_WINDOW);
+        ofSetupOpenGL(1600,900,OF_WINDOW);
     #else
         ofSetupOpenGL(1600,900,OF_WINDOW);
     #endif

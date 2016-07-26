@@ -21,6 +21,7 @@ void EmptyEffect::setup()
 void EmptyEffect::begin()
 {
     if(!bEnabled) return;
+    data->bUseFrameBuffer = true;
 }
 
 void EmptyEffect::update(float curTime)

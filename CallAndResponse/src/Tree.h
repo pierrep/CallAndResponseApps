@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
 
-class LedFixture;
+#include "LedFixture.h"
 
 class Tree
 {
@@ -24,6 +24,7 @@ class Tree
         bool isDirty() {return (bIsDirty?true:false);}
         void updatePing();
         void playPing();
+        void doPixelFade();
 
         vector<LedFixture *> lights;
 

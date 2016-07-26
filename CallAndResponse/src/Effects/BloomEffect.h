@@ -20,6 +20,7 @@ class BloomEffect : public BaseEffect
         ofParameter<float> bloomspeed;
         float radius;
         float ratio;
-
         ofColor c1,c2;
+
+        unsigned int pixelIndex;
 };

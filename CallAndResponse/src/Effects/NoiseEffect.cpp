@@ -24,12 +24,12 @@ NoiseEffect::~NoiseEffect()
 void NoiseEffect::setup()
 {
     noiseImage.allocate( resx, resy, OF_IMAGE_GRAYSCALE);
-
 }
 
 void NoiseEffect::begin()
 {
     if(!bEnabled) return;
+    data->bUseFrameBuffer = true;
 }
 
 void NoiseEffect::update(float curTime)

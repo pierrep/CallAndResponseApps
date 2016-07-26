@@ -23,6 +23,7 @@ void LineEffect::setup()
 void LineEffect::begin()
 {
     if(!bEnabled) return;
+    data->bUseFrameBuffer = true;
 
     resetLines();
 }

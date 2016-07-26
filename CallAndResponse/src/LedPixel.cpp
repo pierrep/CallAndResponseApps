@@ -35,13 +35,18 @@ void LedPixel::setColour(ofColor c)
 }
 
 //--------------------------------------------------------------
-void LedPixel::fadeOn(int i)
+void LedPixel::fadeOn(float time)
 {
     brightness = 0.0f;
-    //playlist.addKeyFrame(Action::pause(i*100.0f));
-    playlist.addKeyFrame(Action::tween(50.f, &brightness, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
-    playlist.addToKeyFrame(Action::tween(200.0f,10000.f,&brightness, 0.0f, TWEEN_QUAD, TWEEN_EASE_OUT));
+    playlist.addKeyFrame(Action::tween(time, &brightness, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
     bIsDirty = true;
+}
+
+//--------------------------------------------------------------
+void LedPixel::fadeOff(float time)
+{
+    playlist.addKeyFrame(Action::tween(time, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
+
 }
 
 //--------------------------------------------------------------

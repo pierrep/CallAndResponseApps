@@ -8,6 +8,7 @@
 #include "Effects/LineEffect2.h"
 #include "Effects/NoiseParticlesEffect.h"
 #include "Effects/CalibrateEffect.h"
+#include "Effects/ImagePan.h"
 
 Animations::Animations()
 {
@@ -22,6 +23,7 @@ Animations::Animations()
     fxframe.allocate(1200,900,GL_RGB);
     effect.push_back(new CalibrateEffect());
     effect.push_back(new BloomEffect());
+    effect.push_back(new ImagePan());
     effect.push_back(new LineEffect());
     effect.push_back(new LineEffect2());
     effect.push_back(new NoiseParticlesEffect());
@@ -42,6 +44,7 @@ void Animations::setup(TreeData * _data)
 {
     data = _data;
     for(unsigned int i =0;i < effect.size();i++) {
+        effect[i]->setData(data);
         effect[i]->setup();
         effect[i]->setupGui();
         effect[i]->enable(false);
@@ -64,20 +67,24 @@ void Animations::update(float curTime)
     }
 
     if(pattern == 0) {
-        fxframe.readToPixels(p);
 
-        for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
-        {
-            for(unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size();j++) {
-                int x = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
-                int y = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
-                int index = ( x + (y-1)*fxframe.getWidth() ) *3;
-                ofColor c = ofColor(p[index],p[index+1], p[index+2]);
+        if(data->bUseFrameBuffer) {
+            fxframe.readToPixels(p);
 
-                data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
+            for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
+            {
+                for(unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size();j++) {
+                    int x = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
+                    int y = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
+                    int index = ( x + (y-1)*fxframe.getWidth() ) *3;
+                    ofColor c = ofColor(p[index],p[index+1], p[index+2]);
+
+                    data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
+                }
+                data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
             }
-            data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
         }
+
     } else {
         testPattern();
     }
@@ -136,6 +143,10 @@ void Animations::enableEffect(const string name)
 
 void Animations::clearActiveEffects()
 {
+    for(int i =0;i < effect.size();i++)
+    {
+        effect[i]->enable(false);
+    }
     activeFx.clear();
 }
 

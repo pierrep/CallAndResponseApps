@@ -14,6 +14,7 @@ NoiseParticlesEffect::~NoiseParticlesEffect()
 
 void NoiseParticlesEffect::setup()
 {
+    data->bUseFrameBuffer = true;
     for(int i = 0; i < MAX_PARTICLES; i++)
     {
         NoiseParticle p((float)i/10000.0f);
@@ -24,6 +25,8 @@ void NoiseParticlesEffect::setup()
 void NoiseParticlesEffect::begin()
 {
     if(!bEnabled) return;
+    data->bUseFrameBuffer = true;
+
     for (int i = 0; i < flow.size(); i++)
     {
         flow.at(i).reset();

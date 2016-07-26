@@ -135,8 +135,9 @@ void ofApp::bloomTree()
 
         /* set bloom effect */
         animations.clearActiveEffects();
-        animations.enableEffect("bloom");
-        animations.enableEffect("noise particles");
+        //animations.enableEffect("bloom");
+        //animations.enableEffect("noise particles");
+        animations.enableEffect("image pan");
 
     } else {
         /* set light trails */
@@ -443,7 +444,7 @@ void ofApp::keyPressed(int key){
         for(unsigned int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
         {
             data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
-            data.trees[data.currentTree]->lights[i]->fadeOn();
+            data.trees[data.currentTree]->lights[i]->fadeOn(5000.0f);
         }
     }
     else if(key == '5') animations.setPattern(5);

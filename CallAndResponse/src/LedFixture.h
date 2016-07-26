@@ -23,7 +23,7 @@ class LedFixture : public ofNode
 
         void setupPixels(ofVec2f pos, float pixelWidth);
 
-        void fadeOn();
+        void fadeOn(float time);
         vector<LedPixel* > pixels;
 
     protected:

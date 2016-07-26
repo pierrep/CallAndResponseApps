@@ -20,6 +20,7 @@ void CalibrateEffect::setup()
 void CalibrateEffect::begin()
 {
     if(!bEnabled) return;
+    data->bUseFrameBuffer = true;
 }
 
 void CalibrateEffect::update(float curTime)
@@ -27,9 +28,6 @@ void CalibrateEffect::update(float curTime)
     if(!bEnabled) return;
 
     BaseEffect::update(curTime);
-
-//    linePos1 = ofVec2f(mouseX-400,0);
-//    linePos2
 
 }
 
