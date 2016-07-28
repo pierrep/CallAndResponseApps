@@ -47,7 +47,7 @@ void LedPixel::fadeOn(float time)
 //--------------------------------------------------------------
 void LedPixel::fadeOff(float time)
 {
-    playlist.addKeyFrame(Action::tween(1000.0f,time, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
+    playlist.addKeyFrame(Action::tween(2000.0f,time, &brightness, 0.0f,TWEEN_QUAD,TWEEN_EASE_IN));
 
 }
 

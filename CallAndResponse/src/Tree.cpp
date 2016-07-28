@@ -32,7 +32,7 @@ void Tree::doFade()
     for(unsigned int i=0; i < lights.size();i++)
     {
         for(unsigned int j=0; j < lights[i]->pixels.size();j++) {
-            lights[i]->pixels[j]->fadeOff(ofRandom(100,5000));
+            lights[i]->pixels[j]->fadeOff(ofRandom(1000,8000));
         }
     }
 }

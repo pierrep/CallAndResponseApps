@@ -25,7 +25,7 @@ void ImagePan::begin()
     if(!bEnabled) return;
     data->bUseFrameBuffer = true;
 
-    height = 150;
+    height = 200;
     bEndSequence = false;
     currentTree = data->currentTree;
 

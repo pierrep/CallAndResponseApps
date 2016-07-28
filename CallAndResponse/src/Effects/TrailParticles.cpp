@@ -23,10 +23,12 @@ void TrailParticles::setup()
 	billboards.setMode(OF_PRIMITIVE_POINTS);
 
 	#if defined(TARGET_RASPBERRY_PI)
-	billboardShader.load("Shaders/BillboardGLES.vert", "Shaders/BillboardGLES.frag", "");
+	//ofLogNotice() << "Load GLES shaders";
+	//billboardShader.load("Shaders/BillboardGLES";
 	#else
-	billboardShader.load("Shaders/Billboard.vert", "Shaders/Billboard.frag", "");
+	//billboardShader.load("Shaders/Billboard");
 	#endif
+	glPointSize(4);
 
     parameters.add(duration.set( "Duration", 1500.0f, 1000.0f, 4000.0f ));
     parameters.add(speed.set( "Speed", 0.4f, 0.1f, 1.0f ));
@@ -42,7 +44,7 @@ void TrailParticles::begin()
     curTime = ofGetElapsedTimeMillis();
     prevTime = curTime;
     bPlayAnim = true;
-    cout << "Trail Particles BEGIN" << endl;
+    ofLogNotice() << "Trail Particles BEGIN";
 
     for (int i=0; i<NUM_BILLBOARDS; i++)
     {
@@ -61,7 +63,6 @@ void TrailParticles::update(float curTime)
     if(curTime - prevTime > duration.get()) {
         if(bPlayAnim) {
             bPlayAnim = false;
-            cout << "currentTree = " << currentTree << endl;
             data->trees[currentTree]->doFade();
             data->bUseFrameBuffer = false;
         }
@@ -86,13 +87,13 @@ void TrailParticles::draw(float x, float y, float w, float h)
         ofSetColor(255);
         ofPushMatrix();
 
-        billboardShader.begin();
+        //billboardShader.begin();
 
         ofEnablePointSprites();
         billboards.draw();
         ofDisablePointSprites();
 
-        billboardShader.end();
+        //billboardShader.end();
 
         ofPopMatrix();
         ofPopStyle();
