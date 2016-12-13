@@ -3,6 +3,8 @@
 #include "ofxPlaylist.h"
 #include "LedFixture.h"
 
+/* export MAKEFLAGS=-j3 */
+
 using namespace Playlist;
 
 ofApp::ofApp() :
@@ -10,14 +12,14 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(2100.0f),
     gPauseTime(1500.0f),
-    //gIPAddress("192.168.0.43"),
+    gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
-    gIPAddress("localhost"),
-    //gHOST_IPAddress("192.168.0.2"),
+    //gIPAddress("localhost"),
+    gHOST_IPAddress("192.168.0.2"),
     //gHOST_IPAddress("192.168.2.15"),
-    gHOST_IPAddress("localhost"),
+    //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
-    bHost(true)
+    bHost(false)
 {
 
 }
@@ -106,15 +108,14 @@ void ofApp::bloomTree()
 
         /* set bloom effect */
         animations.clearActiveEffects();
-        //animations.enableEffect("bloom");
-        //animations.enableEffect("noise particles");
-        animations.enableEffect("image pan");
+        animations.enableEffect("bloom");
+        //animations.enableEffect("image pan");
         animations.enableEffect("line2");
 
     } else {
         /* set light trails */
-        //animations.enableEffect("line");
-        animations.enableEffect("trail particles");
+        animations.enableEffect("line");
+        //animations.enableEffect("trail particles");
     }
 
     if(!data.bEditMode) {
@@ -349,7 +350,8 @@ void ofApp::draw(){
 void ofApp::sendTreeDMX(int i)
 {
     if(bArtNetActive) {
-        if(data.trees[i]->isDirty()) {
+        //if(data.trees[i]->isDirty())
+        {
             artnet.sendDmx(gStorm_IPAddress, 0, data.trees[i]->getId(), data.trees[i]->getBufferPixels(), 512);
         }
     }
