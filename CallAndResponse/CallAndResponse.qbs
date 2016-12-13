@@ -12,60 +12,53 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
-            "bin/data/Shaders/Billboard.frag",
-            "bin/data/Shaders/Billboard.vert",
-            "bin/data/Shaders/BillboardGLES.frag",
-            "bin/data/Shaders/BillboardGLES.vert",
+            "src/Animations.cpp",
+            "src/Animations.h",
+            "src/Effects/BaseEffect.cpp",
+            "src/Effects/BaseEffect.h",
+            "src/Effects/BloomEffect.cpp",
+            "src/Effects/BloomEffect.h",
+            "src/Effects/CalibrateEffect.cpp",
+            "src/Effects/CalibrateEffect.h",
+            "src/Effects/EmptyEffect.cpp",
+            "src/Effects/EmptyEffect.h",
             "src/Effects/ImagePan.cpp",
             "src/Effects/ImagePan.h",
+            "src/Effects/LineEffect.cpp",
+            "src/Effects/LineEffect.h",
             "src/Effects/LineEffect2.cpp",
             "src/Effects/LineEffect2.h",
+            "src/Effects/NoiseEffect.cpp",
+            "src/Effects/NoiseEffect.h",
+            "src/Effects/NoiseParticlesEffect.cpp",
+            "src/Effects/NoiseParticlesEffect.h",
             "src/Effects/TrailParticles.cpp",
             "src/Effects/TrailParticles.h",
-            'src/Animations.cpp',
-            'src/Animations.h',
-            'src/Effects/BaseEffect.cpp',
-            'src/Effects/BaseEffect.h',
-            'src/Effects/BloomEffect.cpp',
-            'src/Effects/BloomEffect.h',
-            'src/Effects/CalibrateEffect.cpp',
-            'src/Effects/CalibrateEffect.h',
-            'src/Effects/EmptyEffect.cpp',
-            'src/Effects/EmptyEffect.h',
-            'src/Effects/LineEffect.cpp',
-            'src/Effects/LineEffect.h',
-            'src/Effects/NoiseEffect.cpp',
-            'src/Effects/NoiseEffect.h',
-            'src/Effects/NoiseParticlesEffect.cpp',
-            'src/Effects/NoiseParticlesEffect.h',
-            'src/GuiMap.cpp',
-            'src/GuiMap.h',
-            'src/LedFixture.cpp',
-            'src/LedFixture.h',
-            'src/LedPixel.cpp',
-            'src/LedPixel.h',
-            'src/LightsEditor.cpp',
-            'src/LightsEditor.h',
-            'src/Tree.cpp',
-            'src/Tree.h',
-            'src/TreeData.cpp',
-            'src/TreeData.h',
-            'src/main.cpp',
-            'src/ofApp.cpp',
-            'src/ofApp.h',
+            "src/GuiMap.cpp",
+            "src/GuiMap.h",
+            "src/LedFixture.cpp",
+            "src/LedFixture.h",
+            "src/LedPixel.cpp",
+            "src/LedPixel.h",
+            "src/LightsEditor.cpp",
+            "src/LightsEditor.h",
+            "src/Tree.cpp",
+            "src/Tree.h",
+            "src/TreeData.cpp",
+            "src/TreeData.h",
+            "src/main.cpp",
+            "src/ofApp.cpp",
+            "src/ofApp.h",
         ]
 
         of.addons: [
-            'ofxAssimpModelLoader',
-            'ofxGui',
-            'ofxOsc',
-            'ofxXmlSettings',
             'ofxArtnet',
-            'ofxGameCamera',
-            'ofxPlaylist',
             'ofxDatGui',
             'ofxGenericDmx',
             'ofxMarkovChain',
+            'ofxOsc',
+            'ofxPlaylist',
+            'ofxXmlSettings',
         ]
 
         // additional flags for the project. the of module sets some
@@ -75,7 +68,7 @@ Project{
         of.includePaths: []     // include search paths
         of.cFlags: []           // flags passed to the c compiler
         of.cxxFlags: []         // flags passed to the c++ compiler
-        of.linkerFlags: ["-lftdi"]      // flags passed to the linker
+        of.linkerFlags: []      // flags passed to the linker
         of.defines: []          // defines are passed as -D to the compiler
                                 // and can be checked with #ifdef or #if in the code
 
@@ -83,6 +76,9 @@ Project{
         // eg: this will enable ccache when compiling
         //
         // cpp.compilerWrapper: 'ccache'
+	
+		cpp.dynamicLibraries: ["ftdi"]
+
 
         Depends{
             name: "cpp"
