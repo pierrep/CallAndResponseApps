@@ -12,14 +12,14 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(2100.0f),
     gPauseTime(1500.0f),
-    gIPAddress("192.168.0.43"),
+    //gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
-    //gIPAddress("localhost"),
-    gHOST_IPAddress("192.168.0.2"),
+    gIPAddress("localhost"),
+    //gHOST_IPAddress("192.168.0.2"),
     //gHOST_IPAddress("192.168.2.15"),
-    //gHOST_IPAddress("localhost"),
+    gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
-    bHost(false)
+    bHost(true)
 {
 
 }
@@ -114,8 +114,8 @@ void ofApp::bloomTree()
 
     } else {
         /* set light trails */
-        animations.enableEffect("line");
-        //animations.enableEffect("trail particles");
+        //animations.enableEffect("line");
+        animations.enableEffect("trail particles");
     }
 
     if(!data.bEditMode) {
