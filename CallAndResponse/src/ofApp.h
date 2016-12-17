@@ -19,6 +19,8 @@
 #include "Animations.h"
 #include "ofxMarkovChain.h"
 
+#define USE_USB_DMX
+
 #ifdef USE_USB_DMX
 #include "ofxGenericDmx.h"
 #endif

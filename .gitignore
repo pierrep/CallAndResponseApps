@@ -2,6 +2,7 @@
 CallAndResponse/CallAndResponse.qbs.user
 CallAndResponse/bin/CallAndResponse_debug
 CallAndResponse/bin/CallAndResponse*
+CallAndResponse/bin/libs
 CallAndResponse/obj/
 ofxArtNetExample/bin/ofxArtNetExample_debug
 ofxArtNetExample/ofxArtNetExample.qbs.user
