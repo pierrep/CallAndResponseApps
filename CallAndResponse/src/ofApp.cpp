@@ -102,7 +102,7 @@ void ofApp::exit(){
 void ofApp::bloomTree()
 {    
     if(data.currentTree == data.targetTree) {
-		ofLogNotice() << "Bloom Tree: " << data.currentTree;
+        ofLogNotice() << "Bloom Tree: " << data.currentTree << " Time: " << ofGetHours() << ":" << ofGetMinutes() << ":" << ofGetSeconds();
 		
         /* play bellbird sound */
         data.trees[data.currentTree]->playPing();
