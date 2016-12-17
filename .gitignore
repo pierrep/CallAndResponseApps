@@ -10,3 +10,7 @@ controllerClient/controllerClient.qbs.user
 controllerClient/bin/controllerClient_debug
 controllerClient/bin/controllerClient
 controllerClient/build/
+ofxGenericDMX_example/bin/ofxGenericDMX_example_debug
+ofxGenericDMX_example/bin/ofxGenericDMX_example
+ofxGenericDMX_example/build/
+ofxGenericDMX_example/ofxGenericDMX_example.qbs.user
