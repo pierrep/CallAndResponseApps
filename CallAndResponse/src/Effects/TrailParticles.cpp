@@ -44,7 +44,7 @@ void TrailParticles::begin()
     curTime = ofGetElapsedTimeMillis();
     prevTime = curTime;
     bPlayAnim = true;
-    ofLogNotice() << "Trail Particles BEGIN";
+    ofLogVerbose() << "Trail Particles BEGIN";
 
     for (int unsigned i=0; i<NUM_BILLBOARDS; i++)
     {

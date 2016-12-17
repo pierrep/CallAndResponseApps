@@ -32,12 +32,12 @@ void ofApp::setup(){
 
     data.load();
     editor.setup(&data);
-    guiMap.setup(&data);
     animations.setup(&data);
     animations.load();
     setupDMX();
 
 #ifdef USE_GUI
+    guiMap.setup(&data);
     setupGui();
     ping.load("ping.mp3");
 #endif
@@ -100,9 +100,10 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::bloomTree()
-{
-    ofLogNotice() << "Bloom Tree";
+{    
     if(data.currentTree == data.targetTree) {
+		ofLogNotice() << "Bloom Tree: " << data.currentTree;
+		
         /* play bellbird sound */
         data.trees[data.currentTree]->playPing();
 
@@ -150,7 +151,7 @@ void ofApp::processState()
 {
 #if defined(TARGET_RASPBERRY_PI)
     if(ofGetFrameNum()%30 == 0) {
-        ofLogWarning() << "FPS: " << ofGetFrameRate();
+        //ofLogWarning() << "FPS: " << ofGetFrameRate();
     }
 #endif
 
@@ -243,6 +244,7 @@ void ofApp::processState()
         }
         case data.START_TRAIL:
         {
+			ofLogNotice() << "Trail:" << data.currentTree;
             ofLogVerbose() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
             if(data.bIsPlaying) {
@@ -393,14 +395,14 @@ void ofApp::keyPressed(int key){
         ofToggleFullscreen();
     }
 
-#ifdef USE_GUI
+
     if(key == 'e') {
         data.bToggleEditMode = !data.bToggleEditMode;
     }
     if(key == ' ') {
         data.bTogglePlaying = !data.bTogglePlaying;
     }
-
+#ifdef USE_GUI
     if(key == 'i') {
          data.bShowBgImage = !data.bShowBgImage;
     }

@@ -23,15 +23,15 @@ void LightsEditor::setup(TreeData* _data)
     data = _data;
 
     for(int i=0; i < data->trees.size();i++) {
-        string name = data->trees.at(i)->getName();
-        ofImage img;
-        img.setUseTexture(true);
-        #if !defined(TARGET_RASPBERRY_PI)
+		#if !defined(TARGET_RASPBERRY_PI)
+			string name = data->trees.at(i)->getName();
+			ofImage img;
+			img.setUseTexture(true);
             ofLogNotice("Loading "+name+".jpg");
             img.load("TreePhotos/"+name+".jpg");
+			img.setImageType(OF_IMAGE_GRAYSCALE);
+			treeimg.push_back(img);            
         #endif
-        img.setImageType(OF_IMAGE_GRAYSCALE);
-        treeimg.push_back(img);
     }
 
     lightNum.load("Fonts/AUdimat-Bold",11,true);
@@ -49,7 +49,9 @@ void LightsEditor::draw(float x, float y, float w, float h)
     ofTranslate(x,y,0);
     ofPushStyle();
     if(data->bShowBgImage) {
+		#if !defined(TARGET_RASPBERRY_PI)		
         treeimg[data->currentTree].draw(0,0,editorWidth,editorHeight);
+        #endif
     }
 
     ofSetRectMode(OF_RECTMODE_CENTER);
