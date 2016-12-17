@@ -14,8 +14,18 @@ TreeData::TreeData()
 {
     currentTree = 8;
 
+    float master_brightness = 0.4f;
+
+    if(ofGetMonth() == 10 | ofGetMonth() == 11 | ofGetMonth() == 12 | ofGetMonth() == 1 | ofGetMonth() == 2)
+    {
+        master_brightness = 0.8f;
+    } else {
+        master_brightness = 0.4f;
+    }
+
+
     parameters.setName("parameters");
-    parameters.add(brightness.set("Brightness",0.4f,0.0f,1.0f));
+    parameters.add(brightness.set("Brightness",master_brightness,0.0f,1.0f));
     parameters.add(bTogglePlaying.set("Playing (spacebar)",true));
     parameters.add(bShowBgImage.set("Show Background (i)",true));
     parameters.add(bToggleEditMode.set("Edit Mode (e)",false));

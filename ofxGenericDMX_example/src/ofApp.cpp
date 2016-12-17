@@ -22,6 +22,8 @@ void ofApp::setup(){
 	frames = 0;
 
 	printf("ofxGenericDmx addon version: %s.%s\n", ofxGenericDmx::VERSION_MAJOR, ofxGenericDmx::VERSION_MINOR);
+
+    lightID = 0;
 }
 
 //--------------------------------------------------------------
@@ -47,10 +49,39 @@ void ofApp::update(){
 	setColorsToSend();
 
 	//asign our colors to the right dmx channels
+    /* AUDIO TEST
     dmxData_[510] = int(red);
     dmxData_[511] = 2;//int(green);
 	dmxData_[3] = int(blue);
+    */
 
+    //dmxData_[],0
+    memset(dmxData_,0,512);
+
+    dmxData_[1+(24*lightID)] = int(red);
+    dmxData_[2+(24*lightID)] = int(green);
+    dmxData_[3+(24*lightID)] = int(blue);
+    dmxData_[4+(24*lightID)] = int(red);
+    dmxData_[5+(24*lightID)] = int(green);
+    dmxData_[6+(24*lightID)] = int(blue);
+    dmxData_[7+(24*lightID)] = int(red);
+    dmxData_[8+(24*lightID)] = int(green);
+    dmxData_[9+(24*lightID)] = int(blue);
+    dmxData_[10+(24*lightID)] = int(red);
+    dmxData_[11+(24*lightID)] = int(green);
+    dmxData_[12+(24*lightID)] = int(blue);
+    dmxData_[13+(24*lightID)] = int(red);
+    dmxData_[14+(24*lightID)] = int(green);
+    dmxData_[15+(24*lightID)] = int(blue);
+    dmxData_[16+(24*lightID)] = int(red);
+    dmxData_[17+(24*lightID)] = int(green);
+    dmxData_[18+(24*lightID)] = int(blue);
+    dmxData_[19+(24*lightID)] = int(red);
+    dmxData_[20+(24*lightID)] = int(green);
+    dmxData_[21+(24*lightID)] = int(blue);
+    dmxData_[22+(24*lightID)] = int(red);
+    dmxData_[23+(24*lightID)] = int(green);
+    dmxData_[24+(24*lightID)] = int(blue);
 	//force first byte to zero (it is not a channel but DMX type info - start code)
 	dmxData_[0] = 0;
 
@@ -110,6 +141,7 @@ void ofApp::draw(){
 		//colorPicker
 			colorPicker.draw(0,0);
 			ofDrawBitmapString("Color Picker", 10, 20);
+            ofDrawBitmapString("Colour: "+ofToString(red)+" "+ofToString(green)+" "+ofToString(blue),ofGetWidth()-160,20);
 			break;
 		case 1:
 		//static green
@@ -136,6 +168,10 @@ void ofApp::keyPressed(int key){
 			demoMode--;
 			if(demoMode<0)demoMode=2;
 			break;
+        case 'n':
+            lightID++;
+            if(lightID > 10) lightID = 0;
+            break;
 	}
 }
 

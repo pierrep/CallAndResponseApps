@@ -28,7 +28,7 @@ Project{
         of.includePaths: []     // include search paths
         of.cFlags: []           // flags passed to the c compiler
         of.cxxFlags: []         // flags passed to the c++ compiler
-        of.linkerFlags: ["-lftdi"]      // flags passed to the linker
+        of.linkerFlags: []      // flags passed to the linker
         of.defines: []          // defines are passed as -D to the compiler
                                 // and can be checked with #ifdef or #if in the code
 
@@ -36,6 +36,7 @@ Project{
         // eg: this will enable ccache when compiling
         //
         // cpp.compilerWrapper: 'ccache'
+        cpp.dynamicLibraries : ["ftdi"]
 
         Depends{
             name: "cpp"
