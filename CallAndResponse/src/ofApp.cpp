@@ -12,12 +12,12 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(2100.0f),
     gPauseTime(1500.0f),
-    //gIPAddress("192.168.0.43"),
+    gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
-    gIPAddress("localhost"),
-    //gHOST_IPAddress("192.168.0.2"),
+    //gIPAddress("localhost"),
+    gHOST_IPAddress("192.168.0.2"),
     //gHOST_IPAddress("192.168.2.15"),
-    gHOST_IPAddress("localhost"),
+    //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
     bHost(true)
 {
@@ -151,7 +151,7 @@ void ofApp::processState()
 {
 #if defined(TARGET_RASPBERRY_PI)
     if(ofGetFrameNum()%30 == 0) {
-        //ofLogWarning() << "FPS: " << ofGetFrameRate();
+        ofLogWarning() << "FPS: " << ofGetFrameRate();
     }
 #endif
 
@@ -359,10 +359,11 @@ void ofApp::sendTreeDMX(int i)
     }
 #ifdef USE_USB_DMX
     else if(bDmxUsbActive) {
-        if(i == 0) { //only send 1st tree
-        dmxData_[0] = 0;
-        memcpy(&dmxData_[1],data.trees[i]->getBufferPixels(),512);
-        dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
+        //if(i == 0) { //only send 1st tree
+		if(data.currentTree == i) { //only send current tree
+			dmxData_[0] = 0;
+			memcpy(&dmxData_[1],data.trees[i]->getBufferPixels(),512);
+			dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
         }
     }
 #endif

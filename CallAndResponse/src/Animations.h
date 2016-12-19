@@ -47,8 +47,10 @@ class Animations
         vector<BaseEffect*> activeFx;
         unsigned int currentFx;
 
-        //PBO optimisation
+        /* PBO optimisation */
+        #if !defined(TARGET_RASPBERRY_PI)
         ofBufferObject pixelBufferBack, pixelBufferFront;
+		#endif
 
         ofPixels p;
 

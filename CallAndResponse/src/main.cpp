@@ -4,7 +4,7 @@
 //========================================================================
 int main( ){
 
-    ofSetLogLevel(OF_LOG_NOTICE);
+    ofSetLogLevel(OF_LOG_WARNING);
 
     #if defined(TARGET_RASPBERRY_PI)
 		// ofGLESWindowSettings settings;
