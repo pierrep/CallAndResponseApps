@@ -22,6 +22,9 @@ Animations::Animations()
     #endif
 
     fxframe.allocate(1200,900,GL_RGB);
+    pixelBufferBack.allocate(1200*900*3,GL_DYNAMIC_READ);
+    pixelBufferFront.allocate(1200*900*3,GL_DYNAMIC_READ);
+
     effect.push_back(new CalibrateEffect());
     effect.push_back(new BloomEffect());
     effect.push_back(new ImagePan());
@@ -72,7 +75,25 @@ void Animations::update(float curTime)
     if(pattern == 0) {
 
         if(data->bUseFrameBuffer) {
-            fxframe.readToPixels(p);
+            //fxframe.readToPixels(p);
+
+            // copy the fbo texture to a buffer
+            fxframe.getTexture().copyTo(pixelBufferBack);
+
+            // map the buffer so we can access it from the cpu
+            // and wrap the memory in an ofPixels to save it
+            // easily. Finally unmap it.
+            pixelBufferFront.bind(GL_PIXEL_UNPACK_BUFFER);
+            unsigned char * pix = pixelBufferFront.map<unsigned char>(GL_READ_ONLY);
+            p.setFromExternalPixels(pix,fxframe.getWidth(),fxframe.getHeight(),OF_PIXELS_RGB);
+            pixelBufferFront.unmap();
+
+            // swap the front and back buffer so we are always
+            // copying the texture to one buffer and reading
+            // back from another to avoid stalls
+            swap(pixelBufferBack,pixelBufferFront);
+            //pixelBufferFront.unbind();
+
 
             for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
             {

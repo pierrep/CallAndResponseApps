@@ -47,6 +47,9 @@ class Animations
         vector<BaseEffect*> activeFx;
         unsigned int currentFx;
 
+        //PBO optimisation
+        ofBufferObject pixelBufferBack, pixelBufferFront;
+
         ofPixels p;
 
         ofXml settings;
