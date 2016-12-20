@@ -149,11 +149,9 @@ void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
 //--------------------------------------------------------------
 void ofApp::processState()
 {
-#if defined(TARGET_RASPBERRY_PI)
     if(ofGetFrameNum()%30 == 0) {
         ofLogWarning() << "FPS: " << ofGetFrameRate();
     }
-#endif
 
     if(data.bToggleEditMode != data.bEditMode) {
         if(data.bToggleEditMode) {
