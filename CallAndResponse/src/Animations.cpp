@@ -89,7 +89,7 @@ void Animations::update(float curTime)
             p.setFromExternalPixels(pix,fxframe.getWidth(),fxframe.getHeight(),OF_PIXELS_RGB);
             pixelBufferFront.unmap();
             swap(pixelBufferBack,pixelBufferFront);
-            pixelBufferFront.unbind();
+            //pixelBufferFront.unbind(GL_PIXEL_UNPACK_BUFFER);
 			#endif
 
             for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
