@@ -38,6 +38,8 @@ Animations::Animations()
 
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
+
+	fxframe.readToPixels(p);
 }
 
 Animations::~Animations()

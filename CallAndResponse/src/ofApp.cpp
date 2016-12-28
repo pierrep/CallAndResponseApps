@@ -92,8 +92,10 @@ void ofApp::exit(){
 
     #ifdef USE_GUI
         ping.unload();
-        shared_ptr<ofOpenALSoundPlayer> player = dynamic_pointer_cast<ofOpenALSoundPlayer>(ping.getPlayer());
+		#ifndef TARGET_WIN32
+		shared_ptr<ofOpenALSoundPlayer> player = dynamic_pointer_cast<ofOpenALSoundPlayer>(ping.getPlayer());
         player->close();
+		#endif
     #endif
 
 }
@@ -666,5 +668,3 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
-
-

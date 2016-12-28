@@ -1,0 +1,573 @@
+<?xml version="1.0"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Animations.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\BaseEffect.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\BloomEffect.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\CalibrateEffect.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\EmptyEffect.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\ImagePan.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\LineEffect.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\LineEffect2.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\NoiseEffect.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\NoiseParticlesEffect.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Effects\TrailParticles.cpp">
+			<Filter>src\Effects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\GuiMap.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\LedFixture.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\LedPixel.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\LightsEditor.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\Tree.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\TreeData.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxArtnet\src\ofxArtnet.cpp">
+			<Filter>addons\ofxArtnet\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\artnet.c">
+			<Filter>addons\ofxArtnet\libs\artnet\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\misc.c">
+			<Filter>addons\ofxArtnet\libs\artnet\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\network.c">
+			<Filter>addons\ofxArtnet\libs\artnet\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\receive.c">
+			<Filter>addons\ofxArtnet\libs\artnet\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\tod.c">
+			<Filter>addons\ofxArtnet\libs\artnet\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\transmit.c">
+			<Filter>addons\ofxArtnet\libs\artnet\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp">
+			<Filter>addons\ofxDatGui\src\core</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.cpp">
+			<Filter>addons\ofxDatGui\src\libs\ofxSmartFont</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.cpp">
+			<Filter>addons\ofxDatGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxMarkovChain\src\Matrix.cpp">
+			<Filter>addons\ofxMarkovChain\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxMarkovChain\src\ofxMarkovChain.cpp">
+			<Filter>addons\ofxMarkovChain\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.cpp">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscSender.cpp">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip\win32</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip\win32</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasing.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBack.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBounce.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCirc.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCubic.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingElastic.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingExpo.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingLinear.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuad.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuart.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuint.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingSine.cpp">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxEventKeyframe.cpp">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxKeyframe.cpp">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylist.cpp">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
+			<Filter>addons\ofxXmlSettings\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\Effects">
+			<UniqueIdentifier>{98A74120-C75C-8BC3-6468-273F}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxArtnet">
+			<UniqueIdentifier>{1F6CC159-95B3-E637-8BC3-D883}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxArtnet\src">
+			<UniqueIdentifier>{00F3D8AF-FC0D-A159-C905-6211}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxArtnet\libs">
+			<UniqueIdentifier>{24FDA2B0-E3A6-869C-3A63-797D}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxArtnet\libs\artnet">
+			<UniqueIdentifier>{FFCA0B30-F90B-63F9-BA8D-F944}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxArtnet\libs\artnet\include">
+			<UniqueIdentifier>{F81D254F-9DFF-085B-8759-A151}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxArtnet\libs\artnet\src">
+			<UniqueIdentifier>{D1CEEFA5-8343-2283-FE7D-153F}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui">
+			<UniqueIdentifier>{B36B06DF-1AA4-00D4-5A1B-6893}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui\src">
+			<UniqueIdentifier>{CAA2E9BA-611F-99B2-780A-B8BA}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui\src\components">
+			<UniqueIdentifier>{8EFE15E2-401E-A657-3818-AD66}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui\src\core">
+			<UniqueIdentifier>{6835CAB6-404A-D3AD-148B-CD60}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui\src\libs">
+			<UniqueIdentifier>{ABAEF2A2-DCDC-DB83-4614-EB2B}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui\src\libs\ofxSmartFont">
+			<UniqueIdentifier>{A694AB8C-4705-277A-3AC8-2B8E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui\src\themes">
+			<UniqueIdentifier>{2646318C-49AB-44C5-70D8-23E6}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxMarkovChain">
+			<UniqueIdentifier>{BF0EBF8C-0F34-A430-475B-3683}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxMarkovChain\src">
+			<UniqueIdentifier>{99942E48-12D9-86D8-6B1C-AAAF}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc">
+			<UniqueIdentifier>{D91DCA33-6E5D-4481-2AEC-9FBB}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc\src">
+			<UniqueIdentifier>{B9DD339A-D93D-92A1-0A2F-4B41}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc\libs">
+			<UniqueIdentifier>{99ECA1D9-873F-4622-8FC0-FC7B}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc\libs\oscpack">
+			<UniqueIdentifier>{D3A98534-1602-4FEF-57A6-6593}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc\libs\oscpack\src">
+			<UniqueIdentifier>{BFB5BB47-98C8-BBCB-3066-1046}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc\libs\oscpack\src\ip">
+			<UniqueIdentifier>{5A029128-EB41-95C5-CBC0-CDED}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc\libs\oscpack\src\ip\win32">
+			<UniqueIdentifier>{79DFDFE2-400B-8654-3675-01A3}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
+			<UniqueIdentifier>{EDACB89C-9768-9551-4D41-B590}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxPlaylist">
+			<UniqueIdentifier>{40B07894-7CBC-4887-496B-D614}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxPlaylist\src">
+			<UniqueIdentifier>{8413376D-8629-4EA4-4817-6684}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxPlaylist\src\Easings">
+			<UniqueIdentifier>{BE251C88-1FEC-63D9-8381-86EC}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxXmlSettings">
+			<UniqueIdentifier>{877F005D-13E6-0592-1D97-F2E3}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxXmlSettings\src">
+			<UniqueIdentifier>{CCB2AC63-49D2-977C-CFE8-AEAD}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxXmlSettings\libs">
+			<UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Animations.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\BaseEffect.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\BloomEffect.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\CalibrateEffect.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\EmptyEffect.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\ImagePan.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\LineEffect.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\LineEffect2.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\NoiseEffect.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\NoiseParticlesEffect.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Effects\TrailParticles.h">
+			<Filter>src\Effects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\GuiMap.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\LedFixture.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\LedPixel.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\LightsEditor.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\Tree.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\TreeData.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\src\ofxArtnet.h">
+			<Filter>addons\ofxArtnet\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\artnet.h">
+			<Filter>addons\ofxArtnet\libs\artnet\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\common.h">
+			<Filter>addons\ofxArtnet\libs\artnet\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\misc.h">
+			<Filter>addons\ofxArtnet\libs\artnet\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\packets.h">
+			<Filter>addons\ofxArtnet\libs\artnet\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\private.h">
+			<Filter>addons\ofxArtnet\libs\artnet\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\tod.h">
+			<Filter>addons\ofxArtnet\libs\artnet\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\unistd_d.h">
+			<Filter>addons\ofxArtnet\libs\artnet\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGui2dPad.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiButton.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiControls.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiFRM.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiGroups.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiLabel.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiMatrix.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiScrollView.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiSlider.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInput.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h">
+			<Filter>addons\ofxDatGui\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.h">
+			<Filter>addons\ofxDatGui\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiConstants.h">
+			<Filter>addons\ofxDatGui\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiEvents.h">
+			<Filter>addons\ofxDatGui\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiIntObject.h">
+			<Filter>addons\ofxDatGui\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.h">
+			<Filter>addons\ofxDatGui\src\libs\ofxSmartFont</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.h">
+			<Filter>addons\ofxDatGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiTheme.h">
+			<Filter>addons\ofxDatGui\src\themes</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiThemes.h">
+			<Filter>addons\ofxDatGui\src\themes</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxMarkovChain\src\Matrix.h">
+			<Filter>addons\ofxMarkovChain\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxMarkovChain\src\ofxMarkovChain.h">
+			<Filter>addons\ofxMarkovChain\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.h">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.h">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscSender.h">
+			<Filter>addons\ofxOsc\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscException.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
+			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\easing_terms_of_use.html">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasing.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBack.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBounce.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCirc.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCubic.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingElastic.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingExpo.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingLinear.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuad.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuart.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuint.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingSine.h">
+			<Filter>addons\ofxPlaylist\src\Easings</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxBaseKeyframe.h">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxEasingExt.h">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxEventKeyframe.h">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxKeyframe.h">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylist.h">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylistAEHelper.h">
+			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
+			<Filter>addons\ofxXmlSettings\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
+</Project>

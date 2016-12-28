@@ -9,7 +9,7 @@ GuiMap::GuiMap()
     disableMouseEvents();
     disableKeyEvents();
     fbo.allocate(400,900);
-    font.load("Fonts/AUdimat-Bold",10);
+    font.load("Fonts/AUdimat-Bold.otf",10);
 }
 
 GuiMap::~GuiMap()

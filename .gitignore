@@ -3,7 +3,10 @@ CallAndResponse/CallAndResponse.qbs.user
 CallAndResponse/bin/CallAndResponse_debug
 CallAndResponse/bin/CallAndResponse*
 CallAndResponse/bin/libs
+CallAndResponse/bin/*.dll
 CallAndResponse/obj/
+CallAndResponse/.vs
+CallAndResponse/CallAndResponse.sdf
 ofxArtNetExample/bin/ofxArtNetExample_debug
 ofxArtNetExample/ofxArtNetExample.qbs.user
 controllerClient/controllerClient.qbs.user

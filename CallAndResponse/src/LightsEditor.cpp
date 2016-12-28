@@ -34,7 +34,7 @@ void LightsEditor::setup(TreeData* _data)
         #endif
     }
 
-    lightNum.load("Fonts/AUdimat-Bold",11,true);
+    lightNum.load("Fonts/AUdimat-Bold.otf",11,true);
 
 }
 

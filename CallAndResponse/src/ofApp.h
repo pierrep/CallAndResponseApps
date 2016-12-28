@@ -19,7 +19,9 @@
 #include "Animations.h"
 #include "ofxMarkovChain.h"
 
+#ifndef TARGET_WIN32
 #define USE_USB_DMX
+#endif
 
 #ifdef USE_USB_DMX
 #include "ofxGenericDmx.h"
@@ -76,9 +78,11 @@ class ofApp : public ofBaseApp{
 
         /* Enntec DMX USB Pro object */
 #ifdef USE_USB_DMX
+	#ifndef TARGET_WIN32
         DmxDevice* dmxInterface_;
         //our DMX packet (which holds the channel values + 1st byte for the start code)
         unsigned char dmxData_[DMX_DATA_LENGTH];
+	#endif
 #endif
         bool bDmxUsbActive;
 
