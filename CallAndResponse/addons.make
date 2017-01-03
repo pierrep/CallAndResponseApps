@@ -1,9 +1,8 @@
-ofxOsc
-ofxXmlSettings
 ofxArtnet
-ofxPlaylist
 ofxDatGui
 ofxGenericDmx
 ofxMarkovChain
+ofxOsc
+ofxPlaylist
+ofxXmlSettings
 ofxThreadedImageLoader
-
