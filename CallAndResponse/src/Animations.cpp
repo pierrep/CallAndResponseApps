@@ -23,7 +23,11 @@ Animations::Animations()
 
     fxframe.allocate(1200,900,GL_RGB);
     
+	/* PBO optimisation */
+	bUsePBO = false;
+	bReadyToSend = true;
     #if !defined(TARGET_RASPBERRY_PI)
+	bUsePBO = true;
     pixelBufferBack.allocate(1200*900*3,GL_DYNAMIC_READ);
     pixelBufferFront.allocate(1200*900*3,GL_DYNAMIC_READ);
 	#endif 
@@ -39,7 +43,7 @@ Animations::Animations()
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
 
-	fxframe.readToPixels(p);
+	fxframe.readToPixels(framePixels);
 }
 
 Animations::~Animations()
@@ -80,32 +84,37 @@ void Animations::update(float curTime)
     if(pattern == 0) {
 
         if(data->bUseFrameBuffer) {
-            #if defined(TARGET_RASPBERRY_PI)
-            fxframe.readToPixels(p);
-            #endif
+			if (bUsePBO) {
+				fxframe.getTexture().copyTo(pixelBufferBack);
+				pixelBufferFront.bind(GL_PIXEL_UNPACK_BUFFER);
+				unsigned char * pix = pixelBufferFront.map<unsigned char>(GL_READ_ONLY);
+				framePixels.setFromExternalPixels(pix,fxframe.getWidth(),fxframe.getHeight(),OF_PIXELS_RGB);
+				pixelBufferFront.unmap();
+				swap(pixelBufferBack,pixelBufferFront);
+				pixelBufferFront.unbind(GL_PIXEL_UNPACK_BUFFER);
+			}
+			else {
+				fxframe.readToPixels(framePixels);
+			}
+			
+			if (bReadyToSend) 
+			{
+				for (unsigned int i = 0; i < data->trees[data->currentTree]->lights.size(); i++)
+				{
+					for (unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size(); j++) {
+						int x = (int)data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
+						int y = (int)data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
+						int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+						ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
 
-			#if !defined(TARGET_RASPBERRY_PI)
-            fxframe.getTexture().copyTo(pixelBufferBack);
-            pixelBufferFront.bind(GL_PIXEL_UNPACK_BUFFER);
-            unsigned char * pix = pixelBufferFront.map<unsigned char>(GL_READ_ONLY);
-            p.setFromExternalPixels(pix,fxframe.getWidth(),fxframe.getHeight(),OF_PIXELS_RGB);
-            pixelBufferFront.unmap();
-            swap(pixelBufferBack,pixelBufferFront);
-            //pixelBufferFront.unbind(GL_PIXEL_UNPACK_BUFFER);
-			#endif
-
-            for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
-            {
-                for(unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size();j++) {
-                    int x = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
-                    int y = (int) data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
-                    int index = ( x + (y-1)*fxframe.getWidth() ) *3;
-                    ofColor c = ofColor(p[index],p[index+1], p[index+2]);
-
-                    data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
-                }
-                data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
-            }
+						data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
+					}
+					data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
+				}
+			}
+			else {
+				bReadyToSend = true;
+			}
         }
 
     } else {
@@ -180,6 +189,7 @@ void Animations::enableEffect(int index)
         activeFx.push_back(effect[index]);
         effect[index]->enable(true);
     }
+	bReadyToSend = false;
 }
 
 

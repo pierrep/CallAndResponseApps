@@ -5,3 +5,5 @@ ofxPlaylist
 ofxDatGui
 ofxGenericDmx
 ofxMarkovChain
+ofxThreadedImageLoader
+

@@ -36,7 +36,7 @@ class Animations
 
         TreeData * data;
 
-        /* Timing */
+        /* Test patterns */
         int pattern;
         unsigned int pixelIndex;
 
@@ -48,11 +48,13 @@ class Animations
         unsigned int currentFx;
 
         /* PBO optimisation */
+		bool bUsePBO;
+		bool bReadyToSend;
         #if !defined(TARGET_RASPBERRY_PI)
         ofBufferObject pixelBufferBack, pixelBufferFront;
 		#endif
 
-        ofPixels p;
+        ofPixels framePixels;
 
         ofXml settings;
 };

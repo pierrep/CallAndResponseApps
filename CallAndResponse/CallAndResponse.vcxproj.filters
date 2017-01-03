@@ -184,6 +184,9 @@
 		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylist.cpp">
 			<Filter>addons\ofxPlaylist\src</Filter>
 		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.cpp">
+			<Filter>addons\ofxThreadedImageLoader\src</Filter>
+		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
 			<Filter>addons\ofxXmlSettings\src</Filter>
 		</ClCompile>
@@ -290,6 +293,12 @@
 		</Filter>
 		<Filter Include="addons\ofxPlaylist\src\Easings">
 			<UniqueIdentifier>{BE251C88-1FEC-63D9-8381-86EC}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxThreadedImageLoader">
+			<UniqueIdentifier>{4FCFBE74-4716-4092-C67F-91AE}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxThreadedImageLoader\src">
+			<UniqueIdentifier>{96E590A4-6AB6-FE3D-02EC-8D08}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxXmlSettings">
 			<UniqueIdentifier>{877F005D-13E6-0592-1D97-F2E3}</UniqueIdentifier>
@@ -571,6 +580,9 @@
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylistAEHelper.h">
 			<Filter>addons\ofxPlaylist\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.h">
+			<Filter>addons\ofxThreadedImageLoader\src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
 			<Filter>addons\ofxXmlSettings\src</Filter>

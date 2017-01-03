@@ -15,14 +15,14 @@ LightsEditor::LightsEditor()
 
 LightsEditor::~LightsEditor()
 {
-    //dtor
+	imgLoader.stopThread();
 }
 
 void LightsEditor::setup(TreeData* _data)
 {
     data = _data;
 
-    for(int i=0; i < data->trees.size();i++) {
+  /*  for(int i=0; i < data->trees.size();i++) {
 		#if !defined(TARGET_RASPBERRY_PI)
 			string name = data->trees.at(i)->getName();
 			ofImage img;
@@ -33,6 +33,20 @@ void LightsEditor::setup(TreeData* _data)
 			treeimg.push_back(img);            
         #endif
     }
+	*/
+
+	
+	treeimg.resize(data->trees.size());
+	for (int i = 0; i < data->trees.size(); i++) {
+#if !defined(TARGET_RASPBERRY_PI)
+		string name = data->trees.at(i)->getName();
+		ofLogNotice("Loading " + name + ".jpg");
+		imgLoader.loadFromDisk(treeimg[i], "TreePhotos/" + name + ".jpg");
+
+		//treeimg[i].setImageType(OF_IMAGE_GRAYSCALE);
+#endif
+	}
+	
 
     lightNum.load("Fonts/AUdimat-Bold.otf",11,true);
 
