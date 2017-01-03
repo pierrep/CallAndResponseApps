@@ -34,7 +34,6 @@ void LightsEditor::setup(TreeData* _data)
         #endif
     }
 	*/
-
 	
 	treeimg.resize(data->trees.size());
 	for (int i = 0; i < data->trees.size(); i++) {
@@ -42,14 +41,10 @@ void LightsEditor::setup(TreeData* _data)
 		string name = data->trees.at(i)->getName();
 		ofLogNotice("Loading " + name + ".jpg");
 		imgLoader.loadFromDisk(treeimg[i], "TreePhotos/" + name + ".jpg");
-
-		//treeimg[i].setImageType(OF_IMAGE_GRAYSCALE);
 #endif
 	}
-	
 
     lightNum.load("Fonts/AUdimat-Bold.otf",11,true);
-
 }
 
 void LightsEditor::draw()
