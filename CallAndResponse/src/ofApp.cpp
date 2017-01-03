@@ -12,12 +12,12 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(2100.0f),
     gPauseTime(1500.0f),
-    //gIPAddress("192.168.0.43"),
+    gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
-    gIPAddress("localhost"),
-    //gHOST_IPAddress("192.168.0.3"),
+    //gIPAddress("localhost"),
+    gHOST_IPAddress("192.168.0.3"),
     //gHOST_IPAddress("192.168.2.15"),
-    gHOST_IPAddress("localhost"),
+    //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
     bHost(true)
 {
@@ -358,14 +358,24 @@ void ofApp::sendTreeDMX(int i)
         }
     }
 #ifdef USE_USB_DMX
-    else if(bDmxUsbActive) {
-        //if(i == 0) { //only send 1st tree
-		if(data.currentTree == i) { //only send current tree
-			dmxData_[0] = 0;
-			memcpy(&dmxData_[1],data.trees[i]->getBufferPixels(),512);
-			dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
-        }
-    }
+	else if (bDmxUsbActive) {
+	#ifdef TARGET_WIN32
+		if (data.currentTree == i) { //only send current tree
+			for (int j = 0; j < DMX_DATA_LENGTH-1; j++) {
+				dmxInterface.setLevel(j+1, data.trees[i]->getBufferPixels()[j]);
+			}
+			dmxInterface.update();
+		}
+	#else
+		//if(i == 0) { //only send 1st tree
+		if (data.currentTree == i) { //only send current tree
+			dmxData[0] = 0;
+			memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
+			dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
+		}
+
+	#endif
+	}
 #endif
 
 }
@@ -500,13 +510,13 @@ void ofApp::setupGui()
     ofParameterGroup& p = data.parameters;
 
     for(int i = 0; i < p.size();i++) {
-        if(p.getType(i) == "11ofParameterIfE") {
+        if((p.getType(i) == "11ofParameterIfE") || (p.getType(i) == "class ofParameter<float>")) {
             lightFolder->addSlider(p.getFloat(i));
         }
-        else if(p.getType(i) == "11ofParameterIiE") {
+        else if((p.getType(i) == "11ofParameterIiE") || (p.getType(i) == "class ofParameter<int>")) {
             lightFolder->addSlider(p.getInt(i));
         }
-        else if(p.getType(i) == "11ofParameterIbE") {
+        else if((p.getType(i) == "11ofParameterIbE") || (p.getType(i) == "class ofParameter<bool>")) {
             lightFolder->addToggle(p.getBool(i));
         }
     }
@@ -533,19 +543,31 @@ void ofApp::setupDMX()
     }
 
     if(!bArtNetActive) {
-       ofLogError("ArtNet failed to setup.");
+		ofLogError() << "ArtNet failed to setup.";
 #ifdef USE_USB_DMX
-       ofLogNotice() << "Setup USB DMX...";
-        memset( dmxData_, 0, DMX_DATA_LENGTH );
-        dmxInterface_ = ofxGenericDmx::openFirstDevice();
-        if ( dmxInterface_ == 0 ) {
-            ofLog(OF_LOG_ERROR, "No Enttec Device Found" );
-            bDmxUsbActive = false;
-        }
-        else {
-            ofLogNotice("DMX USB opened...");
-            bDmxUsbActive = true;
-        }
+		ofLogNotice() << "Setup USB DMX...";
+	#ifdef TARGET_WIN32
+		if (dmxInterface.connect(0, 512)) {
+			ofLogNotice("DMX USB opened...");
+			bDmxUsbActive = true;
+		}
+		else {
+			ofLog(OF_LOG_ERROR, "No Enttec Device Found");
+			bDmxUsbActive = false;
+		}
+	#else
+		memset(dmxData, 0, DMX_DATA_LENGTH);
+		dmxInterface = ofxGenericDmx::openFirstDevice();
+		if (dmxInterface == 0) {
+			ofLog(OF_LOG_ERROR, "No Enttec Device Found");
+			bDmxUsbActive = false;
+		}
+		else {
+			ofLogNotice("DMX USB opened...");
+			bDmxUsbActive = true;
+		}
+	#endif
+
 #endif
     }
     resetTrees();

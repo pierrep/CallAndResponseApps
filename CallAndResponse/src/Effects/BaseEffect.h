@@ -27,6 +27,7 @@ class BaseEffect
         virtual void draw(float x, float y, float w, float h) = 0;
         virtual void update(float time);
         virtual void begin() = 0;
+		virtual void enable(bool b) { bEnabled = b; }
         void setupGui();
         void enableEditing();
         void disableEditing();
@@ -35,7 +36,6 @@ class BaseEffect
         void mouseMoved(ofMouseEventArgs& args);
         void mouseReleased(ofMouseEventArgs& args);
         void keyPressed(ofKeyEventArgs& args);
-        void enable(bool b) {bEnabled = b;}
         const bool isEnabled() {return bEnabled;}
         const string getName();
         void setData(TreeData *_data);

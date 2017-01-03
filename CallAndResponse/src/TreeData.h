@@ -14,7 +14,7 @@ class TreeData
         void save();
 
         /* State */
-        enum State {LIGHTS_OFF, LIGHTS_ON, PAUSED, START_TRAIL, END_TRAIL, START_BLOOM, END_BLOOM, NEW_TREE, NEXT_TREE };
+        const enum State {LIGHTS_OFF, LIGHTS_ON, PAUSED, START_TRAIL, END_TRAIL, START_BLOOM, END_BLOOM, NEW_TREE, NEXT_TREE };
         State state;
         State lastState;
 

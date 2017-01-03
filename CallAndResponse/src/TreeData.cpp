@@ -16,7 +16,7 @@ TreeData::TreeData()
 
     float master_brightness = 0.4f;
 
-    if(ofGetMonth() == 10 | ofGetMonth() == 11 | ofGetMonth() == 12 | ofGetMonth() == 1 | ofGetMonth() == 2)
+    if(ofGetMonth() == 10 || ofGetMonth() == 11 || ofGetMonth() == 12 || ofGetMonth() == 1 || ofGetMonth() == 2)
     {
         master_brightness = 0.8f;
     } else {

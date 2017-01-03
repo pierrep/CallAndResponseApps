@@ -94,6 +94,9 @@
 		<ClCompile Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.cpp">
 			<Filter>addons\ofxDatGui\src</Filter>
 		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxDmx\src\ofxDmx.cpp">
+			<Filter>addons\ofxDmx\src</Filter>
+		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxMarkovChain\src\Matrix.cpp">
 			<Filter>addons\ofxMarkovChain\src</Filter>
 		</ClCompile>
@@ -242,6 +245,12 @@
 		</Filter>
 		<Filter Include="addons\ofxDatGui\src\themes">
 			<UniqueIdentifier>{2646318C-49AB-44C5-70D8-23E6}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDmx">
+			<UniqueIdentifier>{0DF52F6B-7C35-7220-EE3E-EF33}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDmx\src">
+			<UniqueIdentifier>{D61B0AE8-4036-70D6-F567-BE65}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxMarkovChain">
 			<UniqueIdentifier>{BF0EBF8C-0F34-A430-475B-3683}</UniqueIdentifier>
@@ -436,6 +445,9 @@
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiThemes.h">
 			<Filter>addons\ofxDatGui\src\themes</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDmx\src\ofxDmx.h">
+			<Filter>addons\ofxDmx\src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxMarkovChain\src\Matrix.h">
 			<Filter>addons\ofxMarkovChain\src</Filter>

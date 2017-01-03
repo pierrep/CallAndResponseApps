@@ -32,13 +32,13 @@ void BaseEffect::setupGui()
         ofParameterGroup& p = parameters;
 
         for(int i = 0; i < p.size();i++) {
-            if(p.getType(i) == "11ofParameterIfE") {
+            if((p.getType(i) == "11ofParameterIfE") || (p.getType(i) == "class ofParameter<float>")) {
                 paramfolder->addSlider(p.getFloat(i));
             }
-            else if(p.getType(i) == "11ofParameterIiE") {
+            else if((p.getType(i) == "11ofParameterIiE") || (p.getType(i) == "class ofParameter<int>")) {
                 paramfolder->addSlider(p.getInt(i));
             }
-            else if(p.getType(i) == "11ofParameterIbE") {
+            else if((p.getType(i) == "11ofParameterIbE") || (p.getType(i) == "class ofParameter<bool>")) {
                 paramfolder->addToggle(p.getBool(i));
             }
         }

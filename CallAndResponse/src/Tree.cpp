@@ -2,7 +2,7 @@
 
 Tree::Tree()
 {
-    memset(buf, 0, 512*sizeof(unsigned char));
+	clearBufferPixels();
     bPlayPing = false;
     pingcount = 0;
     volume = 1;
@@ -18,7 +18,7 @@ Tree::~Tree()
 //--------------------------------------------------------------
 void Tree::clear()
 {
-    memset(buf, 0, 512*sizeof(unsigned char));
+	clearBufferPixels();
     for(int i = 0; i < lights.size();i++)
     {
         lights[i]->clear();
@@ -106,6 +106,12 @@ void Tree::updateBufferPixels()
             }
         }
     }
+}
+
+//--------------------------------------------------------------
+void Tree::clearBufferPixels()
+{
+	memset(buf, 0, 512 * sizeof(unsigned char));
 }
 
 //--------------------------------------------------------------
