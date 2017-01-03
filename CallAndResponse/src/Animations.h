@@ -36,7 +36,7 @@ class Animations
 
         TreeData * data;
 
-        /* Timing */
+        /* Test patterns */
         int pattern;
         unsigned int pixelIndex;
 
@@ -47,7 +47,14 @@ class Animations
         vector<BaseEffect*> activeFx;
         unsigned int currentFx;
 
-        ofPixels p;
+        /* PBO optimisation */
+		bool bUsePBO;
+		bool bReadyToSend;
+        #if !defined(TARGET_RASPBERRY_PI)
+        ofBufferObject pixelBufferBack, pixelBufferFront;
+		#endif
+
+        ofPixels framePixels;
 
         ofXml settings;
 };

@@ -15,11 +15,11 @@ ofApp::ofApp() :
     gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
     //gIPAddress("localhost"),
-    gHOST_IPAddress("192.168.0.2"),
+    gHOST_IPAddress("192.168.0.3"),
     //gHOST_IPAddress("192.168.2.15"),
     //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
-    bHost(false)
+    bHost(true)
 {
 
 }
@@ -28,16 +28,16 @@ ofApp::ofApp() :
 void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
-    ofSetFrameRate(25);
+    //ofSetFrameRate(25);
 
     data.load();
     editor.setup(&data);
-    guiMap.setup(&data);
     animations.setup(&data);
     animations.load();
     setupDMX();
 
 #ifdef USE_GUI
+    guiMap.setup(&data);
     setupGui();
     ping.load("ping.mp3");
 #endif
@@ -92,30 +92,33 @@ void ofApp::exit(){
 
     #ifdef USE_GUI
         ping.unload();
-        shared_ptr<ofOpenALSoundPlayer> player = dynamic_pointer_cast<ofOpenALSoundPlayer>(ping.getPlayer());
+		#ifndef TARGET_WIN32
+		shared_ptr<ofOpenALSoundPlayer> player = dynamic_pointer_cast<ofOpenALSoundPlayer>(ping.getPlayer());
         player->close();
+		#endif
     #endif
 
 }
 
 //--------------------------------------------------------------
 void ofApp::bloomTree()
-{
-    ofLogNotice() << "Bloom Tree";
+{    
     if(data.currentTree == data.targetTree) {
+        ofLogNotice() << "Bloom Tree: " << data.currentTree << " Time: " << ofGetHours() << ":" << ofGetMinutes() << ":" << ofGetSeconds();
+		
         /* play bellbird sound */
         data.trees[data.currentTree]->playPing();
 
         /* set bloom effect */
         animations.clearActiveEffects();
-        animations.enableEffect("bloom");
-        //animations.enableEffect("image pan");
-        animations.enableEffect("line2");
+        //animations.enableEffect("bloom");
+        animations.enableEffect("image pan");
+        //animations.enableEffect("line2");
 
     } else {
         /* set light trails */
-        animations.enableEffect("line");
-        //animations.enableEffect("trail particles");
+        //animations.enableEffect("line");
+        animations.enableEffect("trail particles");
     }
 
     if(!data.bEditMode) {
@@ -148,11 +151,9 @@ void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
 //--------------------------------------------------------------
 void ofApp::processState()
 {
-#if defined(TARGET_RASPBERRY_PI)
     if(ofGetFrameNum()%30 == 0) {
         ofLogWarning() << "FPS: " << ofGetFrameRate();
     }
-#endif
 
     if(data.bToggleEditMode != data.bEditMode) {
         if(data.bToggleEditMode) {
@@ -243,6 +244,7 @@ void ofApp::processState()
         }
         case data.START_TRAIL:
         {
+			ofLogNotice() << "Trail:" << data.currentTree;
             ofLogVerbose() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
             if(data.bIsPlaying) {
@@ -293,7 +295,7 @@ void ofApp::update(){
 
     processState();
 
-    if(data.state == data.LIGHTS_OFF) return;
+	animations.updateFBO();
 
     if(!data.bEditMode) {
         animations.update(playhead);
@@ -308,7 +310,7 @@ void ofApp::update(){
         data.trees[i]->update();
 
         #ifdef USE_GUI
-        if(data.trees[i]->getBufferPixels()[509] > 128) {
+        if(data.trees[i]->getBufferPixels()[499] > 0) {
             ping.play();
         }
         #endif
@@ -327,8 +329,7 @@ void ofApp::draw(){
     }
     #endif	
 
-    animations.updateFBO();
-#if !defined(TARGET_RASPBERRY_PI)
+#ifdef USE_GUI
     animations.draw(400,0);
     editor.draw(400,0,1200,900);
     guiMap.draw(0,0,400,900);
@@ -356,13 +357,25 @@ void ofApp::sendTreeDMX(int i)
         }
     }
 #ifdef USE_USB_DMX
-    else if(bDmxUsbActive) {
-        if(i == 0) { //only send 1st tree
-        dmxData_[0] = 0;
-        memcpy(&dmxData_[1],data.trees[i]->getBufferPixels(),512);
-        dmxInterface_->writeDmx( dmxData_, DMX_DATA_LENGTH );
-        }
-    }
+	else if (bDmxUsbActive) {
+	#ifdef TARGET_WIN32
+		/* only send current tree */
+		if (data.currentTree == i) { 
+			for (int j = 0; j < DMX_DATA_LENGTH-1; j++) {
+				dmxInterface.setLevel(j+1, data.trees[i]->getBufferPixels()[j]);
+			}
+			dmxInterface.update();
+		}
+	#else
+		/* only send current tree */
+		if (data.currentTree == i) {
+			dmxData[0] = 0;
+			memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
+			dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
+		}
+
+	#endif
+	}
 #endif
 
 }
@@ -393,14 +406,14 @@ void ofApp::keyPressed(int key){
         ofToggleFullscreen();
     }
 
-#ifdef USE_GUI
+
     if(key == 'e') {
         data.bToggleEditMode = !data.bToggleEditMode;
     }
     if(key == ' ') {
         data.bTogglePlaying = !data.bTogglePlaying;
     }
-
+#ifdef USE_GUI
     if(key == 'i') {
          data.bShowBgImage = !data.bShowBgImage;
     }
@@ -497,13 +510,13 @@ void ofApp::setupGui()
     ofParameterGroup& p = data.parameters;
 
     for(int i = 0; i < p.size();i++) {
-        if(p.getType(i) == "11ofParameterIfE") {
+        if((p.getType(i) == "11ofParameterIfE") || (p.getType(i) == "class ofParameter<float>")) {
             lightFolder->addSlider(p.getFloat(i));
         }
-        else if(p.getType(i) == "11ofParameterIiE") {
+        else if((p.getType(i) == "11ofParameterIiE") || (p.getType(i) == "class ofParameter<int>")) {
             lightFolder->addSlider(p.getInt(i));
         }
-        else if(p.getType(i) == "11ofParameterIbE") {
+        else if((p.getType(i) == "11ofParameterIbE") || (p.getType(i) == "class ofParameter<bool>")) {
             lightFolder->addToggle(p.getBool(i));
         }
     }
@@ -530,19 +543,31 @@ void ofApp::setupDMX()
     }
 
     if(!bArtNetActive) {
-       ofLogError("ArtNet failed to setup.");
+		ofLogError() << "ArtNet failed to setup.";
 #ifdef USE_USB_DMX
-       ofLogNotice() << "Setup USB DMX...";
-        memset( dmxData_, 0, DMX_DATA_LENGTH );
-        dmxInterface_ = ofxGenericDmx::openFirstDevice();
-        if ( dmxInterface_ == 0 ) {
-            ofLog(OF_LOG_ERROR, "No Enttec Device Found" );
-            bDmxUsbActive = false;
-        }
-        else {
-            ofLogNotice("DMX USB opened...");
-            bDmxUsbActive = true;
-        }
+		ofLogNotice() << "Setup USB DMX...";
+	#ifdef TARGET_WIN32
+		if (dmxInterface.connect(0, 512)) {
+			ofLogNotice("DMX USB opened...");
+			bDmxUsbActive = true;
+		}
+		else {
+			ofLog(OF_LOG_ERROR, "No Enttec Device Found");
+			bDmxUsbActive = false;
+		}
+	#else
+		memset(dmxData, 0, DMX_DATA_LENGTH);
+		dmxInterface = ofxGenericDmx::openFirstDevice();
+		if (dmxInterface == 0) {
+			ofLog(OF_LOG_ERROR, "No Enttec Device Found");
+			bDmxUsbActive = false;
+		}
+		else {
+			ofLogNotice("DMX USB opened...");
+			bDmxUsbActive = true;
+		}
+	#endif
+
 #endif
     }
     resetTrees();
@@ -665,5 +690,3 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
-
-

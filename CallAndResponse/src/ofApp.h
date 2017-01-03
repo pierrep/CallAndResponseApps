@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 
+
 #if !defined(TARGET_RASPBERRY_PI)
 #define USE_GUI 1
 #endif
@@ -19,8 +20,15 @@
 #include "Animations.h"
 #include "ofxMarkovChain.h"
 
+
+#define USE_USB_DMX
+
 #ifdef USE_USB_DMX
-#include "ofxGenericDmx.h"
+	#ifdef TARGET_WIN32
+		#include "ofxDmx.h"
+	#else
+		#include "ofxGenericDmx.h"
+	#endif
 #endif
 
 #define DMX_DATA_LENGTH 513
@@ -74,9 +82,12 @@ class ofApp : public ofBaseApp{
 
         /* Enntec DMX USB Pro object */
 #ifdef USE_USB_DMX
-        DmxDevice* dmxInterface_;
-        //our DMX packet (which holds the channel values + 1st byte for the start code)
-        unsigned char dmxData_[DMX_DATA_LENGTH];
+	#ifdef TARGET_WIN32
+		ofxDmx dmxInterface;
+	#else
+		DmxDevice* dmxInterface;
+		unsigned char dmxData[DMX_DATA_LENGTH];
+	#endif
 #endif
         bool bDmxUsbActive;
 

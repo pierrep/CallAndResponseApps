@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
+#include "ofxThreadedImageLoader.h"
 
 class TreeData;
 
@@ -25,6 +26,7 @@ class LightsEditor
     protected:
 
         ofxXmlSettings xml;
+		ofxThreadedImageLoader imgLoader;
         vector<ofImage> treeimg;
         TreeData * data;
         float circleRadius;

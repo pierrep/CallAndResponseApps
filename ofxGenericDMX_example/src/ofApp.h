@@ -54,7 +54,8 @@ class ofApp : public ofBaseApp{
 		void pickColor(int x, int y);
 
 		int frames;
-		int demoMode;
+        int demoMode;
+        int lightID;
 };
 
 #endif

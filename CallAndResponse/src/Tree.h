@@ -19,6 +19,7 @@ class Tree
         const ofVec2f getMapPos() { return pos;}
         const string getName() {return name;}
         void updateBufferPixels();
+		void clearBufferPixels();
         const unsigned char*  getBufferPixels() {return &buf[0];}
         void clear();
         bool isDirty() {return (bIsDirty?true:false);}

@@ -780,7 +780,7 @@
         <TreeName>E6</TreeName>
         <MapPosX>232.000000000</MapPosX>
         <MapPosY>525.000000000</MapPosY>
-        <Volume>5</Volume>
+        <Volume>10</Volume>
         <Light>
             <id>0</id>
             <x>519.000000000</x>
@@ -887,7 +887,7 @@
         <TreeName>E7</TreeName>
         <MapPosX>227.000000000</MapPosX>
         <MapPosY>585.000000000</MapPosY>
-        <Volume>5</Volume>
+        <Volume>10</Volume>
         <Light>
             <id>0</id>
             <x>364.000000000</x>
@@ -984,7 +984,7 @@
         <TreeName>E8</TreeName>
         <MapPosX>221.000000000</MapPosX>
         <MapPosY>647.000000000</MapPosY>
-        <Volume>5</Volume>
+        <Volume>10</Volume>
         <Light>
             <id>0</id>
             <x>438.000000000</x>

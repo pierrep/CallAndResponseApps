@@ -44,12 +44,17 @@ void TrailParticles::begin()
     curTime = ofGetElapsedTimeMillis();
     prevTime = curTime;
     bPlayAnim = true;
-    ofLogNotice() << "Trail Particles BEGIN";
+    ofLogVerbose() << "Trail Particles BEGIN";
 
-    for (int i=0; i<NUM_BILLBOARDS; i++)
+    for (int unsigned i=0; i<NUM_BILLBOARDS; i++)
     {
-        billboardVels[i].set(ofRandomf()*5, 0.0, 0);
-        billboards.getVertices()[i].set(150, ofRandom(100, 800), 0);
+        if(data->direction == 1) {
+            billboardVels[i].set(ofRandomf()*5, 0.0, 0);
+            billboards.getVertices()[i].set(200, ofRandom(100, 800), 0);
+        } else {
+            billboardVels[i].set(ofRandomf()*-5, 0.0, 0);
+            billboards.getVertices()[i].set(1200-200, ofRandom(100, 800), 0);
+        }
         billboards.getColors()[i].set(ofColor::fromHsb(ofRandom(190,255), ofRandom(150,255), 255));
     }
 }
@@ -69,8 +74,11 @@ void TrailParticles::update(float curTime)
     }
 
     if(bPlayAnim) {
-        ofVec3f vec(speed.get(),0,0);
-        for (int i=0; i<NUM_BILLBOARDS; i++) {
+         ofVec3f vec(speed.get(),0,0);
+        if(data->direction == -1) {
+            vec = -vec;
+        }
+        for (unsigned int i=0; i<NUM_BILLBOARDS; i++) {
             billboardVels[i] += vec;
             billboards.getVertices()[i] += billboardVels[i];
         }

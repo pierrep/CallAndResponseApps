@@ -2,10 +2,10 @@
 
 Tree::Tree()
 {
-    memset(buf, 0, 512*sizeof(unsigned char));
+	clearBufferPixels();
     bPlayPing = false;
     pingcount = 0;
-    volume = 2;
+    volume = 1;
     bIsDirty = false;
 }
 
@@ -18,7 +18,7 @@ Tree::~Tree()
 //--------------------------------------------------------------
 void Tree::clear()
 {
-    memset(buf, 0, 512*sizeof(unsigned char));
+	clearBufferPixels();
     for(int i = 0; i < lights.size();i++)
     {
         lights[i]->clear();
@@ -109,22 +109,28 @@ void Tree::updateBufferPixels()
 }
 
 //--------------------------------------------------------------
+void Tree::clearBufferPixels()
+{
+	memset(buf, 0, 512 * sizeof(unsigned char));
+}
+
+//--------------------------------------------------------------
 void Tree::updatePing()
 {
-    /* set per tree volume */
-    buf[510] = volume;
+//    /* set per tree volume */
+//    buf[500] = volume;
 
     /* check if we should play the ping */
     if(bPlayPing) {
 
-        buf[509] = 250;
+        buf[499] = volume;
         pingcount++;
         if(pingcount >= 2) {
             pingcount = 0;
             bPlayPing = false;
         }
     } else {
-        buf[509] = 0;
+        buf[499] = 0;
     }
 }
 
