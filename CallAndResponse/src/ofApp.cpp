@@ -28,7 +28,7 @@ ofApp::ofApp() :
 void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
-    ofSetFrameRate(25);
+    //ofSetFrameRate(25);
 
     data.load();
     editor.setup(&data);
@@ -111,14 +111,14 @@ void ofApp::bloomTree()
 
         /* set bloom effect */
         animations.clearActiveEffects();
-        animations.enableEffect("bloom");
-        //animations.enableEffect("image pan");
-        animations.enableEffect("line2");
+        //animations.enableEffect("bloom");
+        animations.enableEffect("image pan");
+        //animations.enableEffect("line2");
 
     } else {
         /* set light trails */
-        animations.enableEffect("line");
-        //animations.enableEffect("trail particles");
+        //animations.enableEffect("line");
+        animations.enableEffect("trail particles");
     }
 
     if(!data.bEditMode) {
@@ -295,7 +295,7 @@ void ofApp::update(){
 
     processState();
 
-    if(data.state == data.LIGHTS_OFF) return;
+	animations.updateFBO();
 
     if(!data.bEditMode) {
         animations.update(playhead);
@@ -329,8 +329,7 @@ void ofApp::draw(){
     }
     #endif	
 
-    animations.updateFBO();
-#if !defined(TARGET_RASPBERRY_PI)
+#ifdef USE_GUI
     animations.draw(400,0);
     editor.draw(400,0,1200,900);
     guiMap.draw(0,0,400,900);
@@ -360,15 +359,16 @@ void ofApp::sendTreeDMX(int i)
 #ifdef USE_USB_DMX
 	else if (bDmxUsbActive) {
 	#ifdef TARGET_WIN32
-		if (data.currentTree == i) { //only send current tree
+		/* only send current tree */
+		if (data.currentTree == i) { 
 			for (int j = 0; j < DMX_DATA_LENGTH-1; j++) {
 				dmxInterface.setLevel(j+1, data.trees[i]->getBufferPixels()[j]);
 			}
 			dmxInterface.update();
 		}
 	#else
-		//if(i == 0) { //only send 1st tree
-		if (data.currentTree == i) { //only send current tree
+		/* only send current tree */
+		if (data.currentTree == i) {
 			dmxData[0] = 0;
 			memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
 			dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
