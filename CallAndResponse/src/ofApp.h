@@ -73,6 +73,7 @@ class ofApp : public ofBaseApp{
             void mousePositionChanged(ofVec2f & mousePosition);
             void TriggerAnimationBegin(bool &val);
             void TriggerNextAnimation(bool &val);
+			void checkForShutdown();
 
         /* Trees */
         LightsEditor editor;

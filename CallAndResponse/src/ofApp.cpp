@@ -107,7 +107,7 @@ void ofApp::bloomTree()
         ofLogNotice() << "Bloom Tree: " << data.currentTree << " Time: " << ofGetHours() << ":" << ofGetMinutes() << ":" << ofGetSeconds();
 		
         /* play bellbird sound */
-        data.trees[data.currentTree]->playPing();
+        //data.trees[data.currentTree]->playPing();
 
         /* set bloom effect */
         animations.clearActiveEffects();
@@ -366,8 +366,16 @@ void ofApp::processState()
 }
 
 //--------------------------------------------------------------
+void ofApp::checkForShutdown()
+{
+#ifdef TARGET_WIN32
+	if ((ofGetHours() >= 23) && (ofGetMinutes() >= 30)) ofSystem("shutdown -s -t 01");
+#endif
+}
+
+//--------------------------------------------------------------
 void ofApp::update(){
-	if (ofGetHours() > 23) ofSystem("shutdown -s -t 01");
+	checkForShutdown();
 
     sync.update();
     timeline.update();
