@@ -13,6 +13,9 @@ TreeData::TreeData()
   bUseFrameBuffer(true)
 {
     currentTree = 8;
+	tree2 = -1;
+	tree3 = -1;
+	tree4 = -1;
 
     float master_brightness = 0.4f;
 

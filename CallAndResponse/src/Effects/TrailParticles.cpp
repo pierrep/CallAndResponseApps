@@ -4,7 +4,7 @@ TrailParticles::TrailParticles()
 {
     name = "Trail Particles";
     parameters.setName(name + baseName);
-
+	startPos = 400;
 
 }
 
@@ -30,7 +30,7 @@ void TrailParticles::setup()
 	#endif
 	glPointSize(4);
 
-    parameters.add(duration.set( "Duration", 1500.0f, 1000.0f, 4000.0f ));
+    parameters.add(duration.set( "FadeThreshold", 1500.0f, 1000.0f, 4000.0f ));
     parameters.add(speed.set( "Speed", 0.4f, 0.1f, 1.0f ));
 	
 }
@@ -50,12 +50,14 @@ void TrailParticles::begin()
     {
         if(data->direction == 1) {
             billboardVels[i].set(ofRandomf()*5, 0.0, 0);
-            billboards.getVertices()[i].set(200, ofRandom(100, 800), 0);
+            billboards.getVertices()[i].set(startPos, ofRandom(100, 800), 0);
         } else {
             billboardVels[i].set(ofRandomf()*-5, 0.0, 0);
-            billboards.getVertices()[i].set(1200-200, ofRandom(100, 800), 0);
+            billboards.getVertices()[i].set(1200 - startPos, ofRandom(100, 800), 0);
         }
-        billboards.getColors()[i].set(ofColor::fromHsb(ofRandom(190,255), ofRandom(150,255), 255));
+		/* set colours - must be in float format */
+        //billboards.getColors()[i].set(ofColor::fromHsb(ofRandom(190,255), ofRandom(150,255), 255));
+		billboards.getColors()[i].set(230.0f/255.0f, 1.0f/255.0f, 16.0f/255.0f);
     }
 }
 

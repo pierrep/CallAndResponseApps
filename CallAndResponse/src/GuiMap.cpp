@@ -45,8 +45,15 @@ void GuiMap::draw(float x, float y, float w, float h)
         {
             if((data->targetTree == data->currentTree) && (data->currentTree == j)) {
                 ofSetColor(255,0,0);
-            } else if(data->targetTree == j) {
-                ofSetColor(100,100,100);
+			}
+			else if (data->targetTree == j) {
+				ofSetColor(100, 100, 100);
+			} else if (data->tree2 == j) {
+				ofSetColor(255, 0, 20);
+			} else if (data->tree3 == j) {
+				ofSetColor(255, 0, 20);
+			} else if (data->tree4 == j) {
+				ofSetColor(255, 0, 20);
             } else if(data->currentTree == j) {
                 ofSetColor(200,0,200);
             } else {

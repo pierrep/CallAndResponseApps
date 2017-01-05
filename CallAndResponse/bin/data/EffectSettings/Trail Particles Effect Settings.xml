@@ -1,5 +1,5 @@
 <Trail_Particles_Effect_Settings>
 	<Enabled>0</Enabled>
-	<Duration>2057.38</Duration>
-	<Speed>0.31</Speed>
+	<FadeThreshold>1442.62</FadeThreshold>
+	<Speed>0.4</Speed>
 </Trail_Particles_Effect_Settings>

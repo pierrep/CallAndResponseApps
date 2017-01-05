@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "BaseEffect.h"
 
-#define NUM_BILLBOARDS 2500
+#define NUM_BILLBOARDS 6000
 
 class TrailParticles : public BaseEffect
 {
@@ -28,4 +28,5 @@ class TrailParticles : public BaseEffect
         float curTime, prevTime;
         bool bPlayAnim;
         int currentTree;
+		int startPos;
 };

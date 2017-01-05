@@ -58,6 +58,12 @@ void ImagePan::update(float curTime)
     if(bEndSequence) {
         data->trees[currentTree]->doPixelFade();
 		data->trees[currentTree]->clearBufferPixels();
+		data->trees[data->tree2]->doPixelFade();
+		data->trees[data->tree2]->clearBufferPixels();
+		data->trees[data->tree3]->doPixelFade();
+		data->trees[data->tree3]->clearBufferPixels();
+		data->trees[data->tree4]->doPixelFade();
+		data->trees[data->tree4]->clearBufferPixels();
         bEndSequence = false;
         data->bUseFrameBuffer = false;
     }

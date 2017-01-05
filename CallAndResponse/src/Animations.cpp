@@ -111,6 +111,52 @@ void Animations::update(float curTime)
 					}
 					data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
 				}
+
+				if (data->tree2 != -1) 
+				{
+					for (unsigned int i = 0; i < data->trees[data->tree2]->lights.size(); i++)
+					{
+						for (unsigned int j = 0; j < data->trees[data->tree2]->lights[i]->pixels.size(); j++) {
+							int x = (int)data->trees[data->tree2]->lights[i]->pixels[j]->getPosition().x;
+							int y = (int)data->trees[data->tree2]->lights[i]->pixels[j]->getPosition().y;
+							int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+							ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
+
+							data->trees[data->tree2]->lights[i]->pixels[j]->setColour(c);
+						}
+						data->trees[data->tree2]->lights[i]->setBrightness(data->brightness);
+					}
+				}
+				if (data->tree3 != -1)
+				{
+					for (unsigned int i = 0; i < data->trees[data->tree3]->lights.size(); i++)
+					{
+						for (unsigned int j = 0; j < data->trees[data->tree3]->lights[i]->pixels.size(); j++) {
+							int x = (int)data->trees[data->tree3]->lights[i]->pixels[j]->getPosition().x;
+							int y = (int)data->trees[data->tree3]->lights[i]->pixels[j]->getPosition().y;
+							int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+							ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
+
+							data->trees[data->tree3]->lights[i]->pixels[j]->setColour(c);
+						}
+						data->trees[data->tree3]->lights[i]->setBrightness(data->brightness);
+					}
+				}
+				if (data->tree4 != -1)
+				{
+					for (unsigned int i = 0; i < data->trees[data->tree4]->lights.size(); i++)
+					{
+						for (unsigned int j = 0; j < data->trees[data->tree4]->lights[i]->pixels.size(); j++) {
+							int x = (int)data->trees[data->tree4]->lights[i]->pixels[j]->getPosition().x;
+							int y = (int)data->trees[data->tree4]->lights[i]->pixels[j]->getPosition().y;
+							int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+							ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
+
+							data->trees[data->tree4]->lights[i]->pixels[j]->setColour(c);
+						}
+						data->trees[data->tree4]->lights[i]->setBrightness(data->brightness);
+					}
+				}
 			}
 			else {
 				bReadyToSend = true;

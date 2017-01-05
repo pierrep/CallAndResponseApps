@@ -111,9 +111,14 @@ void ofApp::bloomTree()
 
         /* set bloom effect */
         animations.clearActiveEffects();
-        //animations.enableEffect("bloom");
-        animations.enableEffect("image pan");
-        //animations.enableEffect("line2");
+		if (ofRandomf() > 0.0f) {
+			animations.enableEffect("bloom");
+			animations.enableEffect("line2");
+		}
+		else {
+			animations.enableEffect("image pan");
+		}
+		calculateOtherBlooms();
 
     } else {
         /* set light trails */
@@ -125,6 +130,73 @@ void ofApp::bloomTree()
         animations.begin();
     }
 
+}
+
+//--------------------------------------------------------------
+void ofApp::calculateOtherBlooms()
+{
+	int currentQuad = getQuadrant();
+	if (currentQuad == 1) {
+		data.tree2 = (int)ofRandom(3, 8);
+		data.tree3 = (int)ofRandom(8, 13);
+		data.tree4 = (int)ofRandom(13, 17);
+	}
+	else if (currentQuad == 2) {
+		data.tree2 = (int)ofRandom(0, 3);
+		data.tree3 = (int)ofRandom(8, 13);
+		data.tree4 = (int)ofRandom(13, 17);
+	}
+	else if (currentQuad == 3) {
+		data.tree2 = (int)ofRandom(0, 3);
+		data.tree3 = (int)ofRandom(3, 8);
+		data.tree4 = (int)ofRandom(13, 17);
+	}
+	else if (currentQuad == 4) {
+		data.tree2 = (int)ofRandom(0, 3);
+		data.tree3 = (int)ofRandom(3, 8);
+		data.tree4 = (int)ofRandom(8, 13);
+	} 
+}
+
+//--------------------------------------------------------------
+int ofApp::getQuadrant()
+{
+	int quadrant = -1;
+
+	// Quadrant 1 = 0,1,2
+	// Quadrant 2 = 3,4,5,6,7
+	// Quadrant 3 = 8,9,10,11,12
+	// Quadrant 4 = 13,14,15,16
+	switch (data.currentTree) {
+		case 0:
+		case 1:
+		case 2:
+			quadrant = 1;
+			break;
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+			quadrant = 2;
+			break;
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+			quadrant = 3;
+			break;
+		case 13:
+		case 14:
+		case 15:
+		case 16:
+			quadrant = 4;
+			break;
+		default:
+			break;
+	}
+	return quadrant;
 }
 
 //--------------------------------------------------------------
@@ -213,7 +285,13 @@ void ofApp::processState()
                 data.state = data.LIGHTS_OFF;
             }
             data.trees[data.currentTree]->clear();
+			data.trees[data.tree2]->clear();
+			data.trees[data.tree3]->clear();
+			data.trees[data.tree4]->clear();
             animations.clearActiveEffects();
+			data.tree2 = -1;
+			data.tree3 = -1;
+			data.tree4 = -1;
 
             playhead = 0.0f;
             bloomCount++;
@@ -289,6 +367,7 @@ void ofApp::processState()
 
 //--------------------------------------------------------------
 void ofApp::update(){
+	if (ofGetHours() > 18) ofSystem("shutdown -s -t 01");
 
     sync.update();
     timeline.update();

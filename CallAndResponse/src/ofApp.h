@@ -67,6 +67,8 @@ class ofApp : public ofBaseApp{
             void bloomTree();            
             unsigned int  getNextTree();
             unsigned int  calculateDestinationTree();
+			void calculateOtherBlooms();
+			int getQuadrant();
             void onKeyframe(ofxPlaylistEventArgs& args);
             void mousePositionChanged(ofVec2f & mousePosition);
             void TriggerAnimationBegin(bool &val);
