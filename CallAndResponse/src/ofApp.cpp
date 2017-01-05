@@ -367,7 +367,7 @@ void ofApp::processState()
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	if (ofGetHours() > 18) ofSystem("shutdown -s -t 01");
+	if (ofGetHours() > 23) ofSystem("shutdown -s -t 01");
 
     sync.update();
     timeline.update();
