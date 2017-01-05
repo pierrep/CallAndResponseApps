@@ -28,7 +28,7 @@ ofApp::ofApp() :
 void ofApp::setup(){
     ofBackground(50,50,50);
     ofSetVerticalSync(false);
-    //ofSetFrameRate(25);
+    ofSetFrameRate(25);
 
     data.load();
     editor.setup(&data);
