@@ -21,15 +21,15 @@ Animations::Animations()
     ofxDatGui::setAssetPath("../../../../../addons/ofxDatGui/");
     #endif
 
-    fxframe.allocate(1200,900,GL_RGB);
+    fxframe.allocate(1200,900,GL_RGBA);
     
 	/* PBO optimisation */
 	bUsePBO = false;
 	bReadyToSend = true;
     #if !defined(TARGET_RASPBERRY_PI)
-	bUsePBO = true;
-    pixelBufferBack.allocate(1200*900*3,GL_DYNAMIC_READ);
-    pixelBufferFront.allocate(1200*900*3,GL_DYNAMIC_READ);
+    bUsePBO = true;
+    pixelBufferBack.allocate(1200*900*4,GL_DYNAMIC_READ);
+    pixelBufferFront.allocate(1200*900*4,GL_DYNAMIC_READ);
 	#endif 
 	
     effect.push_back(new CalibrateEffect());
@@ -88,7 +88,7 @@ void Animations::update(float curTime)
 				fxframe.getTexture().copyTo(pixelBufferBack);
 				pixelBufferFront.bind(GL_PIXEL_UNPACK_BUFFER);
 				unsigned char * pix = pixelBufferFront.map<unsigned char>(GL_READ_ONLY);
-				framePixels.setFromExternalPixels(pix,fxframe.getWidth(),fxframe.getHeight(),OF_PIXELS_RGB);
+                framePixels.setFromExternalPixels(pix,fxframe.getWidth(),fxframe.getHeight(),OF_PIXELS_RGBA);
 				pixelBufferFront.unmap();
 				swap(pixelBufferBack,pixelBufferFront);
 				pixelBufferFront.unbind(GL_PIXEL_UNPACK_BUFFER);
@@ -104,7 +104,7 @@ void Animations::update(float curTime)
 					for (unsigned int j = 0; j < data->trees[data->currentTree]->lights[i]->pixels.size(); j++) {
 						int x = (int)data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().x;
 						int y = (int)data->trees[data->currentTree]->lights[i]->pixels[j]->getPosition().y;
-						int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+                        int index = (x + (y - 1)*fxframe.getWidth()) * 4;
 						ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
 
 						data->trees[data->currentTree]->lights[i]->pixels[j]->setColour(c);
@@ -119,7 +119,7 @@ void Animations::update(float curTime)
 						for (unsigned int j = 0; j < data->trees[data->tree2]->lights[i]->pixels.size(); j++) {
 							int x = (int)data->trees[data->tree2]->lights[i]->pixels[j]->getPosition().x;
 							int y = (int)data->trees[data->tree2]->lights[i]->pixels[j]->getPosition().y;
-							int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+                            int index = (x + (y - 1)*fxframe.getWidth()) * 4;
 							ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
 
 							data->trees[data->tree2]->lights[i]->pixels[j]->setColour(c);
@@ -134,7 +134,7 @@ void Animations::update(float curTime)
 						for (unsigned int j = 0; j < data->trees[data->tree3]->lights[i]->pixels.size(); j++) {
 							int x = (int)data->trees[data->tree3]->lights[i]->pixels[j]->getPosition().x;
 							int y = (int)data->trees[data->tree3]->lights[i]->pixels[j]->getPosition().y;
-							int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+                            int index = (x + (y - 1)*fxframe.getWidth()) * 4;
 							ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
 
 							data->trees[data->tree3]->lights[i]->pixels[j]->setColour(c);
@@ -149,7 +149,7 @@ void Animations::update(float curTime)
 						for (unsigned int j = 0; j < data->trees[data->tree4]->lights[i]->pixels.size(); j++) {
 							int x = (int)data->trees[data->tree4]->lights[i]->pixels[j]->getPosition().x;
 							int y = (int)data->trees[data->tree4]->lights[i]->pixels[j]->getPosition().y;
-							int index = (x + (y - 1)*fxframe.getWidth()) * 3;
+                            int index = (x + (y - 1)*fxframe.getWidth()) * 4;
 							ofColor c = ofColor(framePixels[index], framePixels[index + 1], framePixels[index + 2]);
 
 							data->trees[data->tree4]->lights[i]->pixels[j]->setColour(c);
@@ -172,7 +172,7 @@ void Animations::update(float curTime)
 void Animations::updateFBO()
 {
     fxframe.begin();
-        ofClear(0,0,0, 0);
+        ofClear(0,0,0,0);
         for(int i = 0; i < activeFx.size();i++) {
             activeFx[i]->draw(0,0,1200,900);
         }
