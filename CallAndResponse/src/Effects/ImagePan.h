@@ -16,11 +16,12 @@ class ImagePan : public BaseEffect
         void begin();
         void onKeyframe(ofxPlaylistEventArgs& args);
 
-        ofImage image;
+        ofImage image[6];
 
         //ofParameter<string> imagename;
         ofParameter<float> pan_speed;
         float height;
         bool bEndSequence;
         int currentTree;
+        int currentImage;
 };

@@ -74,6 +74,7 @@ class ofApp : public ofBaseApp{
             void TriggerAnimationBegin(bool &val);
             void TriggerNextAnimation(bool &val);
 			void checkForShutdown();
+            void doShutDown();
 
         /* Trees */
         LightsEditor editor;

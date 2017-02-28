@@ -16,7 +16,9 @@ ImagePan::~ImagePan()
 
 void ImagePan::setup()
 {
-    image.load("EffectSettings/images/panner.png");
+    for(int i = 0; i < 6; i++) {
+        image[i].load("EffectSettings/images/panner"+ofToString(i)+".png");
+    }
 
 }
 
@@ -24,6 +26,8 @@ void ImagePan::begin()
 {
     if(!bEnabled) return;
     data->bUseFrameBuffer = true;
+
+    currentImage = ofRandom(0,6);
 
     height = 200;
     bEndSequence = false;
@@ -74,6 +78,6 @@ void ImagePan::draw(float x, float y, float w, float h)
 {
     if(!bEnabled) return;
 
-    image.draw(0,effectWidth - height);
+    image[currentImage].draw(0,effectWidth - height);
 
 }

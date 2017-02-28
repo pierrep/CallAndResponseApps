@@ -368,10 +368,33 @@ void ofApp::processState()
 //--------------------------------------------------------------
 void ofApp::checkForShutdown()
 {
+
+    if((ofGetMonth() == 11) || (ofGetMonth() == 12) || (ofGetMonth() == 1) || (ofGetMonth() == 2) || (ofGetMonth() == 3))
+    {
+        if((ofGetElapsedTimeMillis()/(1000.0f*60)) > 210) // 3.5 hours
+        {
+            doShutDown();
+        }
+
+    }
+    else if((ofGetMonth() == 4) || (ofGetMonth() == 5) || (ofGetMonth() == 6) || (ofGetMonth() == 7) || (ofGetMonth() == 8) || (ofGetMonth() == 9) || (ofGetMonth() == 10))
+    {
+        if((ofGetElapsedTimeMillis()/(1000.0f*60)) > 120) // 2 hours
+        {
+            doShutDown();
+        }
+    }
+
+
+}
+
+//--------------------------------------------------------------
+void ofApp::doShutDown()
+{
 #ifdef TARGET_WIN32
-	if ((ofGetHours() >= 23) && (ofGetMinutes() >= 30)) ofSystem("shutdown -s -t 01");
+    ofSystem("shutdown -s -t 01");
 #else
-    if ((ofGetHours() >= 23) && (ofGetMinutes() >= 30)) ofSystem("systemctl suspend");
+    ofSystem("systemctl suspend");
 #endif
 }
 
