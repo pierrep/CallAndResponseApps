@@ -15,7 +15,7 @@ ofApp::ofApp() :
     gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
     //gIPAddress("localhost"),
-    gHOST_IPAddress("192.168.0.3"),
+    gHOST_IPAddress("192.168.0.2"),
     //gHOST_IPAddress("192.168.2.15"),
     //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
@@ -122,8 +122,8 @@ void ofApp::bloomTree()
 
     } else {
         /* set light trails */
-        //animations.enableEffect("line");
-        animations.enableEffect("trail particles");
+        animations.enableEffect("line");
+        //animations.enableEffect("trail particles");
     }
 
     if(!data.bEditMode) {
@@ -370,6 +370,8 @@ void ofApp::checkForShutdown()
 {
 #ifdef TARGET_WIN32
 	if ((ofGetHours() >= 23) && (ofGetMinutes() >= 30)) ofSystem("shutdown -s -t 01");
+#else
+    if ((ofGetHours() >= 23) && (ofGetMinutes() >= 30)) ofSystem("systemctl suspend");
 #endif
 }
 
