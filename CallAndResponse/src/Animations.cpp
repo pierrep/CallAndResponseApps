@@ -85,6 +85,9 @@ void Animations::update(float curTime)
 
         if(data->bUseFrameBuffer) {
 			if (bUsePBO) {
+				#ifdef TARGET_RASPBERRY_PI
+				fxframe.readToPixels(framePixels);
+				#else
 				fxframe.getTexture().copyTo(pixelBufferBack);
 				pixelBufferFront.bind(GL_PIXEL_UNPACK_BUFFER);
 				unsigned char * pix = pixelBufferFront.map<unsigned char>(GL_READ_ONLY);
@@ -92,6 +95,7 @@ void Animations::update(float curTime)
 				pixelBufferFront.unmap();
 				swap(pixelBufferBack,pixelBufferFront);
 				pixelBufferFront.unbind(GL_PIXEL_UNPACK_BUFFER);
+				#endif
 			}
 			else {
 				fxframe.readToPixels(framePixels);
