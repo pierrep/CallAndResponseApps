@@ -15,7 +15,7 @@ int main( ){
 		 settings.windowMode = OF_WINDOW;
 		 ofCreateWindow(settings);
 	*/
-        ofSetupOpenGL(1600,900,OF_WINDOW);
+        ofSetupOpenGL(200,200,OF_WINDOW);
     #else
         ofSetupOpenGL(1600,900,OF_WINDOW);
     #endif

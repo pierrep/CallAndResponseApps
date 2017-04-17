@@ -40,7 +40,7 @@ void LineEffect2::update(float curTime)
         lines[i].p2.y -= lineSpeed.get();
 
         lines[i].p1.x = 0;
-        lines[i].p2.x = ofGetWidth();
+        lines[i].p2.x = 1200;
 
 //        if(lines[i].p1.y < 0)
 //            lines[i].p1.y = ofGetHeight();
@@ -72,7 +72,7 @@ void LineEffect2::resetLines()
     {
         float interval = 50;
         ofVec2f p1 = ofVec2f(0,800-(i*interval));
-        ofVec2f p2 = ofVec2f(ofGetWidth(),800-(i*interval));
+        ofVec2f p2 = ofVec2f(1200,800-(i*interval));        
         Line line;
         line.p1 = p1;
         line.p2 = p2;

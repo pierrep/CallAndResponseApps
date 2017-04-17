@@ -4,6 +4,7 @@ CallAndResponse/bin/CallAndResponse_debug
 CallAndResponse/bin/CallAndResponse*
 CallAndResponse/bin/libs
 CallAndResponse/bin/*.dll
+CallAndResponse/bin/readMe.txt
 CallAndResponse/obj/
 CallAndResponse/.vs
 CallAndResponse/CallAndResponse.VC.opendb

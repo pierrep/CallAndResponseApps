@@ -71,7 +71,7 @@ void LineEffect::resetLines()
     {
         float interval = 900 / numLines.get();
         ofVec2f p1 = ofVec2f(0,(i)*interval);
-        ofVec2f p2 = ofVec2f(ofGetWidth(),(i)*interval);
+        ofVec2f p2 = ofVec2f(1200,(i)*interval);
         Line line;
         line.p1 = p1;
         line.p2 = p2;
