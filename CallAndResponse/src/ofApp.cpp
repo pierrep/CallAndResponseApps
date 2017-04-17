@@ -107,7 +107,7 @@ void ofApp::bloomTree()
         ofLogNotice() << "Bloom Tree: " << data.currentTree << " Time: " << ofGetHours() << ":" << ofGetMinutes() << ":" << ofGetSeconds();
 		
         /* play bellbird sound */
-        //data.trees[data.currentTree]->playPing();
+        data.trees[data.currentTree]->playPing();
 
         /* set bloom effect */
         animations.clearActiveEffects();
@@ -391,10 +391,16 @@ void ofApp::checkForShutdown()
 //--------------------------------------------------------------
 void ofApp::doShutDown()
 {
+	resetTrees();
+	
 #ifdef TARGET_WIN32
     ofSystem("shutdown -s -t 01");
 #else
-    ofSystem("systemctl suspend");
+    #if defined(TARGET_RASPBERRY_PI)
+		ofSystem("shutdown now");
+    #else
+		ofSystem("systemctl suspend");
+    #endif
 #endif
 }
 
@@ -432,6 +438,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	
 	#ifdef USE_GUI
     if(data.bEditMode) {
         ofSetWindowTitle( "EDITING: X = "+ofToString(mouseX)+" Y = "+ofToString(mouseY));
@@ -455,7 +462,6 @@ void ofApp::draw(){
         }
     }
 #endif
-
 
 }
 
@@ -518,7 +524,8 @@ void ofApp::keyPressed(int key){
         ofToggleFullscreen();
     }
 
-
+	if(key == 's') doShutDown();
+	
     if(key == 'e') {
         data.bToggleEditMode = !data.bToggleEditMode;
     }
