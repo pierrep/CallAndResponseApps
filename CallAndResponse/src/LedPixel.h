@@ -38,6 +38,7 @@ class LedPixel
         float   brightness;
         unsigned char dmx[3];
         bool    bIsDirty;
+        int     cleanCount;
 
     private:
 };

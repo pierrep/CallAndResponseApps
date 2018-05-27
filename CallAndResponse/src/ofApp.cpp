@@ -485,12 +485,14 @@ void ofApp::sendTreeDMX(int i)
 			dmxInterface.update();
 		}
 	#else
-		/* only send current tree */
-		if (data.currentTree == i) {
-			dmxData[0] = 0;
-			memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
-			dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
-		}
+        if(data.trees[i]->isDirty())
+        {
+            dmxData[0] = 0;
+            memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
+            if (i == 0) { 		/* only send tree 0 */
+                dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
+            }
+        }
 
 	#endif
 	}

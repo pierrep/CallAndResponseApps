@@ -8,8 +8,9 @@ LedPixel::LedPixel()
     pos = ofVec2f::zero();
     pos3D = ofVec3f::zero();
     col = ofColor::black;
-    brightness = 1.0f;
+    brightness = 0.0f;
     bIsDirty = false;
+    cleanCount = 0;
 
 }
 
@@ -26,7 +27,7 @@ void LedPixel::clear()
     setBrightness(0.0f);
     setColour(ofColor::black);
     playlist.clear();
-    bIsDirty = false;
+   // bIsDirty = false;
 }
 
 //--------------------------------------------------------------
@@ -85,7 +86,11 @@ bool LedPixel::update()
 
     if((brightness <= 0.0f) || (col == ofColor::black))
     {
-        bIsDirty = false;
+        cleanCount++;
+        if((cleanCount > 2) && (bIsDirty == true)) { // wait a couple of frames before declaring it not dirty
+            bIsDirty = false;
+            cleanCount = 0;
+        }
     }
 
     return bIsDirty;

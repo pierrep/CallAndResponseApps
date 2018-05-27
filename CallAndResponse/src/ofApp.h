@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 
-
 #if !defined(TARGET_RASPBERRY_PI)
 #define USE_GUI 1
 #endif

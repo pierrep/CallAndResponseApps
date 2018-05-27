@@ -23,7 +23,7 @@ void Tree::clear()
     {
         lights[i]->clear();
     }
-    bIsDirty = false;
+    //bIsDirty = false;
 }
 
 //--------------------------------------------------------------
