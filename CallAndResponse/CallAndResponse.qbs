@@ -80,7 +80,7 @@ Project{
         //
         // cpp.compilerWrapper: 'ccache'
 	
-		cpp.dynamicLibraries: ["ftdi"]
+		cpp.dynamicLibraries: ["ftdi1"]
 
 
         Depends{

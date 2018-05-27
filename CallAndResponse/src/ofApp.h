@@ -4,7 +4,7 @@
 
 
 #if !defined(TARGET_RASPBERRY_PI)
-//#define USE_GUI 1
+#define USE_GUI 1
 #endif
 
 #include "ofxArtnet.h"
