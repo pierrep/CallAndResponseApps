@@ -16,7 +16,7 @@ ofApp::ofApp() :
     //gIPAddress("192.168.2.16"),
     //gIPAddress("localhost"),
     gHOST_IPAddress("192.168.0.2"),
-    //gHOST_IPAddress("192.168.2.15"),
+    //gHOST_IPAddress("192.168.0.169"),
     //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
     bHost(true)
@@ -138,23 +138,35 @@ void ofApp::calculateOtherBlooms()
 	int currentQuad = getQuadrant();
 	if (currentQuad == 1) {
 		data.tree2 = (int)ofRandom(3, 8);
+        data.trees[data.tree2]->playPing();
 		data.tree3 = (int)ofRandom(8, 13);
+        data.trees[data.tree3]->playPing();
 		data.tree4 = (int)ofRandom(13, 17);
+        data.trees[data.tree4]->playPing();
 	}
 	else if (currentQuad == 2) {
 		data.tree2 = (int)ofRandom(0, 3);
+        data.trees[data.tree2]->playPing();
 		data.tree3 = (int)ofRandom(8, 13);
+        data.trees[data.tree3]->playPing();
 		data.tree4 = (int)ofRandom(13, 17);
+        data.trees[data.tree4]->playPing();
 	}
 	else if (currentQuad == 3) {
 		data.tree2 = (int)ofRandom(0, 3);
+        data.trees[data.tree2]->playPing();
 		data.tree3 = (int)ofRandom(3, 8);
+        data.trees[data.tree3]->playPing();
 		data.tree4 = (int)ofRandom(13, 17);
+        data.trees[data.tree4]->playPing();
 	}
 	else if (currentQuad == 4) {
 		data.tree2 = (int)ofRandom(0, 3);
+        data.trees[data.tree2]->playPing();
 		data.tree3 = (int)ofRandom(3, 8);
+        data.trees[data.tree3]->playPing();
 		data.tree4 = (int)ofRandom(8, 13);
+        data.trees[data.tree4]->playPing();
 	} 
 }
 
@@ -469,7 +481,7 @@ void ofApp::draw(){
 void ofApp::sendTreeDMX(int i)
 {
     if(bArtNetActive) {
-        //if(data.trees[i]->isDirty())
+        if(data.trees[i]->isDirty())
         {
             artnet.sendDmx(gStorm_IPAddress, 0, data.trees[i]->getId(), data.trees[i]->getBufferPixels(), 512);
         }
