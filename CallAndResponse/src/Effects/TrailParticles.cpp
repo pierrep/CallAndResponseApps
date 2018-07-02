@@ -56,8 +56,8 @@ void TrailParticles::begin()
             billboards.getVertices()[i].set(1200 - startPos, ofRandom(100, 800), 0);
         }
 		/* set colours - must be in float format */
-        //billboards.getColors()[i].set(ofColor::fromHsb(ofRandom(190,255), ofRandom(150,255), 255));
-		billboards.getColors()[i].set(230.0f/255.0f, 1.0f/255.0f, 16.0f/255.0f);
+        billboards.getColors()[i].set(ofColor::fromHsb(ofRandom(190,255), ofRandom(150,255), 255));
+        //billboards.getColors()[i].set(230.0f/255.0f, 1.0f/255.0f, 16.0f/255.0f);
     }
 }
 

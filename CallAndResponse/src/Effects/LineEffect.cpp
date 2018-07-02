@@ -58,7 +58,20 @@ void LineEffect::draw(float x, float y, float w, float h)
     ofSetColor(255,0,255.0f);
     ofSetLineWidth(lineWidth.get());
     for(int i = 0;i < lines.size();i++) {
-        ofDrawLine(lines[i].p1,lines[i].p2);
+        //ofDrawLine(lines[i].p1,lines[i].p2);
+        //ofDrawRectangle(lines[i].p1,1200,50);
+
+        ofMesh temp;
+        temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+        temp.addVertex( lines[i].p1 );
+        temp.addColor(ofColor(255,0,255));
+        temp.addVertex( ofPoint(lines[i].p1.x+1200,lines[i].p1.y) );
+        temp.addColor(ofColor(255,0,255));
+        temp.addVertex( ofPoint(lines[i].p1.x,lines[i].p1.y+40) );
+        temp.addColor(ofColor::black);
+        temp.addVertex( ofPoint(lines[i].p1.x+1200,lines[i].p1.y+40) );
+        temp.addColor(ofColor::black);
+        temp.draw();
     }
 
     ofPopStyle();
