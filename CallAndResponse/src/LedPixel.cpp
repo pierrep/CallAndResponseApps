@@ -27,7 +27,6 @@ void LedPixel::clear()
     setBrightness(0.0f);
     setColour(ofColor::black);
     playlist.clear();
-   // bIsDirty = false;
 }
 
 //--------------------------------------------------------------
@@ -87,7 +86,7 @@ bool LedPixel::update()
     if((brightness <= 0.0f) || (col == ofColor::black))
     {
         cleanCount++;
-        if((cleanCount > 2) && (bIsDirty == true)) { // wait a couple of frames before declaring it not dirty
+        if((cleanCount > 30) && (bIsDirty == true)) { // wait a few frames before declaring it not dirty
             bIsDirty = false;
             cleanCount = 0;
         }

@@ -23,7 +23,6 @@ void LedFixture::clear()
     {
         pixels[i]->clear();
     }
-   // bIsDirty = false;
 }
 
 void LedFixture::setupPixels(ofVec2f pos, float _pixelWidth)

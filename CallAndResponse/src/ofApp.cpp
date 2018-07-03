@@ -505,10 +505,10 @@ void ofApp::sendTreeDMX(int i)
                 dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
             }
         }
-        else if(data.trees[i]->isDirty())
+        else if(data.trees[0]->isDirty())
         {
             dmxData[0] = 0;
-            memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
+            memcpy(&dmxData[1], data.trees[0]->getBufferPixels(), 512);
             if (i == 0) { 		/* only send tree 0 */
                 dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
             }
