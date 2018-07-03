@@ -132,18 +132,6 @@ void LightsEditor::keyPressed(ofKeyEventArgs& args)
         if(data->currentLight >= (data->trees[data->currentTree]->lights.size())) data->currentLight = 0;
     }
 
-    if(args.key == '[') {
-        data->trees[data->currentTree]->clear();
-        data->currentTree--;
-        if(data->currentTree >= data->trees.size()) {
-            data->currentTree = data->trees.size()-1;
-        }
-    }
-    if(args.key == ']') {
-        data->trees[data->currentTree]->clear();
-        data->currentTree++;
-        if(data->currentTree >= data->trees.size()) data->currentTree = 0;
-    }
 }
 
 void LightsEditor::mousePressed(ofMouseEventArgs& args)

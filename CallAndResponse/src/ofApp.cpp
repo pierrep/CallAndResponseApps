@@ -261,9 +261,10 @@ void ofApp::processState()
     if(data.bTogglePlaying != data.bIsPlaying) {
         if(data.bTogglePlaying) {
             data.bIsPlaying = true;
-            data.state = data.END_TRAIL;
+            data.state = data.END_TRAIL;            
             resetTrees();
             timeline.clear();
+            animations.setPattern(0);
         } else {
             data.bIsPlaying = false;
             data.lastState = data.state;
@@ -496,7 +497,7 @@ void ofApp::sendTreeDMX(int i)
 			}
 			dmxInterface.update();
 		}
-	#else
+    #else
         if(bDmxUsbShowAllTrees)
         {
             if (data.currentTree == i) {
@@ -582,6 +583,23 @@ void ofApp::keyPressed(int key){
     }
     if(key == 'b') {
         data.bBeginAnimation = !data.bBeginAnimation;
+    }
+
+    if(data.bIsPlaying == false) {
+        if(key == '[') {
+            data.trees[data.currentTree]->playPing();
+            data.trees[data.currentTree]->clear();
+            data.currentTree--;
+            if(data.currentTree >= data.trees.size()) {
+                data.currentTree = data.trees.size()-1;
+            }
+        }
+        if(key == ']') {
+            data.trees[data.currentTree]->playPing();
+            data.trees[data.currentTree]->clear();
+            data.currentTree++;
+            if(data.currentTree >= data.trees.size()) data.currentTree = 0;
+        }
     }
 }
 
