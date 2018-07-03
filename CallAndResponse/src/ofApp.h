@@ -93,6 +93,7 @@ class ofApp : public ofBaseApp{
 	#endif
 #endif
         bool bDmxUsbActive;
+        bool bDmxUsbShowAllTrees;
 
         /* Audio pings */
         ofSoundPlayer ping;

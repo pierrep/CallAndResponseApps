@@ -497,7 +497,15 @@ void ofApp::sendTreeDMX(int i)
 			dmxInterface.update();
 		}
 	#else
-        if(data.trees[i]->isDirty())
+        if(bDmxUsbShowAllTrees)
+        {
+            if (data.currentTree == i) {
+                dmxData[0] = 0;
+                memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
+                dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
+            }
+        }
+        else if(data.trees[i]->isDirty())
         {
             dmxData[0] = 0;
             memcpy(&dmxData[1], data.trees[i]->getBufferPixels(), 512);
@@ -505,6 +513,7 @@ void ofApp::sendTreeDMX(int i)
                 dmxInterface->writeDmx(dmxData, DMX_DATA_LENGTH);
             }
         }
+
 
 	#endif
 	}
@@ -698,6 +707,7 @@ void ofApp::setupDMX()
 		else {
 			ofLogNotice("DMX USB opened...");
 			bDmxUsbActive = true;
+            bDmxUsbShowAllTrees = true;
 		}
 	#endif
 
