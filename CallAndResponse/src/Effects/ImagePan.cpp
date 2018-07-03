@@ -31,12 +31,18 @@ void ImagePan::begin()
 
     height = 200;
     bEndSequence = false;
+    bDoRotate = false;
     currentTree = data->currentTree;
 
     timeline.clear();
     timeline.addKeyFrame(Action::tween(pan_speed.get(), &height, effectWidth, TWEEN_QUAD,TWEEN_EASE_OUT));
-    timeline.addKeyFrame(Action::pause(4000.0f));
+    timeline.addKeyFrame(Action::pause(1000.0f));
+    timeline.addKeyFrame(Action::event(this,"rotate"));
+    timeline.addKeyFrame(Action::pause(3000.0f));
     timeline.addKeyFrame(Action::event(this,"finished"));
+
+    angle = 0;
+    adder = 1.0f;
 
 }
 
@@ -50,7 +56,9 @@ void ImagePan::onKeyframe(ofxPlaylistEventArgs& args)
     if(args.message == "finished") {
         bEndSequence = true;
     }
-
+    if(args.message == "rotate") {
+        bDoRotate = true;
+    }
 }
 
 void ImagePan::update(float curTime)
@@ -72,12 +80,23 @@ void ImagePan::update(float curTime)
         data->bUseFrameBuffer = false;
     }
 
+    if(bDoRotate) {
+        angle += adder;
+    }
+
 }
 
 void ImagePan::draw(float x, float y, float w, float h)
 {
     if(!bEnabled) return;
 
-    image[currentImage].draw(0,effectWidth - height);
+    ofPushMatrix();
+    ofPushStyle();
+    ofSetRectMode(OF_RECTMODE_CENTER);
+    ofTranslate(image->getWidth()/2,effectWidth - height + image->getHeight()/2);
+    ofRotateZ(angle);
+    image[currentImage].draw(0,0);
+    ofPopStyle();
+    ofPopMatrix();
 
 }

@@ -22,6 +22,9 @@ class ImagePan : public BaseEffect
         ofParameter<float> pan_speed;
         float height;
         bool bEndSequence;
+        bool bDoRotate;
         int currentTree;
         int currentImage;
+        float angle;
+        float adder;
 };
