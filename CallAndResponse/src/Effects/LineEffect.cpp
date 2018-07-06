@@ -5,8 +5,10 @@ LineEffect::LineEffect()
     name = "Line";
     parameters.setName(name + baseName);
     parameters.add(numLines.set("Number of lines",5,1,20));
-    parameters.add(lineWidth.set("Line width",2,1,10));
-    parameters.add(lineSpeed.set("Line speed",2.0f,1.0f,10.0f));
+    parameters.add(lineThickness.set("Line thickness",40,10,100));
+    parameters.add(lineWidth.set("Line width",1200,100,1600));
+    parameters.add(lineVerticalSpeed.set("Line vertical speed",2.0f,1.0f,10.0f));
+    parameters.add(lineHorizontalSpeed.set("Line horizontal speed",1200,100,1600));
     numLines.addListener(this,&LineEffect::onLinesChanged);
 }
 
@@ -35,17 +37,11 @@ void LineEffect::update(float curTime)
     BaseEffect::update(curTime);
 
     for(int i = 0;i < lines.size();i++) {
-        lines[i].p1.y -= lineSpeed.get();
-        lines[i].p2.y -= lineSpeed.get();
-
-        lines[i].p1.x = curTime*1200;
-        lines[i].p2.x = lines[i].p1.x + 400;
+        lines[i].p1.y -= lineVerticalSpeed.get();
+        lines[i].p1.x = curTime*lineHorizontalSpeed.get();
 
         if(lines[i].p1.y < 0)
             lines[i].p1.y = ofGetHeight();
-
-        if(lines[i].p2.y < 0)
-            lines[i].p2.y = ofGetHeight();
     }
 
 }
@@ -56,20 +52,18 @@ void LineEffect::draw(float x, float y, float w, float h)
 
     ofPushStyle();
     ofSetColor(255,0,255.0f);
-    ofSetLineWidth(lineWidth.get());
-    for(int i = 0;i < lines.size();i++) {
-        //ofDrawLine(lines[i].p1,lines[i].p2);
-        //ofDrawRectangle(lines[i].p1,1200,50);
 
+    for(unsigned int i = 0;i < lines.size();i++)
+    {
         ofMesh temp;
         temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
         temp.addVertex( lines[i].p1 );
         temp.addColor(ofColor(255,0,255));
-        temp.addVertex( ofPoint(lines[i].p1.x+1200,lines[i].p1.y) );
+        temp.addVertex( ofPoint(lines[i].p1.x+lineWidth.get(),lines[i].p1.y) );
         temp.addColor(ofColor(255,0,255));
-        temp.addVertex( ofPoint(lines[i].p1.x,lines[i].p1.y+40) );
+        temp.addVertex( ofPoint(lines[i].p1.x,lines[i].p1.y+lineThickness.get()) );
         temp.addColor(ofColor::black);
-        temp.addVertex( ofPoint(lines[i].p1.x+1200,lines[i].p1.y+40) );
+        temp.addVertex( ofPoint(lines[i].p1.x+lineWidth.get(),lines[i].p1.y+lineThickness.get()) );
         temp.addColor(ofColor::black);
         temp.draw();
     }
@@ -84,10 +78,8 @@ void LineEffect::resetLines()
     {
         float interval = 900 / numLines.get();
         ofVec2f p1 = ofVec2f(0,(i)*interval);
-        ofVec2f p2 = ofVec2f(1200,(i)*interval);
         Line line;
         line.p1 = p1;
-        line.p2 = p2;
         lines.push_back(line);
     }
 }

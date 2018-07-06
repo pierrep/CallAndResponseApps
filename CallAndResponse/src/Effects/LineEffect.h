@@ -23,6 +23,8 @@ class LineEffect : public BaseEffect
         };
         vector<Line>     lines;
         ofParameter<int>    numLines;
+        ofParameter<int>    lineThickness;
         ofParameter<int>    lineWidth;
-        ofParameter<float>  lineSpeed;
+        ofParameter<float>  lineVerticalSpeed;
+        ofParameter<float>  lineHorizontalSpeed;
 };

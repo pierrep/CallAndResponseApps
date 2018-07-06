@@ -1,6 +1,8 @@
 <Line_Effect_Settings>
 	<Enabled>0</Enabled>
 	<Number_of_lines>11</Number_of_lines>
-	<Line_width>2</Line_width>
-	<Line_speed>6.53</Line_speed>
+	<Line_thickness>42</Line_thickness>
+	<Line_width>297</Line_width>
+	<Line_vertical_speed>6.53</Line_vertical_speed>
+	<Line_horizontal_speed>850</Line_horizontal_speed>
 </Line_Effect_Settings>
