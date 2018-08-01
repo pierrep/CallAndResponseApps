@@ -12,7 +12,7 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(2100.0f),
     gPauseTime(1500.0f),
-    gIPAddress("192.168.0.43"),
+    gIPAddress("192.168.43.66"),
     //gIPAddress("192.168.2.16"),
     //gIPAddress("localhost"),
     //gHOST_IPAddress("192.168.0.2"),
@@ -636,7 +636,9 @@ void ofApp::updatePattern()
                 break;
             }
         }
-        data.bChangeAnimation = false;
+        if(bHost) {
+            data.bChangeAnimation = false;
+        }
     }
 }
 
