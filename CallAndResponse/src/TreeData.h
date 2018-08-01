@@ -33,6 +33,8 @@ class TreeData
         ofParameter<int>    targetTree;
         ofParameter<ofVec2f> lightPosition;
         ofParameter<ofVec2f> mousePosition;
+        ofParameter<int>    animationType;
+        ofParameter<bool>   bChangeAnimation;
 
         void lightPositionChanged(ofVec2f & lightPosition);
 

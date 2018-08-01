@@ -44,6 +44,8 @@ TreeData::TreeData()
     parameters.add(tree2.set("Tree2",0,0,16));
     parameters.add(tree3.set("Tree3",0,0,16));
     parameters.add(tree4.set("Tree4",0,0,16));
+    parameters.add(animationType.set("Animation Type",0,0,5));
+    parameters.add(bChangeAnimation.set("Change Animation",false));
     lightPosition.addListener(this, &TreeData::lightPositionChanged);
 }
 

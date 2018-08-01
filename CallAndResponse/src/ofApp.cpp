@@ -19,7 +19,7 @@ ofApp::ofApp() :
     gHOST_IPAddress("192.168.43.144"),
     //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
-    bHost(false)
+    bHost(true)
 {
 
 }
@@ -248,7 +248,7 @@ void ofApp::processState()
         #ifdef USE_GUI
             gui->collapse();
         #endif
-            data.currentTree = 0;
+            //data.currentTree = 0;
         } else {
             data.bEditMode = false;
             editor.disableEditing();
@@ -428,6 +428,8 @@ void ofApp::update(){
 
     processState();
 
+    updatePattern();
+
 	animations.updateFBO();
 
     if(!data.bEditMode) {
@@ -564,6 +566,7 @@ void ofApp::keyPressed(int key){
     }
 #endif
 
+/*
     if(key == '1') animations.setPattern(1);
     else if(key == '2') animations.setPattern(2);
     else if(key == '3') animations.setPattern(3);
@@ -578,7 +581,14 @@ void ofApp::keyPressed(int key){
         }
     }
     else if(key == '5') animations.setPattern(5);
-
+    else if(key == '0') animations.setPattern(0);
+*/
+    if((key >= 48) && (key <= 53))
+    {
+        // keys 0 - 5
+        data.bChangeAnimation = true;
+        data.animationType = key - 48;
+    }
 
     if(key == 'n') {
         data.bNextAnimation = !data.bNextAnimation;
@@ -602,6 +612,31 @@ void ofApp::keyPressed(int key){
             data.currentTree++;
             if(data.currentTree >= data.trees.size()) data.currentTree = 0;
         }
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::updatePattern()
+{
+    if(data.bChangeAnimation) {
+        switch(data.animationType)
+        {
+            case 0: animations.setPattern(0);break;
+            case 1: animations.setPattern(1);break;
+            case 2: animations.setPattern(2);break;
+            case 3: animations.setPattern(3);break;
+            case 4: animations.setPattern(4);break;
+            case 5: {
+                animations.setPattern(5);
+                for(unsigned int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
+                {
+                    data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
+                    data.trees[data.currentTree]->lights[i]->fadeOn(5000.0f);
+                }
+                break;
+            }
+        }
+        data.bChangeAnimation = false;
     }
 }
 
