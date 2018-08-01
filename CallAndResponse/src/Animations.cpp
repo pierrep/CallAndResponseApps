@@ -63,7 +63,9 @@ void Animations::setup(TreeData * _data)
         effect[i]->setup();
         effect[i]->setupGui();
         effect[i]->enable(false);
+        ofLogNotice("FX") << "Added: " << effect[i]->getName();
     }
+
     effect[currentFx]->enable(true);
 }
 

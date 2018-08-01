@@ -21,25 +21,12 @@ LightsEditor::~LightsEditor()
 void LightsEditor::setup(TreeData* _data)
 {
     data = _data;
-
-  /*  for(int i=0; i < data->trees.size();i++) {
-		#if !defined(TARGET_RASPBERRY_PI)
-			string name = data->trees.at(i)->getName();
-			ofImage img;
-			img.setUseTexture(true);
-            ofLogNotice("Loading "+name+".jpg");
-            img.load("TreePhotos/"+name+".jpg");
-			img.setImageType(OF_IMAGE_GRAYSCALE);
-			treeimg.push_back(img);            
-        #endif
-    }
-	*/
 	
 	treeimg.resize(data->trees.size());
 	for (int i = 0; i < data->trees.size(); i++) {
 #if !defined(TARGET_RASPBERRY_PI)
 		string name = data->trees.at(i)->getName();
-		ofLogNotice("Loading " + name + ".jpg");
+        ofLogVerbose("Loading " + name + ".jpg");
 		imgLoader.loadFromDisk(treeimg[i], "TreePhotos/" + name + ".jpg");
 #endif
 	}

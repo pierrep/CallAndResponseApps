@@ -43,7 +43,7 @@ void ofApp::setup(){
 #endif
 
     /* set up markov chain */
-    ofLogNotice() << "Setting up Markov chain...";
+    ofLogVerbose() << "Setting up Markov chain...";
     ofxMC::Matrix mat("transitionMatrix.txt");
     markov.setup(mat, 0);
 
@@ -52,13 +52,13 @@ void ofApp::setup(){
     prevTimeTree = curTimeTree;
 
     /* setup callbacks */
-    ofLogNotice() << "Setting up callbacks...";
+    ofLogVerbose() << "Setting up callbacks...";
     data.mousePosition.addListener(this, &ofApp::mousePositionChanged);
     data.bBeginAnimation.addListener(this,&ofApp::TriggerAnimationBegin);
     data.bNextAnimation.addListener(this,&ofApp::TriggerNextAnimation);
 
     /* Parameter Sync setup */
-    ofLogNotice() << "Setting up parameter sync...";
+    ofLogVerbose() << "Setting up parameter sync...";
     if(bHost) {
         sync.setup(data.parameters,6666,gIPAddress,6667);
     } else {
@@ -67,7 +67,7 @@ void ofApp::setup(){
 
     /* Playlist setup */
     if(bHost) {
-        ofLogNotice() << "Setting up playlist...";
+        ofLogVerbose() << "Setting up playlist...";
         playhead = 0.0f;
         ofxKeyframeAnimRegisterEvents(this);
         timeline.addKeyFrame(Action::tween(gBloomTime, &playhead, 1.0f,TWEEN_LIN,TWEEN_EASE_OUT));
@@ -111,13 +111,15 @@ void ofApp::bloomTree()
 
         /* set bloom effect */
         animations.clearActiveEffects();
+
 		if (ofRandomf() > 0.0f) {
 			animations.enableEffect("bloom");
 			animations.enableEffect("line2");
 		}
-		else {
-			animations.enableEffect("image pan");
-		}
+		else {            
+            animations.enableEffect("image pan");
+            //animations.enableEffect("noise");
+        }
 		calculateOtherBlooms();
 
     } else {
@@ -236,7 +238,7 @@ void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
 void ofApp::processState()
 {
     if(ofGetFrameNum()%30 == 0) {
-        ofLogWarning() << "FPS: " << ofGetFrameRate();
+        //ofLogWarning() << "FPS: " << ofGetFrameRate();
     }
 
     if(data.bToggleEditMode != data.bEditMode) {
