@@ -12,12 +12,16 @@ ofApp::ofApp() :
     gBloomTime(7500.0f),
     gTrailTime(2100.0f),
     gPauseTime(1500.0f),
-    gIPAddress("192.168.43.66"),
-    //gIPAddress("192.168.2.16"),
-    //gIPAddress("localhost"),
-    //gHOST_IPAddress("192.168.0.2"),
-    gHOST_IPAddress("192.168.43.144"),
-    //gHOST_IPAddress("localhost"),
+    /*
+     * gCLIENT_IP_Address - Only required on the host if you want to connect to a client
+     * gHOST_IP_Address - Only required on the client if you want to connect to the host
+     */
+    gCLIENT_IP_Address("192.168.0.43"),
+    //gCLIENT_IP_Address("192.168.43.66"),
+    //gCLIENT_IP_Address("localhost"),
+    gHOST_IP_Address("192.168.0.2"),
+    //gHOST_IP_Address("192.168.43.144"),
+    //gHOST_IP_Address("localhost"),
     gStorm_IPAddress("192.168.0.11"),
     bHost(true)
 {
@@ -60,9 +64,9 @@ void ofApp::setup(){
     /* Parameter Sync setup */
     ofLogVerbose() << "Setting up parameter sync...";
     if(bHost) {
-        sync.setup((ofParameterGroup&)data.parameters,6666,gIPAddress,6667);
+        sync.setup((ofParameterGroup&)data.parameters,6666,gCLIENT_IP_Address,6667);
     } else {
-        sync.setup((ofParameterGroup&)data.parameters,6667,gHOST_IPAddress,6666);
+        sync.setup((ofParameterGroup&)data.parameters,6667,gHOST_IP_Address,6666);
     }
 
     /* Playlist setup */
@@ -736,9 +740,9 @@ void ofApp::setupDMX()
 {
     if(bHost) {
         ofLogNotice() << "Setup Artnet DMX...";
-        bArtNetActive = artnet.setup(gHOST_IPAddress.c_str()); //make sure the firewall is deactivated at this point
+        bArtNetActive = artnet.setup(gHOST_IP_Address.c_str()); //make sure the firewall is deactivated at this point
     } else {
-        bArtNetActive = artnet.setup(gIPAddress.c_str()); //make sure the firewall is deactivated at this point
+        bArtNetActive = artnet.setup(gCLIENT_IP_Address.c_str()); //make sure the firewall is deactivated at this point
     }
 
     if(!bArtNetActive) {

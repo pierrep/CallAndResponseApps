@@ -110,8 +110,8 @@ class ofApp : public ofBaseApp{
         const float gBloomTime;
         const float gTrailTime;
         const float gPauseTime;
-        string      gIPAddress;
-        string      gHOST_IPAddress;
+        string      gCLIENT_IP_Address;
+        string      gHOST_IP_Address;
         string      gStorm_IPAddress;
 
         /* GUI */
