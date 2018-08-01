@@ -41,7 +41,9 @@ TreeData::TreeData()
     parameters.add(targetTree.set("Target Tree",0,0,16));
     parameters.add(lightPosition.set("Light Position",ofVec2f(400,0), ofVec2f(400,0), ofVec2f(1600,900)));
     parameters.add(mousePosition.set("Mouse Position",ofVec2f(400,0), ofVec2f(400,0), ofVec2f(1600,900)));
-
+    parameters.add(tree2.set("Tree2",0,0,16));
+    parameters.add(tree3.set("Tree3",0,0,16));
+    parameters.add(tree4.set("Tree4",0,0,16));
     lightPosition.addListener(this, &TreeData::lightPositionChanged);
 }
 

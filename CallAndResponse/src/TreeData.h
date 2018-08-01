@@ -38,9 +38,9 @@ class TreeData
 
         vector<Tree *> trees;
         int direction;
-		int tree2;
-		int tree3;
-		int tree4;
+        ofParameter<int> tree2;
+        ofParameter<int> tree3;
+        ofParameter<int> tree4;
 
         ofColor colour;
         const float pixelWidth;
