@@ -15,11 +15,11 @@ ofApp::ofApp() :
     gIPAddress("192.168.0.43"),
     //gIPAddress("192.168.2.16"),
     //gIPAddress("localhost"),
-    gHOST_IPAddress("192.168.0.2"),
-    //gHOST_IPAddress("192.168.0.169"),
+    //gHOST_IPAddress("192.168.0.2"),
+    gHOST_IPAddress("192.168.43.144"),
     //gHOST_IPAddress("localhost"),
     gStorm_IPAddress("192.168.0.11"),
-    bHost(true)
+    bHost(false)
 {
 
 }
@@ -60,9 +60,9 @@ void ofApp::setup(){
     /* Parameter Sync setup */
     ofLogVerbose() << "Setting up parameter sync...";
     if(bHost) {
-        sync.setup(data.parameters,6666,gIPAddress,6667);
+        sync.setup((ofParameterGroup&)data.parameters,6666,gIPAddress,6667);
     } else {
-        sync.setup(data.parameters,6667,gHOST_IPAddress,6666);
+        sync.setup((ofParameterGroup&)data.parameters,6667,gHOST_IPAddress,6666);
     }
 
     /* Playlist setup */

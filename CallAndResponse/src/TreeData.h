@@ -18,7 +18,7 @@ class TreeData
         State state;
         State lastState;
 
-        ofParameterGroup parameters;
+        ofParameterGroup    parameters;
         ofParameter<float>  brightness;
         ofParameter<bool>   bIsPlaying;
         ofParameter<bool>   bTogglePlaying;
