@@ -317,16 +317,6 @@ void ofApp::updatePattern()
             case 1: animations.setPattern(1);break;
             case 2: animations.setPattern(2);break;
             case 3: animations.setPattern(3);break;
-            case 4: animations.setPattern(4);break;
-            case 5: {
-                animations.setPattern(5);
-                for(unsigned int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
-                {
-                    data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
-                    data.trees[data.currentTree]->lights[i]->fadeOn(5000.0f);
-                }
-                break;
-            }
         }
         if(bHost) {
             data.bChangeAnimation = false;

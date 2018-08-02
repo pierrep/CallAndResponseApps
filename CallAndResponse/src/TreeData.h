@@ -37,6 +37,7 @@ class TreeData
         ofParameter<bool>   bChangeAnimation;
         ofParameter<bool>   bMoveForward;
         ofParameter<bool>   bMoveBack;
+        ofParameter<ofColor> colour;
 
         void lightPositionChanged(ofVec2f & lightPosition);
 
@@ -46,7 +47,7 @@ class TreeData
         ofParameter<int> tree3;
         ofParameter<int> tree4;
 
-        ofColor colour;
+       // ofColor colour;
         const float pixelWidth;
         bool bUseFrameBuffer;
 

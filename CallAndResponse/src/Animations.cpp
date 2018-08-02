@@ -312,10 +312,4 @@ void Animations::testPattern()
             data->trees[data->currentTree]->lights[i]->setBrightness(data->brightness);
         }
     }
-    else if(pattern == 4) {
-        for(unsigned int i = 0;i < data->trees[data->currentTree]->lights.size();i++)
-        {
-            data->trees[data->currentTree]->lights[i]->setColour(data->colour);
-        }
-    }
 }
