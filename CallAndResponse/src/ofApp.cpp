@@ -270,6 +270,9 @@ void ofApp::updateModes()
             timeline.clear();
             animations.clearActiveEffects();
             animations.setPattern(0);
+            data.tree2 = -1;
+            data.tree3 = -1;
+            data.tree4 = -1;
             ofLogNotice() << "PLAYING...";
         } else {
             data.bIsPlaying = false;
@@ -588,9 +591,6 @@ void ofApp::clearTrees()
     {
         data.trees[i]->clear();        
     }
-    data.tree2 = -1;
-    data.tree3 = -1;
-    data.tree4 = -1;
 }
 
 //--------------------------------------------------------------
