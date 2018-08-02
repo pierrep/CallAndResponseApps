@@ -48,6 +48,7 @@ TreeData::TreeData()
     parameters.add(bChangeAnimation.set("Change Animation",false));
     parameters.add(bMoveForward.set("Forward",false));
     parameters.add(bMoveBack.set("Back",false));
+    parameters.add(colour.set("Colour",ofColor(0,255,0)));
     lightPosition.addListener(this, &TreeData::lightPositionChanged);
 }
 

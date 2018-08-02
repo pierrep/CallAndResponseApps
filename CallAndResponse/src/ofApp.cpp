@@ -494,10 +494,6 @@ void ofApp::update(){
 
     updateModes();
 
-#ifdef USE_GUI
-    data.colour = gui_colour->getColor();
-#endif
-
     for(unsigned int i = 0;i < data.trees.size();i++)
     {
         data.trees[i]->update();
@@ -870,7 +866,9 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+#ifdef USE_GUI
+    data.colour = gui_colour->getColor();
+#endif
 }
 
 //--------------------------------------------------------------
