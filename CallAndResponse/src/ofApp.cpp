@@ -288,6 +288,7 @@ void ofApp::updateModes()
             if(data.currentTree >= data.trees.size()) {
                 data.currentTree = data.trees.size()-1;
             }
+            data.bMoveForward = false;
         }
     }
 
@@ -297,6 +298,7 @@ void ofApp::updateModes()
             data.trees[data.currentTree]->clear();
             data.currentTree++;
             if(data.currentTree >= data.trees.size()) data.currentTree = 0;
+            data.bMoveBack = false;
         }
     }
 }
