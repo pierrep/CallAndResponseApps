@@ -243,7 +243,7 @@ void ofApp::updateModes()
 {
     if(data.bToggleEditMode != data.bEditMode) {
         if(data.bToggleEditMode) {
-            ofLogNotice("Entering EDIT mode");
+            ofLogNotice() << "Entering EDIT mode";
             data.bEditMode = true;
             editor.enableEditing();
         #ifdef USE_GUI
@@ -251,7 +251,7 @@ void ofApp::updateModes()
         #endif
             //data.currentTree = 0;
         } else {
-            ofLogNotice("Leaving EDIT mode");
+            ofLogNotice() << "Leaving EDIT mode";
             data.bEditMode = false;
             editor.disableEditing();
             animations.clearActiveEffects();
@@ -263,18 +263,20 @@ void ofApp::updateModes()
     }
 
     if(data.bTogglePlaying != data.bIsPlaying) {
-        if(data.bTogglePlaying) {
+        if(data.bTogglePlaying) {            
             data.bIsPlaying = true;
             data.state = data.END_TRAIL;
             resetTrees();
             timeline.clear();
             animations.setPattern(0);
+            ofLogNotice() << "PLAYING...";
         } else {
             data.bIsPlaying = false;
             data.lastState = data.state;
             data.state = data.PAUSED;
             resetTrees();
             timeline.clear();
+            ofLogNotice() << "PAUSED...";
         }
     }
 }
@@ -605,26 +607,8 @@ void ofApp::keyPressed(int key){
     }
 #endif
 
-/*
-    if(key == '1') animations.setPattern(1);
-    else if(key == '2') animations.setPattern(2);
-    else if(key == '3') animations.setPattern(3);
-    else if(key == '4')
+    if((key >= 48) && (key <= 53)) // keys 0 - 5
     {
-        animations.setPattern(4);
-
-        for(unsigned int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
-        {
-            data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
-            data.trees[data.currentTree]->lights[i]->fadeOn(5000.0f);
-        }
-    }
-    else if(key == '5') animations.setPattern(5);
-    else if(key == '0') animations.setPattern(0);
-*/
-    if((key >= 48) && (key <= 53))
-    {
-        // keys 0 - 5
         data.bChangeAnimation = true;
         data.animationType = key - 48;
     }
