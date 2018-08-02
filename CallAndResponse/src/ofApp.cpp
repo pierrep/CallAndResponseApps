@@ -239,14 +239,11 @@ void ofApp::onKeyframe(ofxPlaylistEventArgs& args)
 }
 
 //--------------------------------------------------------------
-void ofApp::processState()
+void ofApp::updateModes()
 {
-    if(ofGetFrameNum()%30 == 0) {
-        //ofLogWarning() << "FPS: " << ofGetFrameRate();
-    }
-
     if(data.bToggleEditMode != data.bEditMode) {
         if(data.bToggleEditMode) {
+            ofLogNotice("Entering EDIT mode");
             data.bEditMode = true;
             editor.enableEditing();
         #ifdef USE_GUI
@@ -254,6 +251,7 @@ void ofApp::processState()
         #endif
             //data.currentTree = 0;
         } else {
+            ofLogNotice("Leaving EDIT mode");
             data.bEditMode = false;
             editor.disableEditing();
             animations.clearActiveEffects();
@@ -267,7 +265,7 @@ void ofApp::processState()
     if(data.bTogglePlaying != data.bIsPlaying) {
         if(data.bTogglePlaying) {
             data.bIsPlaying = true;
-            data.state = data.END_TRAIL;            
+            data.state = data.END_TRAIL;
             resetTrees();
             timeline.clear();
             animations.setPattern(0);
@@ -279,6 +277,38 @@ void ofApp::processState()
             timeline.clear();
         }
     }
+}
+
+//--------------------------------------------------------------
+void ofApp::updatePattern()
+{
+    if(data.bChangeAnimation) {
+        switch(data.animationType)
+        {
+            case 0: animations.setPattern(0);break;
+            case 1: animations.setPattern(1);break;
+            case 2: animations.setPattern(2);break;
+            case 3: animations.setPattern(3);break;
+            case 4: animations.setPattern(4);break;
+            case 5: {
+                animations.setPattern(5);
+                for(unsigned int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
+                {
+                    data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
+                    data.trees[data.currentTree]->lights[i]->fadeOn(5000.0f);
+                }
+                break;
+            }
+        }
+        if(bHost) {
+            data.bChangeAnimation = false;
+        }
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::processState()
+{
 
     switch (data.state)
     {
@@ -425,14 +455,19 @@ void ofApp::doShutDown()
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    if(ofGetFrameNum()%30 == 0) {
+        //ofLogWarning() << "FPS: " << ofGetFrameRate();
+    }
+
 	checkForShutdown();
 
     sync.update();
     timeline.update();
 
-    processState();
-
+    updateModes();
     updatePattern();
+
+    processState();
 
 	animations.updateFBO();
 
@@ -615,33 +650,6 @@ void ofApp::keyPressed(int key){
             data.trees[data.currentTree]->clear();
             data.currentTree++;
             if(data.currentTree >= data.trees.size()) data.currentTree = 0;
-        }
-    }
-}
-
-//--------------------------------------------------------------
-void ofApp::updatePattern()
-{
-    if(data.bChangeAnimation) {
-        switch(data.animationType)
-        {
-            case 0: animations.setPattern(0);break;
-            case 1: animations.setPattern(1);break;
-            case 2: animations.setPattern(2);break;
-            case 3: animations.setPattern(3);break;
-            case 4: animations.setPattern(4);break;
-            case 5: {
-                animations.setPattern(5);
-                for(unsigned int i = 0;i < data.trees[data.currentTree]->lights.size();i++)
-                {
-                    data.trees[data.currentTree]->lights[i]->setColour(ofColor::red);
-                    data.trees[data.currentTree]->lights[i]->fadeOn(5000.0f);
-                }
-                break;
-            }
-        }
-        if(bHost) {
-            data.bChangeAnimation = false;
         }
     }
 }

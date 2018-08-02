@@ -52,7 +52,6 @@ class ofApp : public ofBaseApp{
             void windowResized(int w, int h);
             void dragEvent(ofDragInfo dragInfo);
             void gotMessage(ofMessage msg);
-            void updatePattern();
             void setupDMX();
             void sendTreeDMX(int i);
             void clearTrees();
@@ -63,6 +62,8 @@ class ofApp : public ofBaseApp{
             void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
 #endif
             void processState();
+            void updateModes();
+            void updatePattern();
             void bloomTree();            
             unsigned int  getNextTree();
             unsigned int  calculateDestinationTree();
