@@ -279,6 +279,26 @@ void ofApp::updateModes()
             ofLogNotice() << "PAUSED...";
         }
     }
+
+    if(data.bMoveForward) {
+        if(bHost) {
+            data.trees[data.currentTree]->playPing();
+            data.trees[data.currentTree]->clear();
+            data.currentTree--;
+            if(data.currentTree >= data.trees.size()) {
+                data.currentTree = data.trees.size()-1;
+            }
+        }
+    }
+
+    if(data.bMoveBack) {
+        if(bHost) {
+            data.trees[data.currentTree]->playPing();
+            data.trees[data.currentTree]->clear();
+            data.currentTree++;
+            if(data.currentTree >= data.trees.size()) data.currentTree = 0;
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -622,18 +642,10 @@ void ofApp::keyPressed(int key){
 
     if(data.bIsPlaying == false) {
         if(key == '[') {
-            data.trees[data.currentTree]->playPing();
-            data.trees[data.currentTree]->clear();
-            data.currentTree--;
-            if(data.currentTree >= data.trees.size()) {
-                data.currentTree = data.trees.size()-1;
-            }
+            data.bMoveForward = true;
         }
         if(key == ']') {
-            data.trees[data.currentTree]->playPing();
-            data.trees[data.currentTree]->clear();
-            data.currentTree++;
-            if(data.currentTree >= data.trees.size()) data.currentTree = 0;
+            data.bMoveBack = true;
         }
     }
 }
@@ -704,15 +716,19 @@ void ofApp::setupGui()
 
     ofParameterGroup& p = data.parameters;
 
-    for(int i = 0; i < p.size();i++) {
+    for(size_t i = 0; i < p.size();i++) {
         if((p.getType(i) == "11ofParameterIfE") || (p.getType(i) == "class ofParameter<float>")) {
             lightFolder->addSlider(p.getFloat(i));
         }
         else if((p.getType(i) == "11ofParameterIiE") || (p.getType(i) == "class ofParameter<int>")) {
-            lightFolder->addSlider(p.getInt(i));
+            if( (p.getName(i).compare("Tree2") != 0) && (p.getName(i).compare("Tree3") != 0) && (p.getName(i).compare("Tree4") != 0) && (p.getName(i).compare("Animation Type") != 0) ) {
+                lightFolder->addSlider(p.getInt(i));
+            }
         }
         else if((p.getType(i) == "11ofParameterIbE") || (p.getType(i) == "class ofParameter<bool>")) {
-            lightFolder->addToggle(p.getBool(i));
+            if( (p.getName(i).compare("Change Animation") != 0) ) {
+                lightFolder->addToggle(p.getBool(i));
+            }
         }
     }
 
