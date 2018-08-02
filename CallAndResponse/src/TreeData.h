@@ -39,6 +39,7 @@ class TreeData
         ofParameter<bool>   bMoveBack;
         ofParameter<ofColor> colour;
 
+
         void lightPositionChanged(ofVec2f & lightPosition);
 
         vector<Tree *> trees;

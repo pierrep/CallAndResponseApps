@@ -268,6 +268,7 @@ void ofApp::updateModes()
             data.state = data.END_TRAIL;
             resetTrees();
             timeline.clear();
+            animations.clearActiveEffects();
             animations.setPattern(0);
             ofLogNotice() << "PLAYING...";
         } else {
@@ -585,8 +586,11 @@ void ofApp::clearTrees()
 {
     for(unsigned int i = 0;i < data.trees.size();i++)
     {
-        data.trees[i]->clear();
+        data.trees[i]->clear();        
     }
+    data.tree2 = -1;
+    data.tree3 = -1;
+    data.tree4 = -1;
 }
 
 //--------------------------------------------------------------
