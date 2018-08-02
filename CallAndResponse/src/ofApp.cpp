@@ -289,6 +289,8 @@ void ofApp::updateModes()
                 data.currentTree = data.trees.size()-1;
             }
             data.bMoveForward = false;
+        } else {
+            data.trees[data.currentTree]->clear();
         }
     }
 
@@ -299,6 +301,8 @@ void ofApp::updateModes()
             data.currentTree++;
             if(data.currentTree >= data.trees.size()) data.currentTree = 0;
             data.bMoveBack = false;
+        } else {
+            data.trees[data.currentTree]->clear();
         }
     }
 }
@@ -488,7 +492,6 @@ void ofApp::update(){
     sync.update();
     timeline.update();
 
-    updateModes();
     updatePattern();
 
     processState();
@@ -498,6 +501,8 @@ void ofApp::update(){
     if(!data.bEditMode) {
         animations.update(playhead);
     }
+
+    updateModes();
 
 #ifdef USE_GUI
     data.colour = gui_colour->getColor();
