@@ -35,7 +35,7 @@ class BaseEffect
         void mouseDragged(ofMouseEventArgs& args);
         void mouseMoved(ofMouseEventArgs& args);
         void mouseReleased(ofMouseEventArgs& args);
-        void keyPressed(ofKeyEventArgs& args);
+        virtual void keyPressed(ofKeyEventArgs& args);
         const bool isEnabled() {return bEnabled;}
         const string getName();
         void setData(TreeData *_data);

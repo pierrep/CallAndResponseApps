@@ -7,6 +7,8 @@ ImagePan::ImagePan()
     //parameters.add(imagename.set());
     parameters.add(pan_speed.set("Pan speed", 1000,500,3000));
     ofxKeyframeAnimRegisterEvents(this);
+    numImgs  = 0;
+    currentImage = 0;
 }
 
 ImagePan::~ImagePan()
@@ -14,9 +16,25 @@ ImagePan::~ImagePan()
 
 }
 
+void ImagePan::keyPressed(ofKeyEventArgs& args)
+{
+    if(args.key == OF_KEY_RIGHT) {
+        currentImage++;
+        if(currentImage >= numImgs) currentImage = 0;
+    } else if(args.key == OF_KEY_LEFT) {
+        currentImage--;
+        if(currentImage < 0) currentImage = numImgs-1;
+    }
+
+}
+
 void ImagePan::setup()
 {
-    for(int i = 0; i < 6; i++) {
+    ofDirectory dir("EffectSettings/images/");
+    numImgs = dir.listDir();
+    ofLogVerbose() << " Number of ImagePan images = " << numImgs;
+
+    for(int i = 0; i < numImgs; i++) {
         image[i].load("EffectSettings/images/panner"+ofToString(i)+".png");
     }
 
@@ -25,9 +43,7 @@ void ImagePan::setup()
 void ImagePan::begin()
 {
     if(!bEnabled) return;
-    data->bUseFrameBuffer = true;
-
-    currentImage = ofRandom(0,6);
+    data->bUseFrameBuffer = true;    
 
     height = 200;
     bEndSequence = false;
@@ -48,11 +64,10 @@ void ImagePan::begin()
 
 void ImagePan::onKeyframe(ofxPlaylistEventArgs& args)
 {
-    // this check is only necessary if you want to be absolutely sure that
-    // the onKeyFrame Event was sent by the same object as the receiver.
+    // this check is only necessary if you want to be absolutely sure that the onKeyFrame Event was sent by the same object as the receiver.
     if (args.pSender != static_cast<void*>(this)) return;
-
     //ofLog(OF_LOG_VERBOSE) << "Keyframe Event received for (" << args.pSender << "): " << args.message << ": " << ofGetFrameNum();
+
     if(args.message == "finished") {
         bEndSequence = true;
     }

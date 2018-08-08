@@ -48,6 +48,10 @@ class TreeData
         ofParameter<int> tree3;
         ofParameter<int> tree4;
 
+        int currentImage;
+        ofImage* curImage;
+
+
        // ofColor colour;
         const float pixelWidth;
         bool bUseFrameBuffer;

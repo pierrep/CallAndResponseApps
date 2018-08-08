@@ -15,8 +15,9 @@ class ImagePan : public BaseEffect
         void setup();
         void begin();
         void onKeyframe(ofxPlaylistEventArgs& args);
+        void keyPressed(ofKeyEventArgs& args);
 
-        ofImage image[6];
+        ofImage image[13];
 
         //ofParameter<string> imagename;
         ofParameter<float> pan_speed;
@@ -27,4 +28,5 @@ class ImagePan : public BaseEffect
         int currentImage;
         float angle;
         float adder;
+        int numImgs;
 };

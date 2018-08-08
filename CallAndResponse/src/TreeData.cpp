@@ -17,6 +17,8 @@ TreeData::TreeData()
 	tree3 = -1;
 	tree4 = -1;
 
+    currentImage = 0;
+
     float master_brightness = 0.4f;
 
     if(ofGetMonth() == 10 || ofGetMonth() == 11 || ofGetMonth() == 12 || ofGetMonth() == 1 || ofGetMonth() == 2)

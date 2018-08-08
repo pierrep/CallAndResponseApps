@@ -3,6 +3,9 @@
 #include "ofxPlaylist.h"
 #include "LedFixture.h"
 
+#include "Effects/ImagePan.h"
+#include "Effects/LineEffect.h"
+
 /* export MAKEFLAGS=-j3 */
 
 using namespace Playlist;
@@ -105,12 +108,16 @@ void ofApp::bloomTree()
         /* set bloom effect */
         animations.clearActiveEffects();
 
-		if (ofRandomf() > 0.0f) {
+        if ((ofRandomf() > 0.0f) && (ofGetFrameNum() > 300)) {
 			animations.enableEffect("bloom");
 			animations.enableEffect("line2");
 		}
 		else {            
             animations.enableEffect("image pan");
+            ImagePan* ip = dynamic_cast<ImagePan*>(animations.getEffect());
+            data.currentImage = ofRandom(0,12);
+            ip->currentImage = data.currentImage;
+            data.curImage = &(ip->image[data.currentImage]);
             //animations.enableEffect("noise");
         }
 		calculateOtherBlooms();
@@ -118,6 +125,9 @@ void ofApp::bloomTree()
     } else {
         /* set light trails */
         animations.enableEffect("line");
+        LineEffect* le = dynamic_cast<LineEffect*>(animations.getEffect());
+        le->curImage = data.curImage;
+
         //animations.enableEffect("trail particles");
     }
 
@@ -904,6 +914,6 @@ void ofApp::loadAppSettings() {
 	xml.popTag();
 
 	ofLogNotice() << "Host IP:    \t " << gHOST_IP_Address;
-	ofLogNotice() << "Client IP:   \t" << gCLIENT_IP_Address;
-	ofLogVerbose() << "DMX Storm IP:\t" << gStorm_IPAddress;
+    ofLogNotice() << "Client IP:  \t" << gCLIENT_IP_Address;
+    ofLogVerbose() <<"DMXStorm IP:\t" << gStorm_IPAddress;
 }
