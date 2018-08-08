@@ -18,7 +18,7 @@ Animations::Animations()
     currentFx = 0;
 
     #ifdef USE_GUI
-    ofxDatGui::setAssetPath("../../../../../addons/ofxDatGui/");
+    ofxDatGui::setAssetPath(ofToDataPath("Gui/"));
     #endif
 
     fxframe.allocate(1200,900,GL_RGBA);

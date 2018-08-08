@@ -696,7 +696,7 @@ void ofApp::setupGui()
 {
     /* GUI */
     ofxDatGuiLog::quiet();
-    ofxDatGui::setAssetPath("../../../../../addons/ofxDatGui/");
+    ofxDatGui::setAssetPath(ofToDataPath("Gui/"));
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );    
     gui->addHeader("LIGHT SETTINGS");
     gui->addFRM();
