@@ -10,6 +10,8 @@ CallAndResponse/.vs
 CallAndResponse/build
 CallAndResponse/CallAndResponse.VC.opendb
 CallAndResponse/CallAndResponse.sdf
+CallAndResponse.VC.VC.opendb
+CallAndResponse.VC.db
 ofxArtNetExample/bin/ofxArtNetExample_debug
 ofxArtNetExample/ofxArtNetExample.qbs.user
 controllerClient/controllerClient.qbs.user

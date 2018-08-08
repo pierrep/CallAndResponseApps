@@ -75,6 +75,7 @@ class ofApp : public ofBaseApp{
             void TriggerNextAnimation(bool &val);
 			void checkForShutdown();
             void doShutDown();
+			void loadAppSettings();
 
         /* Trees */
         LightsEditor editor;
@@ -114,6 +115,7 @@ class ofApp : public ofBaseApp{
         string      gCLIENT_IP_Address;
         string      gHOST_IP_Address;
         string      gStorm_IPAddress;
+		ofxXmlSettings xml;
 
         /* GUI */
 #ifdef USE_GUI

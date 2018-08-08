@@ -1,4 +1,11 @@
-<LIGHT_SETTINGS>
-	<brightness>0.4</brightness>
-	<colour>255, 0, 255, 255</colour>
-</LIGHT_SETTINGS>
+<!--
+gCLIENT_IP_Address - Only required on the host if you want to connect to a client
+gHOST_IP_Address - Only required on the client if you want to connect to the host
+-->
+
+<IP_SETTINGS>
+	<host_ip>192.168.0.2</host_ip>
+	<client_ip>192.168.0.43</client_ip>
+	<storm_ip>192.168.0.11</storm_ip>
+	<is_host>1</is_host>
+</IP_SETTINGS>
