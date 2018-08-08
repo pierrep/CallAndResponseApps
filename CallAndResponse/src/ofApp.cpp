@@ -11,19 +11,7 @@ ofApp::ofApp() :
     bloomCount(0),
     gBloomTime(7500.0f),
     gTrailTime(2100.0f),
-    gPauseTime(1500.0f),
-    /*
-     * gCLIENT_IP_Address - Only required on the host if you want to connect to a client
-     * gHOST_IP_Address - Only required on the client if you want to connect to the host
-     */
-    gCLIENT_IP_Address("192.168.0.43"),
-    //gCLIENT_IP_Address("192.168.43.66"),
-    //gCLIENT_IP_Address("localhost"),
-    gHOST_IP_Address("192.168.0.2"),
-    //gHOST_IP_Address("192.168.43.144"),
-    //gHOST_IP_Address("localhost"),
-    gStorm_IPAddress("192.168.0.11"),
-    bHost(true)
+    gPauseTime(1500.0f)
 {
 
 }
@@ -34,6 +22,7 @@ void ofApp::setup(){
     ofSetVerticalSync(false);
     ofSetFrameRate(25);
 
+	loadAppSettings();
     data.load();
     editor.setup(&data);
     animations.setup(&data);
@@ -900,4 +889,21 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
 
+}
+
+//--------------------------------------------------------------
+void ofApp::loadAppSettings() {
+
+	xml.load("settings.xml");
+	xml.pushTag("IP_SETTINGS");
+
+	gHOST_IP_Address = xml.getValue("host_ip", "192.168.0.2");
+	gCLIENT_IP_Address = xml.getValue("client_ip", "192.168.0.43");
+	gStorm_IPAddress = xml.getValue("storm_ip", "192.168.0.11");
+	bHost = xml.getValue("is_host", 1);
+	xml.popTag();
+
+	ofLogNotice() << "Host IP:    \t " << gHOST_IP_Address;
+	ofLogNotice() << "Client IP:   \t" << gCLIENT_IP_Address;
+	ofLogVerbose() << "DMX Storm IP:\t" << gStorm_IPAddress;
 }
