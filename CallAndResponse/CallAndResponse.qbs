@@ -12,6 +12,8 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
+            "src/Effects/PerlinNoiseEffect.cpp",
+            "src/Effects/PerlinNoiseEffect.h",
             'src/Animations.cpp',
             'src/Animations.h',
             'src/Circuit.cpp',

@@ -10,6 +10,7 @@
 #include "Effects/CalibrateEffect.h"
 #include "Effects/ImagePan.h"
 #include "Effects/TrailParticles.h"
+#include "Effects/PerlinNoiseEffect.h"
 
 Animations::Animations()
 {
@@ -39,7 +40,7 @@ Animations::Animations()
     effect.push_back(new LineEffect2());
     effect.push_back(new TrailParticles());
     effect.push_back(new NoiseParticlesEffect());
-
+    effect.push_back(new PerlinNoiseEffect());
     effect.push_back(new NoiseEffect());
     effect.back()->setResolution(400,300);
 
