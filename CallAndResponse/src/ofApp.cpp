@@ -330,7 +330,7 @@ void ofApp::processState()
 
     switch (data.state)
     {
-        case data.START_BLOOM:
+        case TreeData::START_BLOOM:
         {
             ofLogVerbose() << " ";
             ofLogVerbose() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
@@ -345,7 +345,7 @@ void ofApp::processState()
             timeline.addKeyFrame(Action::event(this,"END_BLOOM"));
             break;
         }
-        case data.END_BLOOM:
+        case TreeData::END_BLOOM:
         {
             ofLogVerbose() << "End Bloom  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
             if(data.bIsPlaying) {
@@ -387,13 +387,14 @@ void ofApp::processState()
             timeline.addKeyFrame(Action::event(this,"START_TRAIL"));
             break;
         }
-        case data.START_TRAIL:
+        case TreeData::START_TRAIL:
         {
 			ofLogNotice() << "Trail:" << data.currentTree;
             ofLogVerbose() << "Start Trail\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
             if(data.bIsPlaying) {
                 data.state = data.LIGHTS_ON;
+                data.previousTree = data.currentTree;
                 data.currentTree = data.nextTree;
                 bloomTree();
             }
@@ -403,9 +404,11 @@ void ofApp::processState()
             timeline.addKeyFrame(Action::event(this,"END_TRAIL"));
             break;
         }
-        case data.END_TRAIL:
+        case TreeData::END_TRAIL:
         {
-            ofLogVerbose() << "End Trail  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
+            ofLogVerbose() << "End Trail  \t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.previousTree << " target tree: " << data.targetTree;
+            data.trees[data.previousTree]->clear();
+
             if(data.bIsPlaying) {
                 data.state = data.LIGHTS_OFF;
             }
@@ -422,9 +425,9 @@ void ofApp::processState()
             }
             break;
         }
-        case data.LIGHTS_OFF:
-        case data.LIGHTS_ON:
-        case data.PAUSED:
+        case TreeData::LIGHTS_OFF:
+        case TreeData::LIGHTS_ON:
+        case TreeData::PAUSED:
         default:
         {
             break;

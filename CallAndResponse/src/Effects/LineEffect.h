@@ -21,7 +21,8 @@ class LineEffect : public BaseEffect
             ofVec2f p1;
             ofVec2f p2;
         };
-        vector<Line>     lines;
+        vector<Line>        lines;
+        vector<ofColor>     lineColour;
         ofParameter<int>    numLines;
         ofParameter<int>    lineThickness;
         ofParameter<int>    lineWidth;

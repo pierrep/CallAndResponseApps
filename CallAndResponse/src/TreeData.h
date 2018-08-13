@@ -47,8 +47,9 @@ class TreeData
         ofParameter<int> tree2;
         ofParameter<int> tree3;
         ofParameter<int> tree4;
+        int previousTree;
 
-        int currentPaletteImage;
+        size_t currentPaletteImage;
         vector<ofImage> paletteImage;
         size_t numPaletteImgs;
 

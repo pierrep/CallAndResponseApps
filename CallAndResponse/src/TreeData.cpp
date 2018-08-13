@@ -53,10 +53,10 @@ TreeData::TreeData()
     currentPaletteImage = 0;
     numPaletteImgs = 0;
     ofDirectory dir("Images/");
-    int numFiles = dir.listDir();
+    size_t numFiles = dir.listDir();
     ofLogNotice() << " Number of palette images = " << numPaletteImgs;
 
-    for(int i = 0; i < numFiles; i++) {
+    for(size_t i = 0; i < numFiles; i++) {
         ofImage tmpImg;
         tmpImg.load("Images/palette"+ofToString(i)+".png");
         if(((int)tmpImg.getWidth() != 1200) || ((int)tmpImg.getHeight() != 900)) {

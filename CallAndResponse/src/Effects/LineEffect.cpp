@@ -59,9 +59,9 @@ void LineEffect::draw(float x, float y, float w, float h)
         temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
         temp.addVertex( lines[i].p1 );
         //temp.addColor(ofColor(255,0,255));
-        temp.addColor((data->paletteImage[data->currentPaletteImage].getColor(lines[i].p1.x,lines[i].p1.y)));
+        temp.addColor(lineColour[i]);
         temp.addVertex( ofPoint(lines[i].p1.x+lineWidth.get(),lines[i].p1.y) );
-        temp.addColor((data->paletteImage[data->currentPaletteImage].getColor(lines[i].p1.x,lines[i].p1.y)));
+        temp.addColor(lineColour[i]);
         //temp.addColor(ofColor(255,0,255));
         temp.addVertex( ofPoint(lines[i].p1.x,lines[i].p1.y+lineThickness.get()) );
         temp.addColor(ofColor::black);
@@ -76,6 +76,7 @@ void LineEffect::draw(float x, float y, float w, float h)
 void LineEffect::resetLines()
 {
     lines.clear();
+    lineColour.clear();
     for(int i=0;i < numLines.get();i++)
     {
         float interval = 900 / numLines.get();
@@ -83,6 +84,11 @@ void LineEffect::resetLines()
         Line line;
         line.p1 = p1;
         lines.push_back(line);
+
+        int  x = (int) ofRandom(0,data->paletteImage[data->currentPaletteImage].getWidth());
+        int  y = (int) ofRandom(0,data->paletteImage[data->currentPaletteImage].getHeight());
+        ofColor c = data->paletteImage[data->currentPaletteImage].getColor(x,y);
+        lineColour.push_back(c);
     }
 }
 
