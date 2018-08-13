@@ -29,4 +29,5 @@ class NoiseEffect : public BaseEffect
         ofImage noiseImage;
         int noiseStartX;
         int noiseStartY;
+        ofColor noisecolour;
 };

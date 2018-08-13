@@ -28,4 +28,5 @@ class ImagePan : public BaseEffect
         float angle;
         float adder;
         int numImgs;
+        bool bFlip;
 };

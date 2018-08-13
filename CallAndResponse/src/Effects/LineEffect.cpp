@@ -85,9 +85,7 @@ void LineEffect::resetLines()
         line.p1 = p1;
         lines.push_back(line);
 
-        int  x = (int) ofRandom(0,data->paletteImage[data->currentPaletteImage].getWidth());
-        int  y = (int) ofRandom(0,data->paletteImage[data->currentPaletteImage].getHeight());
-        ofColor c = data->paletteImage[data->currentPaletteImage].getColor(x,y);
+        ofColor c = data->getRandomPaletteColourX(p1.y);
         lineColour.push_back(c);
     }
 }

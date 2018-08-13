@@ -12,7 +12,7 @@ using namespace Playlist;
 
 ofApp::ofApp() :
     bloomCount(0),
-    gBloomTime(7500.0f),
+    gBloomTime(9500.0f),
     gTrailTime(2100.0f),
     gPauseTime(1500.0f)
 {
@@ -74,6 +74,7 @@ void ofApp::setup(){
     if(bHost) {
         ofLogVerbose() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
         data.currentTree = data.nextTree;
+        data.currentPaletteImage = ofRandom(0,data.numPaletteImgs);
         bloomTree();
     }
 }
@@ -108,17 +109,21 @@ void ofApp::bloomTree()
         /* set bloom effect */
         animations.clearActiveEffects();
 
-        if ((ofRandomf() > 0.0f) && (ofGetFrameNum() > 300)) {
+        //if ((ofRandomf() > 0.0f) && (ofGetFrameNum() > 300))
+        /*{
             animations.enableEffect("bloom");
-            animations.enableEffect("line2");
-            //animations.enableEffect("perlinnoise");
-        }
-        else {
-            animations.enableEffect("image pan");
+            //animations.enableEffect("line2");
+            animations.enableEffect("perlinnoise");
             data.currentPaletteImage = ofRandom(0,data.numPaletteImgs);
-            ofLogNotice() << "currentPaletteImage = " << data.currentPaletteImage;
-            //animations.enableEffect("noise");
         }
+        */
+        //else
+        {
+            animations.enableEffect("image pan");
+            //animations.enableEffect("noise");
+            animations.enableEffect("perlinnoise");
+        }
+
 
         calculateOtherBlooms();
 
@@ -335,6 +340,8 @@ void ofApp::processState()
             ofLogVerbose() << " ";
             ofLogVerbose() << "Start Bloom\t time: " << ofGetElapsedTimeMillis() << " current tree: " << data.currentTree << " target tree: " << data.targetTree;
 
+            data.currentPaletteImage = ofRandom(0,data.numPaletteImgs);
+
             if(data.bIsPlaying) {
                 data.state = data.LIGHTS_ON;
                 bloomTree();
@@ -372,7 +379,7 @@ void ofApp::processState()
                 ofLogVerbose() << " Direction = " << data.direction;
                 data.currentTree = data.targetTree;
                 data.nextTree = data.currentTree;
-                timeline.addKeyFrame(Action::event(this,"START_BLOOM"));
+                timeline.addKeyFrame(Action::event(this,"START_BLOOM"));                       
                 bloomCount = 0;
                 return;
             }

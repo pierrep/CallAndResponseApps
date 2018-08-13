@@ -21,9 +21,9 @@ TreeData::TreeData()
 
     if(ofGetMonth() == 10 || ofGetMonth() == 11 || ofGetMonth() == 12 || ofGetMonth() == 1 || ofGetMonth() == 2)
     {
-        master_brightness = 0.8f;
+        master_brightness = 0.7f;
     } else {
-        master_brightness = 0.4f;
+        master_brightness = 0.40f;
     }
 
     parameters.setName("parameters");
@@ -33,7 +33,6 @@ TreeData::TreeData()
     parameters.add(bToggleEditMode.set("Edit Mode (e)",false));
     parameters.add(bBeginAnimation.set("Begin Animation (b)",false));
     parameters.add(bNextAnimation.set("Next Animation (n)",false));
-    //parameters.add(currentFx.set("Current Fx",0,0,100));
     parameters.add(currentTree.set("Current Tree",0,0,16));
     parameters.add(currentLight.set("Current Light",0,0,19));
     parameters.add(nextTree.set("Next Tree",0,0,16));
@@ -54,7 +53,6 @@ TreeData::TreeData()
     numPaletteImgs = 0;
     ofDirectory dir("Images/");
     size_t numFiles = dir.listDir();
-    ofLogNotice() << " Number of palette images = " << numPaletteImgs;
 
     for(size_t i = 0; i < numFiles; i++) {
         ofImage tmpImg;
@@ -67,6 +65,7 @@ TreeData::TreeData()
         }
 
     }
+    ofLogNotice() << " Number of palette images = " << numPaletteImgs;
     if(numPaletteImgs == 0) {
         ofLogError() << "Couldn't find any palette images, exiting";
         ofExit();
@@ -99,6 +98,36 @@ TreeData::~TreeData()
 void TreeData::lightPositionChanged(ofVec2f & lightPosition){
 
     trees[currentTree]->lights[currentLight]->setPosition(lightPosition);
+}
+
+//--------------------------------------------------------------
+ofColor TreeData::getRandomPaletteColour()
+{
+    int  x = (int) ofRandom(0,paletteImage[currentPaletteImage].getWidth());
+    int  y = (int) ofRandom(0,paletteImage[currentPaletteImage].getHeight());
+    ofColor c = paletteImage[currentPaletteImage].getColor(x,y);
+    return c;
+}
+
+//--------------------------------------------------------------
+ofColor TreeData::getRandomPaletteColourX(int y)
+{
+    int  x = (int) ofRandom(0,paletteImage[currentPaletteImage].getWidth());
+    ofColor c = paletteImage[currentPaletteImage].getColor(x,y);
+    return c;
+}
+
+//--------------------------------------------------------------
+ofColor TreeData::setSimilarPaletteColour(ofColor c, float offset)
+{
+    float value = (c.r + c.g + c.b)/3;
+    float newValue = value + (2.0f*ofRandomf() * offset) - offset;
+    float valueRatio = newValue / value;
+    ofColor newColour;
+    newColour.r = static_cast<unsigned char>(c.r * valueRatio);
+    newColour.g = static_cast<unsigned char>(c.g * valueRatio);
+    newColour.b = static_cast<unsigned char>(c.b * valueRatio);
+    return newColour;
 }
 
 //--------------------------------------------------------------

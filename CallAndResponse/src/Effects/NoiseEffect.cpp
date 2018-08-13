@@ -1,5 +1,6 @@
 #include "NoiseEffect.h"
 
+
 NoiseEffect::NoiseEffect()
 {
     name = "Noise";
@@ -31,6 +32,8 @@ void NoiseEffect::begin()
     if(!bEnabled) return;
     data->bUseFrameBuffer = true;
 }
+
+
 
 void NoiseEffect::update(float curTime)
 {
@@ -107,7 +110,7 @@ void NoiseEffect::draw(float x, float y, float w, float h)
     if(!bEnabled) return;
 
     ofPushStyle();
-    ofSetColor(255,0,255);
+    ofSetColor(noisecolour);
     noiseImage.draw( x, y, w, h );
     ofPopStyle();
 

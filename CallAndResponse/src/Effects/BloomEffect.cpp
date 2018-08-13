@@ -39,6 +39,9 @@ void BloomEffect::begin()
     timeline.addKeyFrame(Action::pause(3000.0f));
     timeline.addKeyFrame(Action::tween(3000.0f,&radius, 0.0f, TWEEN_QUAD, TWEEN_EASE_IN));
     timeline.addToKeyFrame(Action::tween(2000.0f, &ratio, 1.0f,TWEEN_QUAD,TWEEN_EASE_IN));
+
+    c1 = data->getRandomPaletteColour();
+    c2 = data->getRandomPaletteColour();
 }
 
 void BloomEffect::update(float curTime)
@@ -55,7 +58,8 @@ void BloomEffect::draw(float x, float y, float w, float h)
 
     ofPushStyle();
 
-    ofSetColor(c1.getLerped(c2,ratio),255.0f - 255.0f*ratio + 100.0f);
+    //ofSetColor(c1.getLerped(c2,ratio),255.0f - 255.0f*ratio + 100.0f);
+    ofSetColor(c1.getLerped(c2,ratio));
     ofDrawCircle(x + 600, ofGetHeight()/2, radius);
     ofPopStyle();
 }

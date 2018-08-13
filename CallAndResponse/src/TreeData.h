@@ -41,6 +41,9 @@ class TreeData
 
 
         void lightPositionChanged(ofVec2f & lightPosition);
+        ofColor getRandomPaletteColour();
+        ofColor getRandomPaletteColourX(int y);
+        ofColor setSimilarPaletteColour(ofColor c,float offset);
 
         vector<Tree *> trees;
         int direction;
@@ -53,8 +56,6 @@ class TreeData
         vector<ofImage> paletteImage;
         size_t numPaletteImgs;
 
-
-       // ofColor colour;
         const float pixelWidth;
         bool bUseFrameBuffer;
 

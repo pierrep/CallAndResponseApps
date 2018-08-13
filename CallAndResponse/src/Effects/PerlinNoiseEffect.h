@@ -14,17 +14,11 @@ class PerlinNoiseEffect : public BaseEffect
         void draw(float x, float y, float w, float h);
         void setup();
         void begin();
+        void onKeyframe(ofxPlaylistEventArgs& args);
 
         ofShader shader;
-/*        ofParameter<int> resolution;
-        ofParameter<float> noiseFrequency;
-        ofParameter<bool> animate;
-
-        ofParameter<bool> doThreshold;
-        ofParameter<int> thresholdLow;
-        ofParameter<int> thresholdHigh;
-        ofParameter<bool> invert;
-*/
-
+        ofFloatColor colour;
+        bool bReady;
+        float alpha;
 
 };
