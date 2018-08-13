@@ -36,7 +36,7 @@ void PerlinNoiseEffect::begin()
     data->bUseFrameBuffer = true;
 
     colour = data->getRandomPaletteColour();
-    colour = data->setSimilarPaletteColour(colour,20);
+    colour = data->setSimilarPaletteColourHSB(colour,20);
     bReady = false;
     alpha = 0.0f;
 

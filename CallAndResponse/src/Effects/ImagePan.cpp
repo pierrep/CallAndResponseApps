@@ -51,7 +51,7 @@ void ImagePan::begin()
     timeline.addKeyFrame(Action::pause(5000.0f));
     timeline.addKeyFrame(Action::event(this,"finished"));
 
-    angle = 0;
+    angle = ofRandom(0,360);
     adder = 1.0f;
     if(ofRandomf() > 0.5f) {
         bFlip = !bFlip;
@@ -105,9 +105,8 @@ void ImagePan::draw(float x, float y, float w, float h)
     ofPushStyle();
     ofSetRectMode(OF_RECTMODE_CENTER);
     ofTranslate(data->paletteImage[data->currentPaletteImage].getWidth()/2,effectHeight - height + data->paletteImage[data->currentPaletteImage].getHeight()/2);
-    if(bDoRotate) {
-        ofRotateZ(angle);
-    } else if(bFlip) {
+    ofRotateZ(angle);
+    if(bFlip) {
         ofRotateZ(180);
     }
 

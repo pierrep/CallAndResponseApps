@@ -44,6 +44,7 @@ class TreeData
         ofColor getRandomPaletteColour();
         ofColor getRandomPaletteColourX(int y);
         ofColor setSimilarPaletteColour(ofColor c,float offset);
+        ofColor setSimilarPaletteColourHSB(ofColor c,float offset);
 
         vector<Tree *> trees;
         int direction;

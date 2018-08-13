@@ -120,13 +120,28 @@ ofColor TreeData::getRandomPaletteColourX(int y)
 //--------------------------------------------------------------
 ofColor TreeData::setSimilarPaletteColour(ofColor c, float offset)
 {
-    float value = (c.r + c.g + c.b)/3;
-    float newValue = value + (2.0f*ofRandomf() * offset) - offset;
+    float value = (c.r + c.g + c.b)/3.0f;
+    float newValue = value + (ofRandomf() * offset);
     float valueRatio = newValue / value;
+
     ofColor newColour;
     newColour.r = static_cast<unsigned char>(c.r * valueRatio);
     newColour.g = static_cast<unsigned char>(c.g * valueRatio);
     newColour.b = static_cast<unsigned char>(c.b * valueRatio);
+    return newColour;
+}
+
+//--------------------------------------------------------------
+ofColor TreeData::setSimilarPaletteColourHSB(ofColor c, float offset)
+{
+    float h,s,b;
+    c.getHsb(h,s,b);
+
+    float hue = h + (ofRandomf() * offset);
+    hue = ofClamp(hue,0,255);
+
+    ofColor newColour;
+    newColour.setHsb(hue,255,b);
     return newColour;
 }
 
