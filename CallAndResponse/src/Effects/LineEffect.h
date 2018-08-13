@@ -28,5 +28,4 @@ class LineEffect : public BaseEffect
         ofParameter<float>  lineVerticalSpeed;
         ofParameter<float>  lineHorizontalSpeed;
 
-        ofImage* curImage;
 };

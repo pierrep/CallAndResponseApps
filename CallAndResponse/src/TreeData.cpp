@@ -17,8 +17,6 @@ TreeData::TreeData()
 	tree3 = -1;
 	tree4 = -1;
 
-    currentImage = 0;
-
     float master_brightness = 0.4f;
 
     if(ofGetMonth() == 10 || ofGetMonth() == 11 || ofGetMonth() == 12 || ofGetMonth() == 1 || ofGetMonth() == 2)
@@ -27,7 +25,6 @@ TreeData::TreeData()
     } else {
         master_brightness = 0.4f;
     }
-
 
     parameters.setName("parameters");
     parameters.add(brightness.set("Brightness",master_brightness,0.0f,1.0f));
@@ -52,6 +49,28 @@ TreeData::TreeData()
     parameters.add(bMoveBack.set("Back",false));
     parameters.add(colour.set("Colour",ofColor(0,255,0)));
     lightPosition.addListener(this, &TreeData::lightPositionChanged);
+
+    currentPaletteImage = 0;
+    numPaletteImgs = 0;
+    ofDirectory dir("Images/");
+    int numFiles = dir.listDir();
+    ofLogNotice() << " Number of palette images = " << numPaletteImgs;
+
+    for(int i = 0; i < numFiles; i++) {
+        ofImage tmpImg;
+        tmpImg.load("Images/palette"+ofToString(i)+".png");
+        if(((int)tmpImg.getWidth() != 1200) || ((int)tmpImg.getHeight() != 900)) {
+            ofLogError() << "Incorrect palette image size " << tmpImg.getWidth() <<"x" << tmpImg.getHeight() << ", skipping image " << "Images/palette"+ofToString(i)+".png";
+        } else {
+            paletteImage.push_back(tmpImg);
+            numPaletteImgs++;
+        }
+
+    }
+    if(numPaletteImgs == 0) {
+        ofLogError() << "Couldn't find any palette images, exiting";
+        ofExit();
+    }
 }
 
 //--------------------------------------------------------------

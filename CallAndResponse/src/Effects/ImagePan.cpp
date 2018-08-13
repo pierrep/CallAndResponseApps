@@ -8,7 +8,6 @@ ImagePan::ImagePan()
     parameters.add(pan_speed.set("Pan speed", 1000,500,3000));
     ofxKeyframeAnimRegisterEvents(this);
     numImgs  = 0;
-    currentImage = 0;
 }
 
 ImagePan::~ImagePan()
@@ -19,24 +18,18 @@ ImagePan::~ImagePan()
 void ImagePan::keyPressed(ofKeyEventArgs& args)
 {
     if(args.key == OF_KEY_RIGHT) {
-        currentImage++;
-        if(currentImage >= numImgs) currentImage = 0;
+        data->currentPaletteImage++;
+        if(data->currentPaletteImage >= numImgs) data->currentPaletteImage = 0;
     } else if(args.key == OF_KEY_LEFT) {
-        currentImage--;
-        if(currentImage < 0) currentImage = numImgs-1;
+        data->currentPaletteImage--;
+        if(data->currentPaletteImage < 0) data->currentPaletteImage = numImgs-1;
     }
 
 }
 
 void ImagePan::setup()
 {
-    ofDirectory dir("EffectSettings/images/");
-    numImgs = dir.listDir();
-    ofLogVerbose() << " Number of ImagePan images = " << numImgs;
 
-    for(int i = 0; i < numImgs; i++) {
-        image[i].load("EffectSettings/images/panner"+ofToString(i)+".png");
-    }
 
 }
 
@@ -108,9 +101,9 @@ void ImagePan::draw(float x, float y, float w, float h)
     ofPushMatrix();
     ofPushStyle();
     ofSetRectMode(OF_RECTMODE_CENTER);
-    ofTranslate(image->getWidth()/2,effectWidth - height + image->getHeight()/2);
+    ofTranslate(data->paletteImage[data->currentPaletteImage].getWidth()/2,effectWidth - height + data->paletteImage[data->currentPaletteImage].getHeight()/2);
     ofRotateZ(angle);
-    image[currentImage].draw(0,0);
+    data->paletteImage[data->currentPaletteImage].draw(0,0);
     ofPopStyle();
     ofPopMatrix();
 

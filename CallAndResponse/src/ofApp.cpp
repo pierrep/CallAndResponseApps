@@ -109,26 +109,22 @@ void ofApp::bloomTree()
         animations.clearActiveEffects();
 
         if ((ofRandomf() > 0.0f) && (ofGetFrameNum() > 300)) {
-		animations.enableEffect("bloom");
-		animations.enableEffect("line2");
-		//animations.enableEffect("perlinnoise");
-	}
-	else {            
+            animations.enableEffect("bloom");
+            animations.enableEffect("line2");
+            //animations.enableEffect("perlinnoise");
+        }
+        else {
             animations.enableEffect("image pan");
-            ImagePan* ip = dynamic_cast<ImagePan*>(animations.getEffect());
-            data.currentImage = ofRandom(0,12);
-            ip->currentImage = data.currentImage;
-            data.curImage = &(ip->image[data.currentImage]);
+            data.currentPaletteImage = ofRandom(0,data.numPaletteImgs);
+            ofLogNotice() << "currentPaletteImage = " << data.currentPaletteImage;
             //animations.enableEffect("noise");
         }
-	calculateOtherBlooms();
+
+        calculateOtherBlooms();
 
     } else {
         /* set light trails */
         animations.enableEffect("line");
-        LineEffect* le = dynamic_cast<LineEffect*>(animations.getEffect());
-        le->curImage = data.curImage;
-
         //animations.enableEffect("trail particles");
     }
 

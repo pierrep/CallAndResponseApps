@@ -59,9 +59,9 @@ void LineEffect::draw(float x, float y, float w, float h)
         temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
         temp.addVertex( lines[i].p1 );
         //temp.addColor(ofColor(255,0,255));
-        temp.addColor((curImage->getColor(lines[i].p1.x,lines[i].p1.y)));
+        temp.addColor((data->paletteImage[data->currentPaletteImage].getColor(lines[i].p1.x,lines[i].p1.y)));
         temp.addVertex( ofPoint(lines[i].p1.x+lineWidth.get(),lines[i].p1.y) );
-        temp.addColor((curImage->getColor(lines[i].p1.x,lines[i].p1.y)));
+        temp.addColor((data->paletteImage[data->currentPaletteImage].getColor(lines[i].p1.x,lines[i].p1.y)));
         //temp.addColor(ofColor(255,0,255));
         temp.addVertex( ofPoint(lines[i].p1.x,lines[i].p1.y+lineThickness.get()) );
         temp.addColor(ofColor::black);
