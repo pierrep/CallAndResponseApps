@@ -52,6 +52,7 @@ TreeData::TreeData()
     currentPaletteImage = 0;
     numPaletteImgs = 0;
     ofDirectory dir("Images/");
+    dir.sort();
     size_t numFiles = dir.listDir();
 
     for(size_t i = 0; i < numFiles; i++) {

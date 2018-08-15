@@ -3,10 +3,8 @@ precision mediump float;
 #endif
 
 uniform vec2 u_resolution;
-uniform vec2 u_mouse;
 uniform vec4 u_colour;
 uniform float u_time;
-uniform float u_alpha;
 
 //
 // GLSL textureless classic 3D noise "cnoise",
@@ -168,17 +166,14 @@ float pnoise(vec3 P, vec3 rep) {
 
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    vec4 color = vec4(0.0);
-
     vec3 pos = vec3(st*5.0,u_time*0.5);
+    
+    vec3 noise = vec3(cnoise(pos));
+    vec4 colour = vec4(noise,1.0);
+    colour *= u_colour;
+    colour *= 2.0;
 
-    color = vec4(cnoise(pos),cnoise(pos),cnoise(pos),1.0);
-    color *= u_colour;
-    color *= 2.0;
-
-    // color = vec3(pnoise(pos,vec3(0.0)));
-
-    gl_FragColor = color;
+    gl_FragColor = colour;
     
     float intensity = gl_FragColor.r + gl_FragColor.g + gl_FragColor.b;
 	if(intensity < 0.2)

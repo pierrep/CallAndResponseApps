@@ -14,10 +14,12 @@ PerlinNoiseEffect::~PerlinNoiseEffect()
 
 void PerlinNoiseEffect::setup()
 {
-
-    shader.load("","Shaders/3DperlinNoise.frag");
-
-
+	#if defined(TARGET_RASPBERRY_PI)
+	ofLogNotice() << "Load GLES shaders";
+	shader.load("Shaders/3DperlinNoiseGLES.vert","Shaders/3DperlinNoise.frag");
+	#else
+	shader.load("","Shaders/3DperlinNoise.frag");
+	#endif    
 }
 
 void PerlinNoiseEffect::onKeyframe(ofxPlaylistEventArgs& args)
@@ -62,9 +64,13 @@ void PerlinNoiseEffect::draw(float x, float y, float w, float h)
         ofSetColor(255);
         shader.begin();
         shader.setUniform1f("u_time", ofGetElapsedTimef());
-        shader.setUniform2f("u_resolution", ofGetWidth(), ofGetHeight());
+        shader.setUniform2f("u_resolution", effectWidth, effectHeight);
         shader.setUniform4f("u_colour", colour.r, colour.g, colour.b, alpha);
-        ofDrawRectangle(0,0,ofGetWidth(), ofGetHeight());
+        #if defined(TARGET_RASPBERRY_PI)
+        ofDrawRectangle(200,50,800, 800);
+        #else
+        ofDrawRectangle(0,0,effectWidth, effectHeight);
+        #endif
         shader.end();
 
     }

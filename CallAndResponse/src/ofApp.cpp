@@ -484,7 +484,7 @@ void ofApp::doShutDown()
 //--------------------------------------------------------------
 void ofApp::update(){
     if(ofGetFrameNum()%30 == 0) {
-        //ofLogWarning() << "FPS: " << ofGetFrameRate();
+        ofLogWarning() << "FPS: " << ofGetFrameRate();
     }
 
 	checkForShutdown();
@@ -530,9 +530,10 @@ void ofApp::draw(){
     #endif	
 
 #ifdef USE_GUI
-    animations.draw(400,0);
+	animations.draw(400,0);
     editor.draw(400,0,1200,900);
     guiMap.draw(0,0,400,900);
+
     animations.drawGui();
 
     /* draw raw tree LED output */
