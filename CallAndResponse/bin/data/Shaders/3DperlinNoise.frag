@@ -1,5 +1,5 @@
 #ifdef GL_ES
-precision mediump float;
+precision lowp float;
 #endif
 
 uniform vec2 u_resolution;
@@ -37,19 +37,19 @@ float Pseudo3dNoise(vec3 pos) {
 
 void main() {
     vec2 uv = gl_FragCoord.xy/u_resolution.xy;
-    
-    //float noiseVal = 0.5 + 0.5 * Pseudo3dNoise(vec3(uv * 10.0, iTime));
             
-    vec3 pos = vec3(uv*5.0,u_time*0.5);
-    
+    vec3 pos = vec3(uv*5.0,u_time*0.5);    
     vec3 noise = vec3(Pseudo3dNoise(pos));
+    
     vec4 colour = vec4(noise,1.0);
-   // colour *= u_colour;
+    colour *= u_colour;
     colour *= 2.0;
 
     gl_FragColor = colour;
     
-    float intensity = gl_FragColor.r + gl_FragColor.g + gl_FragColor.b;
+	const vec3 AllOnes = vec3(1.0);
+	float intensity = dot(gl_FragColor.xyz,AllOnes);
+	//float intensity = gl_FragColor.r + gl_FragColor.g + gl_FragColor.b;
 	if(intensity < 0.2)
 		discard;
 }
