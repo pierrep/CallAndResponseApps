@@ -4,7 +4,7 @@
 //========================================================================
 int main( ){
 
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    ofSetLogLevel(OF_LOG_NOTICE);
 
     #if defined(TARGET_RASPBERRY_PI)
     
