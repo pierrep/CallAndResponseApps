@@ -550,6 +550,12 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::sendTreeDMX(int i)
 {
+	/* light hack for Holding residence */
+	data->trees[9]->lights.at(11)->setColour(ofColor(0,0,0);
+	data->trees[9]->lights.at(12)->setColour(ofColor(0,0,0);
+	data->trees[9]->lights.at(13)->setColour(ofColor(0,0,0);
+	data->trees[9]->lights.at(14)->setColour(ofColor(0,0,0);
+                
     if(bArtNetActive) {
         if(data.trees[i]->isDirty())
         {

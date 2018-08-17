@@ -22,3 +22,6 @@ ofxGenericDMX_example/bin/ofxGenericDMX_example_debug
 ofxGenericDMX_example/bin/ofxGenericDMX_example
 ofxGenericDMX_example/build/
 ofxGenericDMX_example/ofxGenericDMX_example.qbs.user
+ofxGenericDMX_example/bin/libs/
+ofxGenericDMX_example/bin/readMe.txt
+ofxGenericDMX_example/obj/
