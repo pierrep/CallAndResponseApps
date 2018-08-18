@@ -40,6 +40,10 @@ void LineEffect::update(float curTime)
         lines[i].p1.y -= lineVerticalSpeed.get();
         lines[i].p1.x = curTime*lineHorizontalSpeed.get();
 
+        if(data->direction == -1) {
+            lines[i].p1.x = effectWidth -  lines[i].p1.x - lineWidth.get() - 100;
+        }
+
         if(lines[i].p1.y < 0)
             lines[i].p1.y = ofGetHeight();
     }
@@ -58,11 +62,9 @@ void LineEffect::draw(float x, float y, float w, float h)
         ofMesh temp;
         temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
         temp.addVertex( lines[i].p1 );
-        //temp.addColor(ofColor(255,0,255));
         temp.addColor(lineColour[i]);
         temp.addVertex( ofPoint(lines[i].p1.x+lineWidth.get(),lines[i].p1.y) );
         temp.addColor(lineColour[i]);
-        //temp.addColor(ofColor(255,0,255));
         temp.addVertex( ofPoint(lines[i].p1.x,lines[i].p1.y+lineThickness.get()) );
         temp.addColor(ofColor::black);
         temp.addVertex( ofPoint(lines[i].p1.x+lineWidth.get(),lines[i].p1.y+lineThickness.get()) );
@@ -79,8 +81,9 @@ void LineEffect::resetLines()
     lineColour.clear();
     for(int i=0;i < numLines.get();i++)
     {
-        float interval = 900 / numLines.get();
+        float interval = effectHeight / numLines.get();
         ofVec2f p1 = ofVec2f(0,(i)*interval);
+
         Line line;
         line.p1 = p1;
         lines.push_back(line);
