@@ -5,7 +5,7 @@ gHOST_IP_Address - Only required on the client if you want to connect to the hos
 
 <IP_SETTINGS>
 	<host_ip>192.168.0.2</host_ip>
-	<client_ip>192.168.0.43</client_ip>
+	<client_ip>192.168.43.169</client_ip>
 	<storm_ip>192.168.0.11</storm_ip>
 	<is_host>1</is_host>
 </IP_SETTINGS>
