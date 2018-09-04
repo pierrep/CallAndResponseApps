@@ -1,351 +1,353 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup Label="ProjectConfigurations">
-		<ProjectConfiguration Include="Debug|Win32">
-			<Configuration>Debug</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Debug|x64">
-			<Configuration>Debug</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|Win32">
-			<Configuration>Release</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|x64">
-			<Configuration>Release</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-	</ItemGroup>
-	<PropertyGroup Label="Globals">
-		<ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
-		<Keyword>Win32Proj</Keyword>
-		<RootNamespace>CallAndResponse</RootNamespace>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<CharacterSet>Unicode</CharacterSet>
-		<PlatformToolset>v140</PlatformToolset>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<CharacterSet>Unicode</CharacterSet>
-		<PlatformToolset>v140</PlatformToolset>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<CharacterSet>Unicode</CharacterSet>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
-		<PlatformToolset>v140</PlatformToolset>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<CharacterSet>Unicode</CharacterSet>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
-		<PlatformToolset>v140</PlatformToolset>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-		<Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
-	</ImportGroup>
-	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-		<Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
-	</ImportGroup>
-	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-		<Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
-	</ImportGroup>
-	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-		<Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
-	</ImportGroup>
-	<PropertyGroup Label="UserMacros" />
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<OutDir>bin\</OutDir>
-		<IntDir>obj\$(Configuration)\</IntDir>
-		<TargetName>$(ProjectName)_debug</TargetName>
-		<LinkIncremental>true</LinkIncremental>
-		<GenerateManifest>true</GenerateManifest>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<OutDir>bin\</OutDir>
-		<IntDir>obj\$(Configuration)\</IntDir>
-		<TargetName>$(ProjectName)_debug</TargetName>
-		<LinkIncremental>true</LinkIncremental>
-		<GenerateManifest>true</GenerateManifest>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<OutDir>bin\</OutDir>
-		<IntDir>obj\$(Configuration)\</IntDir>
-		<LinkIncremental>false</LinkIncremental>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<OutDir>bin\</OutDir>
-		<IntDir>obj\$(Configuration)\</IntDir>
-		<LinkIncremental>false</LinkIncremental>
-	</PropertyGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<ClCompile>
-			<Optimization>Disabled</Optimization>
-			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-			<WarningLevel>Level3</WarningLevel>
-			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-			<CompileAs>CompileAsCpp</CompileAs>
-		</ClCompile>
-		<Link>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<SubSystem>Console</SubSystem>
-			<RandomizedBaseAddress>false</RandomizedBaseAddress>
-			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-		</Link>
-		<PostBuildEvent />
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<ClCompile>
-			<Optimization>Disabled</Optimization>
-			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-			<WarningLevel>Level3</WarningLevel>
-			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-			<CompileAs>CompileAsCpp</CompileAs>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-		</ClCompile>
-		<Link>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<SubSystem>Console</SubSystem>
-			<RandomizedBaseAddress>false</RandomizedBaseAddress>
-			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-		</Link>
-		<PostBuildEvent />
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<ClCompile>
-			<WholeProgramOptimization>false</WholeProgramOptimization>
-			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-			<WarningLevel>Level3</WarningLevel>
-			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-			<CompileAs>CompileAsCpp</CompileAs>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-		</ClCompile>
-		<Link>
-			<IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-			<GenerateDebugInformation>false</GenerateDebugInformation>
-			<SubSystem>Console</SubSystem>
-			<OptimizeReferences>true</OptimizeReferences>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<RandomizedBaseAddress>false</RandomizedBaseAddress>
-			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-		</Link>
-		<PostBuildEvent />
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<ClCompile>
-			<WholeProgramOptimization>false</WholeProgramOptimization>
-			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-			<WarningLevel>Level3</WarningLevel>
-			<AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-			<CompileAs>CompileAsCpp</CompileAs>
-		</ClCompile>
-		<Link>
-			<IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-			<GenerateDebugInformation>false</GenerateDebugInformation>
-			<SubSystem>Console</SubSystem>
-			<OptimizeReferences>true</OptimizeReferences>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<RandomizedBaseAddress>false</RandomizedBaseAddress>
-			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-		</Link>
-		<PostBuildEvent />
-	</ItemDefinitionGroup>
-	<ItemGroup>
-		<ClCompile Include="src\main.cpp" />
-		<ClCompile Include="src\ofApp.cpp" />
-		<ClCompile Include="src\Animations.cpp" />
-		<ClCompile Include="src\Effects\BaseEffect.cpp" />
-		<ClCompile Include="src\Effects\BloomEffect.cpp" />
-		<ClCompile Include="src\Effects\CalibrateEffect.cpp" />
-		<ClCompile Include="src\Effects\EmptyEffect.cpp" />
-		<ClCompile Include="src\Effects\ImagePan.cpp" />
-		<ClCompile Include="src\Effects\LineEffect.cpp" />
-		<ClCompile Include="src\Effects\LineEffect2.cpp" />
-		<ClCompile Include="src\Effects\NoiseEffect.cpp" />
-		<ClCompile Include="src\Effects\NoiseParticlesEffect.cpp" />
-		<ClCompile Include="src\Effects\TrailParticles.cpp" />
-		<ClCompile Include="src\GuiMap.cpp" />
-		<ClCompile Include="src\LedFixture.cpp" />
-		<ClCompile Include="src\LedPixel.cpp" />
-		<ClCompile Include="src\LightsEditor.cpp" />
-		<ClCompile Include="src\Tree.cpp" />
-		<ClCompile Include="src\TreeData.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxArtnet\src\ofxArtnet.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\artnet.c" />
-		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\misc.c" />
-		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\network.c" />
-		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\receive.c" />
-		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\tod.c" />
-		<ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\transmit.c" />
-		<ClCompile Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxDmx\src\ofxDmx.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxMarkovChain\src\Matrix.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxMarkovChain\src\ofxMarkovChain.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscSender.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasing.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBack.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBounce.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCirc.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCubic.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingElastic.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingExpo.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingLinear.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuad.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuart.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuint.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingSine.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxEventKeyframe.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxKeyframe.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylist.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
-	</ItemGroup>
-	<ItemGroup>
-		<ClInclude Include="src\ofApp.h" />
-		<ClInclude Include="src\Animations.h" />
-		<ClInclude Include="src\Effects\BaseEffect.h" />
-		<ClInclude Include="src\Effects\BloomEffect.h" />
-		<ClInclude Include="src\Effects\CalibrateEffect.h" />
-		<ClInclude Include="src\Effects\EmptyEffect.h" />
-		<ClInclude Include="src\Effects\ImagePan.h" />
-		<ClInclude Include="src\Effects\LineEffect.h" />
-		<ClInclude Include="src\Effects\LineEffect2.h" />
-		<ClInclude Include="src\Effects\NoiseEffect.h" />
-		<ClInclude Include="src\Effects\NoiseParticlesEffect.h" />
-		<ClInclude Include="src\Effects\TrailParticles.h" />
-		<ClInclude Include="src\GuiMap.h" />
-		<ClInclude Include="src\LedFixture.h" />
-		<ClInclude Include="src\LedPixel.h" />
-		<ClInclude Include="src\LightsEditor.h" />
-		<ClInclude Include="src\Tree.h" />
-		<ClInclude Include="src\TreeData.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\src\ofxArtnet.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\artnet.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\common.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\misc.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\packets.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\private.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\tod.h" />
-		<ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\unistd_d.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGui2dPad.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiButton.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiControls.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiFRM.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiGroups.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiLabel.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiMatrix.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiScrollView.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiSlider.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInput.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiConstants.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiEvents.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiIntObject.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiTheme.h" />
-		<ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiThemes.h" />
-		<ClInclude Include="..\..\..\addons\ofxDmx\src\ofxDmx.h" />
-		<ClInclude Include="..\..\..\addons\ofxMarkovChain\src\Matrix.h" />
-		<ClInclude Include="..\..\..\addons\ofxMarkovChain\src\ofxMarkovChain.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscSender.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
-		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\easing_terms_of_use.html" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasing.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBack.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBounce.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCirc.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCubic.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingElastic.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingExpo.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingLinear.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuad.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuart.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuint.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingSine.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxBaseKeyframe.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxEasingExt.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxEventKeyframe.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxKeyframe.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylist.h" />
-		<ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylistAEHelper.h" />
-		<ClInclude Include="..\..\..\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.h" />
-		<ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
-		<ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
-			<Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
-		</ProjectReference>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc">
-			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
-			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
-			<AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
-		</ResourceCompile>
-	</ItemGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-	<ProjectExtensions>
-		<VisualStudio>
-			<UserProperties RESOURCE_FILE="icon.rc" />
-		</VisualStudio>
-	</ProjectExtensions>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>CallAndResponse</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\Effects;..\..\..\addons\ofxArtnet\libs;..\..\..\addons\ofxArtnet\libs\artnet;..\..\..\addons\ofxArtnet\libs\artnet\include;..\..\..\addons\ofxArtnet\libs\artnet\src;..\..\..\addons\ofxArtnet\src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxDmx\src;..\..\..\addons\ofxMarkovChain\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxPlaylist\src;..\..\..\addons\ofxPlaylist\src\Easings;..\..\..\addons\ofxThreadedImageLoader\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Effects\PerlinNoiseEffect.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\Animations.cpp" />
+    <ClCompile Include="src\Effects\BaseEffect.cpp" />
+    <ClCompile Include="src\Effects\BloomEffect.cpp" />
+    <ClCompile Include="src\Effects\CalibrateEffect.cpp" />
+    <ClCompile Include="src\Effects\EmptyEffect.cpp" />
+    <ClCompile Include="src\Effects\ImagePan.cpp" />
+    <ClCompile Include="src\Effects\LineEffect.cpp" />
+    <ClCompile Include="src\Effects\LineEffect2.cpp" />
+    <ClCompile Include="src\Effects\NoiseEffect.cpp" />
+    <ClCompile Include="src\Effects\NoiseParticlesEffect.cpp" />
+    <ClCompile Include="src\Effects\TrailParticles.cpp" />
+    <ClCompile Include="src\GuiMap.cpp" />
+    <ClCompile Include="src\LedFixture.cpp" />
+    <ClCompile Include="src\LedPixel.cpp" />
+    <ClCompile Include="src\LightsEditor.cpp" />
+    <ClCompile Include="src\Tree.cpp" />
+    <ClCompile Include="src\TreeData.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxArtnet\src\ofxArtnet.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\artnet.c" />
+    <ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\misc.c" />
+    <ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\network.c" />
+    <ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\receive.c" />
+    <ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\tod.c" />
+    <ClCompile Include="..\..\..\addons\ofxArtnet\libs\artnet\src\transmit.c" />
+    <ClCompile Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxDmx\src\ofxDmx.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxMarkovChain\src\Matrix.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxMarkovChain\src\ofxMarkovChain.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscSender.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasing.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBack.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBounce.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCirc.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCubic.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingElastic.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingExpo.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingLinear.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuad.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuart.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuint.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingSine.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxEventKeyframe.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxKeyframe.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylist.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Effects\PerlinNoiseEffect.h" />
+    <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\Animations.h" />
+    <ClInclude Include="src\Effects\BaseEffect.h" />
+    <ClInclude Include="src\Effects\BloomEffect.h" />
+    <ClInclude Include="src\Effects\CalibrateEffect.h" />
+    <ClInclude Include="src\Effects\EmptyEffect.h" />
+    <ClInclude Include="src\Effects\ImagePan.h" />
+    <ClInclude Include="src\Effects\LineEffect.h" />
+    <ClInclude Include="src\Effects\LineEffect2.h" />
+    <ClInclude Include="src\Effects\NoiseEffect.h" />
+    <ClInclude Include="src\Effects\NoiseParticlesEffect.h" />
+    <ClInclude Include="src\Effects\TrailParticles.h" />
+    <ClInclude Include="src\GuiMap.h" />
+    <ClInclude Include="src\LedFixture.h" />
+    <ClInclude Include="src\LedPixel.h" />
+    <ClInclude Include="src\LightsEditor.h" />
+    <ClInclude Include="src\Tree.h" />
+    <ClInclude Include="src\TreeData.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\src\ofxArtnet.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\artnet.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\common.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\misc.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\packets.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\private.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\tod.h" />
+    <ClInclude Include="..\..\..\addons\ofxArtnet\libs\artnet\include\unistd_d.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGui2dPad.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiButton.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiControls.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiFRM.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiGroups.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiLabel.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiMatrix.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiScrollView.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiSlider.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInput.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiConstants.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiEvents.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiIntObject.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiTheme.h" />
+    <ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiThemes.h" />
+    <ClInclude Include="..\..\..\addons\ofxDmx\src\ofxDmx.h" />
+    <ClInclude Include="..\..\..\addons\ofxMarkovChain\src\Matrix.h" />
+    <ClInclude Include="..\..\..\addons\ofxMarkovChain\src\ofxMarkovChain.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscSender.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\easing_terms_of_use.html" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasing.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBack.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingBounce.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCirc.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingCubic.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingElastic.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingExpo.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingLinear.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuad.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuart.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingQuint.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\Easings\ofxEasingSine.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxBaseKeyframe.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxEasingExt.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxEventKeyframe.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxKeyframe.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylist.h" />
+    <ClInclude Include="..\..\..\addons\ofxPlaylist\src\ofxPlaylistAEHelper.h" />
+    <ClInclude Include="..\..\..\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.h" />
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
+      <Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="icon.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
