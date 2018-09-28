@@ -46,10 +46,12 @@ void LightsEditor::draw(float x, float y, float w, float h)
     ofPushStyle();
     if(data->bShowBgImage) {
 		#if !defined(TARGET_RASPBERRY_PI)		
-        treeimg[data->currentTree].draw(0,0,editorWidth,editorHeight);
+        treeimg[data->currentTree].draw(0,0,w,h);
         #endif
     }
 
+    ofPushMatrix();
+    ofScale(w/editorWidth,h/editorHeight,1);
     ofSetRectMode(OF_RECTMODE_CENTER);
     unsigned int numLights = data->trees[data->currentTree]->lights.size();
     for(int j=0; j < numLights;j++)
@@ -98,6 +100,7 @@ void LightsEditor::draw(float x, float y, float w, float h)
             ofDrawRectangle(pixpos,data->pixelWidth,data->pixelWidth);
         }
     }
+    ofPopMatrix();
 
     ofSetColor(255);
     ofDrawBitmapString("Name = " + data->trees[data->currentTree]->getName()+" Tree = "+ofToString(data->currentTree)+"  Light Id= "+ofToString(data->currentLight) ,20,ofGetHeight()-20);

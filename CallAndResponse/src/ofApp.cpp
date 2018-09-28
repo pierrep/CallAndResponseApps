@@ -535,9 +535,9 @@ void ofApp::draw(){
     #endif	
 
 #ifdef USE_GUI
-	animations.draw(400,0);
-    editor.draw(400,0,1200,900);
-    guiMap.draw(0,0,400,900);
+    animations.draw(ofGetWidth()*0.25f,0);
+    editor.draw(ofGetWidth()*0.25f,0,ofGetWidth()*0.75f,ofGetHeight());
+    guiMap.draw(0,0,ofGetWidth()*0.25f,ofGetHeight());
 
     animations.drawGui();
 
@@ -545,7 +545,7 @@ void ofApp::draw(){
     if(data.bShowBgImage) {
         for(unsigned int i = 0;i < data.trees.size();i++)
         {
-            data.trees[i]->draw(400,i*50);
+            data.trees[i]->draw(ofGetWidth()*0.25f,i*40);
         }
     }
 #endif
