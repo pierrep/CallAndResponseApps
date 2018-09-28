@@ -269,7 +269,7 @@ void Animations::save()
 {
     for(int i = 0;i < effect.size();i++) {
         settings.clear();
-        settings.serialize(effect[i]->parameters);
+        ofSerialize(settings,effect[i]->parameters);
         settings.save("EffectSettings/"+effect[i]->parameters.getName()+".xml");
     }
 
@@ -280,7 +280,7 @@ void Animations::load()
     for(int i = 0;i < effect.size();i++) {
         settings.clear();
         settings.load("EffectSettings/"+effect[i]->parameters.getName()+".xml");
-        settings.deserialize(effect[i]->parameters);
+        ofDeserialize(settings,effect[i]->parameters);
     }
 
 }

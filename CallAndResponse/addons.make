@@ -5,3 +5,4 @@ ofxMarkovChain
 ofxOsc
 ofxXmlSettings
 ofxThreadedImageLoader
+ofxPoco

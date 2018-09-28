@@ -61,7 +61,7 @@ void LineEffect::draw(float x, float y, float w, float h)
     {
         ofMesh temp;
         temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-        temp.addVertex( lines[i].p1 );
+        temp.addVertex( glm::vec3(lines[i].p1.x,lines[i].p1.y,0 ));
         temp.addColor(lineColour[i]);
         temp.addVertex( ofPoint(lines[i].p1.x+lineWidth.get(),lines[i].p1.y) );
         temp.addColor(lineColour[i]);

@@ -105,9 +105,9 @@ void ImagePan::draw(float x, float y, float w, float h)
     ofPushStyle();
     ofSetRectMode(OF_RECTMODE_CENTER);
     ofTranslate(data->paletteImage[data->currentPaletteImage].getWidth()/2,effectHeight - height + data->paletteImage[data->currentPaletteImage].getHeight()/2);
-    ofRotateZ(angle);
+    ofRotateZDeg(angle);
     if(bFlip) {
-        ofRotateZ(180);
+        ofRotateZDeg(180);
     }
 
     data->paletteImage[data->currentPaletteImage].draw(0,0);

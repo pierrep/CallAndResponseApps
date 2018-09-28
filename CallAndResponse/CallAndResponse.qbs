@@ -64,6 +64,7 @@ Project{
             'ofxPlaylist',
             'ofxXmlSettings',
             'ofxThreadedImageLoader',
+            'ofxPoco',
         ]
 
         // additional flags for the project. the of module sets some

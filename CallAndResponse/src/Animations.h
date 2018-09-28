@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxPlaylist.h"
 #include "TreeData.h"
+#include "ofxXmlPoco.h"
 
 class BaseEffect;
 
@@ -56,6 +57,6 @@ class Animations
 
         ofPixels framePixels;
 
-        ofXml settings;
+        ofxXmlPoco settings;
 };
 

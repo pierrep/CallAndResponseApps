@@ -50,10 +50,10 @@ void TrailParticles::begin()
     {
         if(data->direction == 1) {
             billboardVels[i].set(ofRandomf()*5, 0.0, 0);
-            billboards.getVertices()[i].set(startPos, ofRandom(100, 800), 0);
+            billboards.getVertices()[i] = glm::vec3(startPos, ofRandom(100, 800), 0);
         } else {
             billboardVels[i].set(ofRandomf()*-5, 0.0, 0);
-            billboards.getVertices()[i].set(1200 - startPos, ofRandom(100, 800), 0);
+            billboards.getVertices()[i] = glm::vec3(1200 - startPos, ofRandom(100, 800), 0);
         }
 		/* set colours - must be in float format */
         billboards.getColors()[i].set(ofColor::fromHsb(ofRandom(190,255), ofRandom(150,255), 255));
